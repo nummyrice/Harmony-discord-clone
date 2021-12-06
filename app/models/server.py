@@ -8,7 +8,7 @@ class Server(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
     image_url = db.Column(db.String(255))
-    private = db.Column(db.Boolean, nullable=False)
+    private = db.Column(db.Boolean, default=False, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
