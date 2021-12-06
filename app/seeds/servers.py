@@ -17,11 +17,6 @@ def seed_servers():
         db.session.add(seed_server)
     db.session.commit()
 
-
-        # db.session.add(seed_server)
-        # db.session.commit()
-        # User.query.order_by(func.random()).limit(1).all()
-
 def undo_servers():
     db.session.execute('TRUNCATE servers RESTART IDENTITY CASCADE')
     db.session.commit()

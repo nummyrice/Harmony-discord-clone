@@ -31,3 +31,6 @@ class Server(db.Model):
                 'created_at': self.created_at,
                 'updated_at': self.updated_at
             }
+
+    def member_ids(self):
+        return [user.id for user in self.members]
