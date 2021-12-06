@@ -15,12 +15,12 @@ class User(db.Model, UserMixin):
     image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
-    updated_at = db.Column(db.DateTime(), nullable=False, onupdate=func.now())
+    updated_at = db.Column(db.DateTime(), onupdate=func.now(), default=func.now())
 
-    servers = db.relationship("Server", back_populates="user")
+    servers = db.relationship("Server", back_populates="users")
     members = db.relationship(
-        "Server", secondary=members, back_populates="user")
-    # messages = relationship("Message", back_populates="user")
+        "Server", secondary=members, back_populates="users")
+    # messages = relationship("Message", back_populates="users")
 
     @property
     def password(self):
