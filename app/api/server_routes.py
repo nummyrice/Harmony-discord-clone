@@ -13,3 +13,5 @@ def servers():
     servers = Server.query.filter(
         Server.owner_id == 1)
     return {'servers': [server.to_dict() for server in servers]}
+    # server = Server.query.first()
+    # print('server members-------: ', server.members[0].id)

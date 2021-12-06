@@ -1,4 +1,5 @@
-from app.models import db, Member
+from sqlalchemy.sql.functions import user
+from app.models import db, Member, server
 # from faker import Faker
 from sqlalchemy.sql.expression import func, select
 
@@ -15,10 +16,14 @@ def seed_members():
     member3 = Member(
         user_id=2, server_id=1
     )
+    member4 = Member(
+        user_id=1, server_id=1
+    )
 
     db.session.add(member1)
     db.session.add(member2)
     db.session.add(member3)
+    db.session.add(member4)
     db.session.commit()
 
 def undo_members():

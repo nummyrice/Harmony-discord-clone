@@ -27,7 +27,7 @@ class Server(db.Model):
                 'image_url': self.image_url,
                 'private': self.private,
                 'owner_id': self.owner_id,
-                # 'members': self.User.id,
+                'members': [user.id for user in self.members],
                 'created_at': self.created_at,
                 'updated_at': self.updated_at
             }
