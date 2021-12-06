@@ -17,3 +17,15 @@ class Server(db.Model):
     users = db.relationship('User', back_populates='servers')
     members = db.relationship(
         "User", secondary=members, back_populates="servers")
+    channels = db.relationship('Channel', back_populates='servers')
+
+    def to_dict(self):
+            return {
+                'id': self.id,
+                'name': self.name,
+                'image_url': self.image_url,
+                'private': self.private,
+                'owner_id': self.owner_id,
+                'created_at': self.created_at,
+                'updated_at': self.updated_at
+            }
