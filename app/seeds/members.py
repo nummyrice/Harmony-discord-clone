@@ -1,9 +1,7 @@
 from sqlalchemy.sql.functions import user
 from app.models import db, Member, server
-# from faker import Faker
 from sqlalchemy.sql.expression import func, select
 
-# faker = Faker()
 
 def seed_members():
     # adjust the range to add more or less seed data
@@ -25,6 +23,7 @@ def seed_members():
     db.session.add(member3)
     db.session.add(member4)
     db.session.commit()
+
 
 def undo_members():
     db.session.execute('TRUNCATE members RESTART IDENTITY CASCADE')

@@ -1,7 +1,6 @@
 from .db import db
-from .member import Member
-from .user import User
 from sqlalchemy.sql import func
+
 
 class Server(db.Model):
     __tablename__ = 'servers'
@@ -13,24 +12,26 @@ class Server(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
-    updated_at = db.Column(db.DateTime(), onupdate=func.now(), default=func.now())
+    updated_at = db.Column(
+        db.DateTime(), onupdate=func.now(), default=func.now())
 
     users = db.relationship('User', back_populates='servers')
     members = db.relationship(
         "User", secondary="members", back_populates="servers")
-    channels = db.relationship('Channel', back_populates='servers')
+    channels = db.relationship(
+        'Channel', back_populates='servers', cascade="all, delete")
 
     def to_dict(self):
-            return {
-                'id': self.id,
-                'name': self.name,
-                'image_url': self.image_url,
-                'private': self.private,
-                'owner_id': self.owner_id,
-                'members': [user.id for user in self.members],
-                'created_at': self.created_at,
-                'updated_at': self.updated_at
-            }
+        return {
+            'id': self.id,
+            'name': self.name,
+            'image_url': self.image_url,
+            'private': self.private,
+            'owner_id': self.owner_id,
+            'members': [user.id for user in self.members],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
 
     def member_ids(self):
         return [user.id for user in self.members]
