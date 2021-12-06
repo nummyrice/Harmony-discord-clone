@@ -7,7 +7,6 @@ Create Date: 2021-12-06 09:53:14.052378
 """
 from alembic import op
 import sqlalchemy as sa
-from app.models.member import members
 
 
 
@@ -30,13 +29,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
-    )
-    op.bulk_insert(members,
-        [
-            {'user_id': 1, 'server_id': 2},
-            {'user_id': 1, 'server_id': 3},
-            {'user_id': 2, 'server_id': 1}
-        ]
     )
     # ### end Alembic commands ###
 
