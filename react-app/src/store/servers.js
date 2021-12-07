@@ -77,9 +77,10 @@ const postMessage = (message, server_id) => ({
   message,
   server_id
 });
-const editMessage = (message) => ({
+const editMessage = (message, server_id) => ({
   type: EDIT_MESSAGE,
   message,
+  server_id
 });
 const deleteMessage = (message) => ({
   type: DELETE_MESSAGE,
@@ -238,30 +239,31 @@ export const postMessageThunk = (message) => async (dispatch) => {
   return data;
 };
 
-// export const editChannelThunk = (channel) => async (dispatch) => {
-//   const { name, server_id, id } = channel;
-//   const response = await fetch(`/api/servers/${server_id}/${id}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       name,
-//     }),
-//   });
-//   const data = await response.json();
-//   dispatch(editChannel(data));
-//   return data;
-// };
+export const editMessageThunk = (message) => async (dispatch) => {
+  const { content, server_id, channel_id, message_id } = message;
+  const response = await fetch(`/api/servers/${server_id}/${channel_id}/${message_id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      content,
+    }),
+  });
+  const data = await response.json();
+  dispatch(editMessage(data, server_id));
+  return data;
+};
 
-// export const deleteChannelThunk = (channel) => async (dispatch) => {
-//   const { server_id, id} = channel
-//   const response = await fetch(`/api/servers/${server_id}/${id}`, {
-//     method: "DELETE",
-//   });
-//   dispatch(deleteChannel(channel));
-//   return channel;
-// };
+export const deleteMessageThunk = (message) => async (dispatch) => {
+  const { server_id, channel_id, message_id } = message;
+  const response = await fetch(`/api/servers/${server_id}/${channel_id}/${message_id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  dispatch(deleteMessage(message));
+  return data;
+};
 
 export default function serverReducer(state = {}, action) {
   let serverId
@@ -321,6 +323,16 @@ export default function serverReducer(state = {}, action) {
     case POST_MESSAGE:
       if (newState[action.server_id] && newState[action.server_id].channels[action.message.channel_id]) {
         newState[action.server_id].channels[action.message.channel_id].messages[action.message.id] = action.message
+      }
+      return newState
+    case EDIT_MESSAGE:
+      if (newState[action.server_id] && newState[action.server_id].channels[action.message.channel_id]) {
+        newState[action.server_id].channels[action.message.channel_id].messages[action.message.id] = action.message
+      }
+      return newState
+    case DELETE_MESSAGE:
+      if (newState[action.message.server_id] && newState[action.message.server_id].channels[action.message.channel_id]) {
+        delete newState[action.message.server_id].channels[action.message.channel_id].messages[action.message.message_id]
       }
       return newState
     default:
