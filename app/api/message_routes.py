@@ -1,3 +1,4 @@
+from app.forms.edit_message_form import EditMessageForm
 from .auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
@@ -31,20 +32,20 @@ def new_message(serverId, channelId):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-# @server_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
-# def edit_server(id):
-#     form = EditServerForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     server = Server.query.get(int(id))
+@message_routes.route('/<int:serverId>/<int:channelId>/<int:messageId>', methods=['PUT'])
+@login_required
+def edit_message(serverId, channelId, messageId):
+    form = EditMessageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    message = Message.query.get(int(messageId))
 
-#     if form.validate_on_submit() and server.owner_id == session.id:
-#         server.name = form.data['name']
-#         server.image_url = form.data['image_url']
-#         db.session.commit()
+    if form.validate_on_submit() and message.owner_id == session.id:
+        message.content = form.data['content']
 
-#         return server.to_dict()
-#     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+        db.session.commit()
+
+        return message.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 # @server_routes.route('/<int:id>', methods=['DELETE'])
