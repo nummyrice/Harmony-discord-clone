@@ -7,9 +7,11 @@ export default function Servers() {
     <main className={style.main}>
       <div className={style.div1}></div>
       <div className={style.div2}></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div className={style.div3}>
+        <div className={style.div4}></div>
+        <div></div>
+        <div></div>
+      </div>
     </main>
   );
 }
