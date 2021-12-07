@@ -19,7 +19,8 @@ function App() {
       await dispatch(authenticate());
       setLoaded(true);
     })();
-    dispatch(serverActions.getServersThunk());
+    dispatch(serverActions.getServersThunk()).then(() => dispatch(serverActions.getChannelsThunk(1))) //.then(() => dispatch(serverActions.deleteChannelThunk({server_id: 2, id: 2})))
+
   }, [dispatch]);
 
   if (!loaded) {

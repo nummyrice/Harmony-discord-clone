@@ -29,6 +29,7 @@ class Server(db.Model):
             'private': self.private,
             'owner_id': self.owner_id,
             'members': [user.id for user in self.members],
+            'channels': {},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
