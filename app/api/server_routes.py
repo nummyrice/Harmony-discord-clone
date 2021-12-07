@@ -65,15 +65,15 @@ def delete_server(id):
     return {"result": "success"}
 
 
-@server_routes.route('/<int:serverid>/members/<int:userid>', methods=['POST'])
+@server_routes.route('/<int:serverId>/members/<int:userId>', methods=['POST'])
 @login_required
-def edit_members(serverid, userid):
-    user = User.query.get(int(userid))
-    server = Server.query.get(int(serverid))
+def edit_members(serverId, userId):
+    user = User.query.get(int(userId))
+    server = Server.query.get(int(serverId))
     if user and user not in server.members:
         member = Member(
-            user_id=userid,
-            server_id=serverid
+            user_id=userId,
+            server_id=serverId
         )
         db.session.add(member)
         db.session.commit()
@@ -82,14 +82,14 @@ def edit_members(serverid, userid):
     return {'errors': "bad user data"}
 
 
-@server_routes.route('/<int:serverid>/members/<int:userid>', methods=['DELETE'])
+@server_routes.route('/<int:serverId>/members/<int:userId>', methods=['DELETE'])
 @login_required
-def delete_member(serverid, userid):
-    user = User.query.get(int(userid))
-    server = Server.query.get(int(serverid))
+def delete_member(serverId, userId):
+    user = User.query.get(int(userId))
+    server = Server.query.get(int(serverId))
     if user in server.members:
         member = Member.query.filter(
-            userid == Member.user_id and serverid == Member.server_id)[0]
+            userId == Member.user_id and serverId == Member.server_id)[0]
         db.session.delete(member)
         db.session.commit()
         return {"result": "success"}
