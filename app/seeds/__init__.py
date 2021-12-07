@@ -2,7 +2,7 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .servers import seed_servers, undo_servers
 from .channels import seed_channels, undo_channels
-from .messages import seed_messages, undo_messages
+from .members import seed_members, undo_members
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -15,7 +15,8 @@ def seed():
     seed_users()
     seed_servers()
     seed_channels()
-    seed_messages()
+    seed_members()
+    # seed_messages()
     # Add other seed functions here
 
 
@@ -25,5 +26,6 @@ def undo():
     undo_users()
     undo_servers()
     undo_channels()
-    undo_messages()
+    undo_members()
+    # undo_messages()
     # Add other undo functions here

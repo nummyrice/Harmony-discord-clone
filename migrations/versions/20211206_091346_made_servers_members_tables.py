@@ -29,13 +29,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('members',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('server_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['server_id'], ['servers.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'server_id')
-    )
     op.add_column('users', sa.Column('image_url', sa.String(length=255), nullable=True))
     op.add_column('users', sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False))
     op.add_column('users', sa.Column('updated_at', sa.DateTime(), nullable=False))
@@ -47,6 +40,5 @@ def downgrade():
     op.drop_column('users', 'updated_at')
     op.drop_column('users', 'created_at')
     op.drop_column('users', 'image_url')
-    op.drop_table('members')
     op.drop_table('servers')
     # ### end Alembic commands ###

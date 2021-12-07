@@ -2,7 +2,6 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from .member import members
 
 
 class User(db.Model, UserMixin):
@@ -15,12 +14,15 @@ class User(db.Model, UserMixin):
     image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
-    updated_at = db.Column(db.DateTime(), onupdate=func.now(), default=func.now())
+    updated_at = db.Column(
+        db.DateTime(), onupdate=func.now(), default=func.now())
 
-    servers = db.relationship("Server", back_populates="users", cascade="all, delete")
+    servers = db.relationship(
+        "Server", back_populates="users", cascade="all, delete")
     members = db.relationship(
-        "Server", secondary=members, back_populates="users", cascade="all, delete")
-    messages = db.relationship("Message", back_populates="users", cascade="all, delete")
+        "Server", secondary="members", back_populates="users", cascade="all, delete")
+    messages = db.relationship(
+        "Message", back_populates="users", cascade="all, delete")
 
     @property
     def password(self):
