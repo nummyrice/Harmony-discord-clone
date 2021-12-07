@@ -1,6 +1,6 @@
 from .auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Server, User, Member, server, db
 from app.forms import NewServerForm, EditServerForm
 server_routes = Blueprint('servers', __name__)
@@ -10,9 +10,8 @@ server_routes = Blueprint('servers', __name__)
 @login_required
 def servers():
     servers = Server.query.all()
-
     user_servers = [
-        server for server in servers if session.id in server.member_ids()]
+        server for server in servers if current_user.id in server.member_ids()]
 
     return {'servers': [server.to_dict() for server in user_servers]}
 
@@ -27,12 +26,12 @@ def new_server():
             name=form.data['name'],
             image_url=form.data['image_url'],
             private=form.data['private'],
-            owner_id=session.id
+            owner_id=current_user.id
         )
         db.session.add(server)
         db.session.commit()
         member = Member(
-            user_id=session.id,
+            user_id=current_user.id,
             server_id=server.to_dict()['id']
         )
         db.session.add(member)
@@ -48,7 +47,7 @@ def edit_server(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     server = Server.query.get(int(id))
 
-    if form.validate_on_submit() and server.owner_id == session.id:
+    if form.validate_on_submit() and server.owner_id == current_user.id:
         server.name = form.data['name']
         server.image_url = form.data['image_url']
         db.session.commit()
@@ -61,7 +60,7 @@ def edit_server(id):
 @login_required
 def delete_server(id):
     server = Server.query.get(int(id))
-    if server.owner_id == session.id:
+    if server.owner_id == current_user.id:
         db.session.delete(server)
         db.session.commit()
         return {"result": "success"}
@@ -70,7 +69,7 @@ def delete_server(id):
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
 def edit_members(serverId):
-    userId = session.id
+    userId = current_user.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
     if user and user not in server.members:
@@ -88,7 +87,7 @@ def edit_members(serverId):
 @server_routes.route('/<int:serverId>/members', methods=['DELETE'])
 @login_required
 def delete_member(serverId):
-    userId = session.id
+    userId = current_user.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
     if user in server.members:
