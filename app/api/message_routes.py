@@ -6,15 +6,12 @@ from app.forms import NewMessageForm
 message_routes = Blueprint('messages', __name__)
 
 
-# @server_routes.route('/')
-# @login_required
-# def servers():
-#     servers = Server.query.all()
+@message_routes.route('/<int:serverId>/<int:channelId>')
+@login_required
+def messages(serverId, channelId):
+    messages = Message.query.filter(Message.channel_id == channelId).all()
 
-#     user_servers = [
-#         server for server in servers if session.id in server.member_ids()]
-
-#     return {'servers': [server.to_dict() for server in user_servers]}
+    return {'messages': [message.to_dict() for message in messages]}
 
 
 @message_routes.route('/<int:serverId>/<int:channelId>', methods=['POST'])
