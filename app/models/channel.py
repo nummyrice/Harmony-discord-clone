@@ -18,6 +18,7 @@ class Channel(db.Model):
             return {
                 'id': self.id,
                 'name': self.name,
+                'messages': {},
                 'created_at': self.created_at,
                 'updated_at': self.updated_at,
                 'server_id': self.server_id

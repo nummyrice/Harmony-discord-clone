@@ -14,6 +14,12 @@ const POST_CHANNEL = "servers/POST_CHANNEL";
 const EDIT_CHANNEL = "servers/EDIT_CHANNEL";
 const DELETE_CHANNEL = "servers/DELETE_CHANNEL";
 
+// Messages Consts
+const GET_MESSAGES = "servers/GET_MESSAGES";
+const POST_MESSAGE = "servers/POST_MESSAGE";
+const EDIT_MESSAGE = "servers/EDIT_MESSAGE";
+const DELETE_MESSAGE = "servers/DELETE_MESSAGE";
+
 //Server actions
 const getServers = (servers) => ({
   type: GET_SERVERS,
@@ -58,6 +64,26 @@ const editChannel = (channel) => ({
 const deleteChannel = (channel) => ({
   type: DELETE_CHANNEL,
   channel,
+});
+
+// Messages Actions
+const getMessages = (messages, server_id) => ({
+  type: GET_MESSAGES,
+  messages,
+  server_id
+});
+const postMessage = (message, server_id) => ({
+  type: POST_MESSAGE,
+  message,
+  server_id
+});
+const editMessage = (message) => ({
+  type: EDIT_MESSAGE,
+  message,
+});
+const deleteMessage = (message) => ({
+  type: DELETE_MESSAGE,
+  message,
 });
 
 //Server Thunks
@@ -140,7 +166,7 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
 export const getChannelsThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}`);
   const data = await response.json();
-  console.log('channels: !!!!!', data.channels)
+
   dispatch(getChannels(data.channels));
   return data;
 };
@@ -182,10 +208,60 @@ export const deleteChannelThunk = (channel) => async (dispatch) => {
   const response = await fetch(`/api/servers/${server_id}/${id}`, {
     method: "DELETE",
   });
-  // const data = await response.json();
   dispatch(deleteChannel(channel));
   return channel;
 };
+
+// Message Thunks
+export const getMessagesThunk = (message) => async (dispatch) => {
+  const {server_id, channel_id} = message;
+  const response = await fetch(`/api/servers/${server_id}/${channel_id}`);
+  const data = await response.json();
+
+  dispatch(getMessages(data.messages, server_id));
+  return data;
+};
+
+export const postMessageThunk = (message) => async (dispatch) => {
+  const { content, server_id, channel_id } = message;
+  const response = await fetch(`/api/servers/${server_id}/${channel_id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      content,
+    }),
+  });
+  const data = await response.json();
+  dispatch(postMessage(data, server_id));
+  return data;
+};
+
+// export const editChannelThunk = (channel) => async (dispatch) => {
+//   const { name, server_id, id } = channel;
+//   const response = await fetch(`/api/servers/${server_id}/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       name,
+//     }),
+//   });
+//   const data = await response.json();
+//   dispatch(editChannel(data));
+//   return data;
+// };
+
+// export const deleteChannelThunk = (channel) => async (dispatch) => {
+//   const { server_id, id} = channel
+//   const response = await fetch(`/api/servers/${server_id}/${id}`, {
+//     method: "DELETE",
+//   });
+//   dispatch(deleteChannel(channel));
+//   return channel;
+// };
 
 export default function serverReducer(state = {}, action) {
   let serverId
@@ -231,11 +307,22 @@ export default function serverReducer(state = {}, action) {
       }
       return newState;
     case DELETE_CHANNEL:
-      console.log('delete channel', action.channel)
       if (newState[action.channel.server_id]) {
         delete newState[action.channel.server_id].channels[action.channel.id]
       }
       return newState;
+    case GET_MESSAGES:
+      for (let message of action.messages) {
+        if (newState[action.server_id] && newState[action.server_id].channels[message.channel_id]) {
+          newState[action.server_id].channels[message.channel_id].messages[message.id] = message
+        }
+      }
+      return newState
+    case POST_MESSAGE:
+      if (newState[action.server_id] && newState[action.server_id].channels[action.message.channel_id]) {
+        newState[action.server_id].channels[action.message.channel_id].messages[action.message.id] = action.message
+      }
+      return newState
     default:
       return state;
   }
