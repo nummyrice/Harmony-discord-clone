@@ -1,6 +1,6 @@
 from .auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Channel, Server, User, Member, channel, server, db
 from app.forms import NewChannelForm, EditChannelForm
 channel_routes = Blueprint('channels', __name__)
@@ -20,7 +20,7 @@ def new_channel(id):
     server = Server.query.get(int(id))
     form = NewChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit() and server.owner_id == session.id:
+    if form.validate_on_submit() and server.owner_id == current_user.id:
         channel = Channel(
             name=form.data['name'],
             server_id=id
@@ -37,7 +37,7 @@ def edit_channel(serverId, channelId):
     server = Server.query.get(int(serverId))
     form = EditChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit() and server.owner_id == session.id:
+    if form.validate_on_submit() and server.owner_id == current_user.id:
         channel = Channel.query.get(int(channelId))
         channel.name = form.data['name']
         db.session.commit()
@@ -50,7 +50,7 @@ def edit_channel(serverId, channelId):
 @login_required
 def delete_channel(serverId, channelId):
     server = Server.query.get(int(serverId))
-    if server.owner_id == session.id:
+    if server.owner_id == current_user.id:
         channel = Channel.query.get(int(channelId))
         db.session.delete(channel)
         db.session.commit()

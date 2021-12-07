@@ -1,7 +1,7 @@
 from app.forms.edit_message_form import EditMessageForm
 from .auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Message, Server, User, Member, server, db
 from app.forms import NewMessageForm
 message_routes = Blueprint('messages', __name__)
@@ -22,9 +22,9 @@ def new_message(serverId, channelId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         message = Message(
-            content = form.data["content"],
-            channel_id = channelId,
-            owner_id = 1
+            content=form.data["content"],
+            channel_id=channelId,
+            owner_id=1
         )
         db.session.add(message)
         db.session.commit()
@@ -39,7 +39,7 @@ def edit_message(serverId, channelId, messageId):
     form['csrf_token'].data = request.cookies['csrf_token']
     message = Message.query.get(int(messageId))
 
-    if form.validate_on_submit() and message.owner_id == session.id:
+    if form.validate_on_submit() and message.owner_id == current_user.id:
         message.content = form.data['content']
 
         db.session.commit()
@@ -52,7 +52,7 @@ def edit_message(serverId, channelId, messageId):
 @login_required
 def delete_message(serverId, channelId, messageId):
     message = Message.query.get(int(messageId))
-    if message.owner_id == session.id:
+    if message.owner_id == current_user.id:
         db.session.delete(message)
         db.session.commit()
         return {"result": "success"}
