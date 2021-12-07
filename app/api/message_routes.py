@@ -16,7 +16,7 @@ def messages(serverId, channelId):
 
 
 @message_routes.route('/<int:serverId>/<int:channelId>', methods=['POST'])
-# @login_required
+@login_required
 def new_message(serverId, channelId):
     form = NewMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -50,7 +50,7 @@ def edit_message(serverId, channelId, messageId):
 
 @message_routes.route('/<int:serverId>/<int:channelId>/<int:messageId>', methods=['DELETE'])
 @login_required
-def delete_message(messageId):
+def delete_message(serverId, channelId, messageId):
     message = Message.query.get(int(messageId))
     if message.owner_id == session.id:
         db.session.delete(message)
