@@ -9,7 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./store/session";
 import * as serverActions from "./store/servers";
-import Servers from "./components/Servers";
+import Servers from "./components/Main";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
