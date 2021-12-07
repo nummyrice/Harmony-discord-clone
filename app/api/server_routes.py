@@ -46,8 +46,9 @@ def new_server():
 def edit_server(id):
     form = EditServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        server = Server.query.get(int(id))
+    server = Server.query.get(int(id))
+
+    if form.validate_on_submit() and server.owner_id == session.id:
         server.name = form.data['name']
         server.image_url = form.data['image_url']
         db.session.commit()
@@ -60,14 +61,16 @@ def edit_server(id):
 @login_required
 def delete_server(id):
     server = Server.query.get(int(id))
-    db.session.delete(server)
-    db.session.commit()
-    return {"result": "success"}
+    if server.owner_id == session.id:
+        db.session.delete(server)
+        db.session.commit()
+        return {"result": "success"}
 
 
-@server_routes.route('/<int:serverId>/members/<int:userId>', methods=['POST'])
+@server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
-def edit_members(serverId, userId):
+def edit_members(serverId):
+    userId = session.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
     if user and user not in server.members:
@@ -82,9 +85,10 @@ def edit_members(serverId, userId):
     return {'errors': "bad user data"}
 
 
-@server_routes.route('/<int:serverId>/members/<int:userId>', methods=['DELETE'])
+@server_routes.route('/<int:serverId>/members', methods=['DELETE'])
 @login_required
-def delete_member(serverId, userId):
+def delete_member(serverId):
+    userId = session.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
     if user in server.members:
