@@ -63,3 +63,34 @@ def delete_server(id):
     db.session.delete(server)
     db.session.commit()
     return {"result": "success"}
+
+
+@server_routes.route('/<int:serverid>/members/<int:userid>', methods=['POST'])
+@login_required
+def edit_members(serverid, userid):
+    user = User.query.get(int(userid))
+    server = Server.query.get(int(serverid))
+    if user and user not in server.members:
+        member = Member(
+            user_id=userid,
+            server_id=serverid
+        )
+        db.session.add(member)
+        db.session.commit()
+        return server.to_dict()
+
+    return {'errors': "bad user data"}
+
+
+@server_routes.route('/<int:serverid>/members/<int:userid>', methods=['DELETE'])
+@login_required
+def delete_member(serverid, userid):
+    user = User.query.get(int(userid))
+    server = Server.query.get(int(serverid))
+    if user in server.members:
+        member = Member.query.filter(
+            userid == Member.user_id and serverid == Member.server_id)[0]
+        db.session.delete(member)
+        db.session.commit()
+        return {"result": "success"}
+    return {"result": "failed"}
