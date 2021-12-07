@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./store/session";
 import * as serverActions from "./store/servers";
+import Servers from "./components/Servers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -19,7 +20,6 @@ function App() {
       await dispatch(authenticate());
       setLoaded(true);
     })();
-
   }, [dispatch]);
 
   if (!loaded) {
@@ -45,6 +45,9 @@ function App() {
         <ProtectedRoute path="/" exact={true}>
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        <Route path="/servers">
+          <Servers />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
