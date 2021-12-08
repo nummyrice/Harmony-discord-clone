@@ -54,6 +54,11 @@
   right: 20px;
 }
 
-.closeIcon-150W3V {
+.closeX {
   color: rgb(184,187,190)
+}
+
+.closeModal:hover > .closeX {
+  transition: ease-in 0.2s;
+  color: black;
 }
