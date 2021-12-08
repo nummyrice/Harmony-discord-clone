@@ -5,53 +5,29 @@ import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 
 const ChannelList = () => {
-    const {id} = useParams();
+    const {serverId} = useParams();
     const dispatch = useDispatch();
-    const servers = useSelector(state => Object.values(state.servers));
-    // const channels = servers.channels;
-    // console.log('servers', servers);
-    // console.log('channels from channel list: ', channels);
+    const servers = useSelector(state => (state.servers));
+    const channels = useSelector(state => (state.servers[serverId]?.channels));
 
     useEffect(() => {
         dispatch(serverActions.getServersThunk())
-            .then(() => dispatch(serverActions.getChannelsThunk(id)))
     }, [dispatch]);
 
-    if (!servers) {
-        return null;
+    if (!channels) {
+        dispatch(serverActions.getChannelsThunk(+serverId))
     }
-
-    const channels = servers.map(server => {
-        return server.channels;
-    })
-
-    // const channels = servers.filter(server => {
-    //     if (!Object.entries(server.channels) === {}) {
-    //         return server.channels
-    //     }
-    // })
-
-    // const channelComponent = channels.map((channel) => {
-    //     console.log('channel', channel);
-    //     return (
-    //         <li key={channel.id}>{channel.name}</li>
-    //     );
-    // });
-
-    // console.log('channel component: ', channelComponent)
-
-    console.log('new channels: ', channels);
 
     return (
         <div>
             <div className={style.channel_heading}>
-                <p>^</p>
-                <p>Channel Name</p>
-                {/* {channels.map((channel) => {
+                { channels && Object.values(channels).map((channel) => {
                     return (
-                        <li key={channel?.id}>{channel?.name}</li>
+                        <li key={channel.id}>
+                            <button>{channel.name}</button>
+                        </li>
                     );
-                })} */}
+                })}
             </div>
 
         </div>

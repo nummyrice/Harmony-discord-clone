@@ -64,7 +64,7 @@ function App() {
         <Route exact path="/servers">
           <Servers />
         </Route>
-        <Route exact path='/servers/:id'>
+        <Route exact path='/servers/:serverId'>
           <ChannelList />
         </Route>
       </Switch>

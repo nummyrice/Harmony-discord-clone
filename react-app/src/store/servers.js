@@ -49,9 +49,10 @@ const deleteMember = (server) => ({
 });
 
 // Channel Actions
-const getChannels = (channels) => ({
+const getChannels = (channels, serverId) => ({
   type: GET_CHANNELS,
   channels,
+  serverId
 });
 const postChannel = (channel) => ({
   type: POST_CHANNEL,
@@ -165,7 +166,6 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
 
 // Channel Thunks
 export const getChannelsThunk = (serverId) => async (dispatch) => {
-  console.log('serverId from get route: ', serverId);
   const response = await fetch(`/api/servers/${serverId}`);
   const data = await response.json();
 
@@ -271,7 +271,6 @@ export default function serverReducer(state = {}, action) {
   const newState = { ...state };
   switch (action.type) {
     case GET_SERVERS:
-      // console.log(action.servers);
       for (let server of action.servers) {
         newState[server.id] = server;
       }
@@ -295,7 +294,9 @@ export default function serverReducer(state = {}, action) {
     case GET_CHANNELS:
       for (let channel of action.channels) {
         if (newState[channel.server_id]) {
-          newState[channel.server_id].channels[channel.id] = channel
+          // console.log('newState from reducer: ', newState[channel.server_id]);
+          newState[channel.server_id].channels[channel.id] = channel;
+          // console.log('channel from reducer-----: ', channel);
         }
       }
       return newState
