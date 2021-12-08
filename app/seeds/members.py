@@ -14,14 +14,14 @@ def seed_members():
     member3 = Member(
         user_id=2, server_id=1
     )
-    # member4 = Member(
-    #     user_id=1, server_id=1
-    # )
+    member4 = Member(
+        user_id=1, server_id=1
+    )
 
     db.session.add(member1)
     db.session.add(member2)
     db.session.add(member3)
-    # db.session.add(member4)
+    db.session.add(member4)
     db.session.commit()
 
 

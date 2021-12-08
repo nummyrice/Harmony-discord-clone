@@ -1,0 +1,78 @@
+.main {
+  background-color: rgb(47, 49, 54);
+  color: rgb(142, 146, 151);
+  padding: 0 8px;
+  border: 0;
+  padding-top: 2rem;
+}
+.main h5 {
+  font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.main > .div1 {
+  padding: 0 8px;
+  font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 42px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+}
+.main > .div1:hover {
+  background-color: rgb(57, 60, 67);
+  color: rgb(250, 250, 250);
+}
+
+.main img {
+  height: 32px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.card {
+  font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  position: absolute;
+  padding: 5px 16px 16px;
+  overflow: hidden;
+  width: 300px;
+  border: 0;
+  background-color: #202225;
+  right: 250px;
+  top: 0;
+  visibility: hidden;
+  cursor: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 5px;
+}
+.card > img {
+  height: 80px;
+  margin: 10px 0;
+}
+.card > h3 {
+  color: rgb(207, 207, 207);
+  font-size: 1.5rem;
+}
+.div1:focus-visible,
+.div1:focus-within,
+.div1:focus {
+  background-color: rgb(57, 60, 67);
+  color: rgb(250, 250, 250);
+}
+
+.div1:focus-visible .card,
+.div1:focus-within .card,
+.div1:focus .card {
+  visibility: visible;
+  align-items: flex-start;
+}
