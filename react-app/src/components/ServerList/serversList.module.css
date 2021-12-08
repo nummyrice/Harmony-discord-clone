@@ -39,6 +39,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    border: none;
 }
 
 .newWrapper {
@@ -70,4 +71,8 @@ a > .serverImg:hover,
     transition: ease 0.2s;
     border-radius: 24px;
     background-color: rgb(87,102,242);
+}
+
+.newservmodal {
+    background-color: pink;
 }

@@ -1,17 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as serverActions from '../../store/servers'
+import { Modal } from '../../context/Modal';
+import NewServerModal from './newServerModal';
 
-import style from './serversList.module.css'
-import logo from './images/white-logo.png'
+import style from './serversList.module.css';
+import logo from './images/white-logo.png';
 
-export default function ServersList() {
+export default function ServersList({setServerActive}) {
     const dispatch = useDispatch();
     const servers = useSelector((state) => Object.values(state.servers));
     // let channels = useSelector((state) => Object.values(state.servers))
-    console.log('all servers', servers)
+    // console.log('all servers', servers)
+    // const [showModal, setShowModal] = useState(false);
+    // console.log('show', showModal)
+
+
 
     useEffect(() => {
         dispatch(serverActions.getServersThunk())
@@ -40,14 +46,22 @@ export default function ServersList() {
                     />
                 </NavLink>
             ))}
-            <NavLink
+            <button
                 className={style.newServer}
-                to={`/servers/create`}
+                onClick={() => setServerActive(true)}
             >
                 <div className={style.newWrapper}>
                     <div className={style.addServer}>+</div>
                 </div>
-            </NavLink>
+            </button>
+            {/* //{showModal && (
+                <Modal onClose = {() => setShowModal(false)}>
+                    <NewServerModal
+                        setShowModal = { setShowModal }
+                    />
+                </Modal>
+            )} */}
+
         </div>
     )
 }
