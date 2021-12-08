@@ -13,6 +13,10 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password', image_url="https://picsum.photos/200/300?random=1")
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password', image_url="https://picsum.photos/200/300?random=1")
+    db.session.add(demo)
+    db.session.add(marnie)
+    db.session.add(bobbie)
+    db.session.commit()
     # adjust the range to add more or less seed data
     for x in range(1, 10):
         additionalUser = User(
@@ -23,9 +27,6 @@ def seed_users():
         )
         db.session.add(additionalUser)
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
 
     db.session.commit()
 

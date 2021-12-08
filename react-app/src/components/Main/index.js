@@ -10,7 +10,7 @@ export default function Servers() {
       <div className={style.div2}></div>
       <div className={style.div3}>
         <div className={style.div4}></div>
-        <ChannelMessages/>
+        <Route path="/servers/:serverId/:channelId" component={ChannelMessages}/>
         <div></div>
       </div>
     </main>

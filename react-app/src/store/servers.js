@@ -293,6 +293,8 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case GET_CHANNELS:
       for (let channel of action.channels) {
+        console.log('////////////////////made it')
+        console.log('server', newState[channel.server_id])
         if (newState[channel.server_id]) {
           newState[channel.server_id].channels[channel.id] = channel
         }

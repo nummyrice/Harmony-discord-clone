@@ -3,7 +3,7 @@ from sqlalchemy.sql.expression import func
 
 def seed_channels():
     # adjust the range to add more or less seed data
-    for x in range(1, 10):
+    for x in range(1, 20):
         seed_channel = Channel(
             name = f'Channel {x}',
             server_id = db.session.query(Server.id).order_by(func.random()).first()[0]
