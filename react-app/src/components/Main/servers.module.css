@@ -5,14 +5,20 @@
   height: 100%;
 }
 
-div {
+.main > div {
   border: 1px solid black;
 }
+
+.div1 {
+  background-color: rgb(32,34,37);
+}
+
 .div3 {
   display: grid;
   grid-template-columns: calc(100% - 15rem) 15rem;
   grid-template-rows: 1fr 20fr;
 }
+
 .div4 {
   grid-column: span 2;
 }
