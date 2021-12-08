@@ -10,6 +10,8 @@ import User from "./components/User";
 import { authenticate } from "./store/session";
 import * as serverActions from "./store/servers";
 import Servers from "./components/Main";
+import ChannelList from "./components/ChannelList";
+import Main from "./components/Main";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -19,21 +21,6 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
-      dispatch(serverActions.getServersThunk())
-        .then(() => dispatch(serverActions.getChannelsThunk(1)))
-        .then(() =>
-          dispatch(
-            serverActions.getMessagesThunk({ server_id: 1, channel_id: 2 })
-          )
-        )
-        .then(() =>
-          dispatch(
-            serverActions.getMessagesThunk({
-              server_id: 1,
-              channel_id: 2,
-            })
-          )
-        );
     })();
   }, [dispatch]);
 
@@ -60,8 +47,11 @@ function App() {
         <ProtectedRoute path="/" exact={true}>
           <h1>My Home Page</h1>
         </ProtectedRoute>
-        <Route path="/servers">
+        <Route exact path="/servers">
           <Servers />
+        </Route>
+        <Route exact path="/servers/:serverId">
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>

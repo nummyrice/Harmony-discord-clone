@@ -1,0 +1,35 @@
+* {
+    border: none !important;
+    color: #83878C;
+    text-decoration: none;
+}
+
+.channelHeading {
+    background: #292B2F;
+    height: 100%;
+    padding: 6px;
+}
+
+.channelIcon {
+    align-items: center;
+    display: flex;
+    margin-right: 8px;
+}
+
+a {
+    align-items: center;
+    border-radius: 4px;
+    display: flex;
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 18px;
+    padding: 4px 8px;
+    margin: 2px auto;
+}
+
+a:hover, a:active {
+    background: #32353A;
+}
+
+a:hover p, a:active p {
+    color: #fff;
+}
