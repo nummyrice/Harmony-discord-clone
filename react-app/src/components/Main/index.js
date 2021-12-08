@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import style from "./servers.module.css";
+import ChannelMessages from "../Messages";
 
 export default function Servers() {
   return (
@@ -9,7 +10,7 @@ export default function Servers() {
       <div className={style.div2}></div>
       <div className={style.div3}>
         <div className={style.div4}></div>
-        <div></div>
+        <ChannelMessages/>
         <div></div>
       </div>
     </main>
