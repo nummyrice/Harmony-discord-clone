@@ -11,6 +11,7 @@ import { authenticate } from "./store/session";
 import * as serverActions from "./store/servers";
 import Servers from "./components/Main";
 import ChannelList from "./components/ChannelList";
+import Main from './components/Main';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -65,7 +66,7 @@ function App() {
           <Servers />
         </Route>
         <Route exact path='/servers/:serverId'>
-          <ChannelList />
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>
