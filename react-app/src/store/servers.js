@@ -165,6 +165,7 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
 
 // Channel Thunks
 export const getChannelsThunk = (serverId) => async (dispatch) => {
+  console.log('serverId from get route: ', serverId);
   const response = await fetch(`/api/servers/${serverId}`);
   const data = await response.json();
 
@@ -270,7 +271,7 @@ export default function serverReducer(state = {}, action) {
   const newState = { ...state };
   switch (action.type) {
     case GET_SERVERS:
-      console.log(action.servers);
+      // console.log(action.servers);
       for (let server of action.servers) {
         newState[server.id] = server;
       }
