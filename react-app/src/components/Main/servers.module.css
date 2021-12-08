@@ -3,6 +3,7 @@
   grid-template-columns: 7rem 15rem calc(100% - 22rem);
   width: 100%;
   height: 100%;
+  color: rgb(142, 146, 151);
 }
 
 div {
@@ -10,9 +11,10 @@ div {
 }
 .div3 {
   display: grid;
-  grid-template-columns: calc(100% - 15rem) 15rem;
-  grid-template-rows: 1fr 20fr;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 48px 20fr;
 }
+
 .div4 {
   grid-column: span 2;
 }

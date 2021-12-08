@@ -17,7 +17,12 @@ export default function Members() {
     <aside className={style.main}>
       <h5>MEMBERS - {members ? members.length : 0}</h5>
       {members?.map((member) => (
-        <Member key={member.id} owner_id={server?.owner_id} member={member} />
+        <Member
+          key={member.id}
+          owner_id={server?.owner_id}
+          member={member}
+          card={true}
+        />
       ))}
     </aside>
   );

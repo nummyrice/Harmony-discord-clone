@@ -1,0 +1,62 @@
+.main {
+  grid-column: span 2;
+  border: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.main * {
+  border: 0;
+}
+.left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.left > h3 {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  color: white;
+  font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.left > * {
+  margin-left: 8px;
+}
+.right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.right > * {
+  margin: 0 8px;
+}
+
+.right > input {
+  background-color: rgb(32, 34, 37);
+  border-radius: 5px;
+  caret-color: snow;
+  color: snow;
+  font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5rem;
+}
+.right > input:focus,
+.right > input:focus-within {
+  outline-width: 0;
+}
+.searchIcon {
+  position: absolute;
+  right: 80px;
+  height: 20px;
+}
+.searchIcon > svg {
+  height: 15px;
+}
+.xIcon {
+  cursor: pointer;
+}
+.userIcon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

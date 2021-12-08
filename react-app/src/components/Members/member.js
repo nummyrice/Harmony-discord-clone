@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./members.module.css";
 
-export default function Member({ member, owner_id }) {
+export default function Member({ member, owner_id, card }) {
   const { image_url, id, username } = member;
   console.log({ owner_id });
   return (
@@ -12,10 +12,13 @@ export default function Member({ member, owner_id }) {
           {username}
           {owner_id && id === owner_id && "👑"}
         </span>
-        <div className={style.card}>
-          <img src={image_url} alt="" />
-          <h3>{username}</h3>
-        </div>
+
+        {card && (
+          <div className={style.card}>
+            <img src={image_url} alt="" />
+            <h3>{username}</h3>
+          </div>
+        )}
       </div>
     </>
   );
