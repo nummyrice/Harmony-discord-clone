@@ -14,7 +14,7 @@ const ChannelList = () => {
         dispatch(serverActions.getServersThunk())
     }, [dispatch]);
 
-    if (!channels) {
+    if (JSON.stringify(channels) === '{}') {
         dispatch(serverActions.getChannelsThunk(+serverId))
     }
 

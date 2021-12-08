@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ChannelList from "../ChannelList";
 import style from "./servers.module.css";
+import ChannelMessages from "../Messages";
 
 import ServersList from "../ServerList";
 
-import style from "./servers.module.css";
 import Members from "../Members";
 import Header from "../Header";
 export default function Servers() {
@@ -52,14 +52,18 @@ export default function Servers() {
         <ServersList setServerActive={setServerActive} />
       </div>
       <div className={style.div2}>
-        <ChannelList />
+        <Route path='/servers/:serverId'>
+          <ChannelList />
+        </Route>
       </div>
       <div className={style.div3}>
-        <Route path="/servers/:serverId">
+        <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
           <Header />
         </Route>
-        <div></div>
-        <Route path="/servers/:serverId">
+        <Route path="/servers/:serverId/:channelId">
+          <ChannelMessages/>
+        </Route>
+        <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
           <Members />
         </Route>
       </div>

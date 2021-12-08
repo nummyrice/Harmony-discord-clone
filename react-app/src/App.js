@@ -47,10 +47,7 @@ function App() {
         <ProtectedRoute path="/" exact={true}>
           <h1>My Home Page</h1>
         </ProtectedRoute>
-        <Route exact path="/servers">
-          <Servers />
-        </Route>
-        <Route exact path="/servers/:serverId">
+        <Route path="/servers">
           <Main />
         </Route>
       </Switch>
