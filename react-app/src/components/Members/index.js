@@ -3,30 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import style from "./members.module.css";
 import * as serverActions from "../../store/servers";
-import { useLocation } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import Member from "./member";
 export default function Members() {
+  const { serverId } = useParams();
   const dispatch = useDispatch();
-  const members = useSelector((state) => state.servers[2]?.member_list);
-  useEffect(() => {
-    dispatch(serverActions.getServersThunk());
-  }, [dispatch]);
+  const server = useSelector((state) => state.servers[serverId]);
 
-  console.log("membersssssss", members);
+  if (!server) dispatch(serverActions.getServersThunk());
+  const members = server?.member_list;
+
   return (
     <aside className={style.main}>
-      <h5>Members - {members ? members.length : 0}</h5>
-      {members?.map(({ image_url, username }) => (
-        <>
-          <div className={style.div1} tabindex="1">
-            <img src={image_url} alt="" />
-            <span>{username}</span>
-            <div className={style.card}>
-              <img src={image_url} alt="" />
-              <h3>{username}</h3>
-            </div>
-          </div>
-        </>
+      <h5>MEMBERS - {members ? members.length : 0}</h5>
+      {members?.map((member) => (
+        <Member key={member.id} owner_id={server?.owner_id} member={member} />
       ))}
     </aside>
   );

@@ -10,7 +10,9 @@ export default function Servers() {
       <div className={style.div3}>
         <div className={style.div4}></div>
         <div></div>
-        <Members />
+        <Route path="/servers/:serverId">
+          <Members />
+        </Route>
       </div>
     </main>
   );
