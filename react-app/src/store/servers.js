@@ -49,9 +49,10 @@ const deleteMember = (server) => ({
 });
 
 // Channel Actions
-const getChannels = (channels) => ({
+const getChannels = (channels, serverId) => ({
   type: GET_CHANNELS,
   channels,
+  serverId
 });
 const postChannel = (channel) => ({
   type: POST_CHANNEL,
@@ -270,7 +271,6 @@ export default function serverReducer(state = {}, action) {
   const newState = { ...state };
   switch (action.type) {
     case GET_SERVERS:
-      console.log(action.servers);
       for (let server of action.servers) {
         newState[server.id] = server;
       }
@@ -296,7 +296,9 @@ export default function serverReducer(state = {}, action) {
         console.log('////////////////////made it')
         console.log('server', newState[channel.server_id])
         if (newState[channel.server_id]) {
-          newState[channel.server_id].channels[channel.id] = channel
+          // console.log('newState from reducer: ', newState[channel.server_id]);
+          newState[channel.server_id].channels[channel.id] = channel;
+          // console.log('channel from reducer-----: ', channel);
         }
       }
       return newState

@@ -10,6 +10,8 @@ import User from "./components/User";
 import { authenticate } from "./store/session";
 import * as serverActions from "./store/servers";
 import Servers from "./components/Main";
+import ChannelList from "./components/ChannelList";
+import Main from "./components/Main";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +48,7 @@ function App() {
           <h1>My Home Page</h1>
         </ProtectedRoute>
         <Route path="/servers">
-          <Servers />
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>
