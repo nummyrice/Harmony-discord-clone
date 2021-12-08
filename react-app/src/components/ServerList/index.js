@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as serverActions from '../../store/servers'
@@ -10,7 +10,7 @@ import logo from './images/white-logo.png'
 export default function ServersList() {
     const dispatch = useDispatch();
     const servers = useSelector((state) => Object.values(state.servers));
-    let channels = useSelector((state) => Object.values(state.servers))
+    // let channels = useSelector((state) => Object.values(state.servers))
     console.log('all servers', servers)
 
     useEffect(() => {
