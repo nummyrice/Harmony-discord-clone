@@ -84,6 +84,24 @@ def edit_members(serverId):
     return {'errors': "bad user data"}
 
 
+@server_routes.route('/<int:serverId>/members/<int:memberId>', methods=['POST'])
+@login_required
+def add_member(serverId, memberId):
+    userId = memberId
+    user = User.query.get(int(userId))
+    server = Server.query.get(int(serverId))
+    if user and user not in server.members:
+        member = Member(
+            user_id=userId,
+            server_id=serverId
+        )
+        db.session.add(member)
+        db.session.commit()
+        return server.to_dict()
+
+    return {'errors': "bad user data"}
+
+
 @server_routes.route('/<int:serverId>/members', methods=['DELETE'])
 @login_required
 def delete_member(serverId):

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ChannelList from "../ChannelList";
 import style from "./servers.module.css";
 import ChannelMessages from "../Messages";
-
+import UserList from "../DirectMessages/userlist";
 import ServersList from "../ServerList";
 
 import Members from "../Members";
@@ -52,17 +52,35 @@ export default function Servers() {
         <ServersList setServerActive={setServerActive} />
       </div>
       <div className={style.div2}>
-        <Route path='/servers/:serverId'>
-          <ChannelList />
-        </Route>
+        <Switch>
+          <Route exact path="/servers/@me">
+            <div></div>
+          </Route>
+          <Route path="/servers/:serverId">
+            <ChannelList />
+          </Route>
+        </Switch>
       </div>
       <div className={style.div3}>
-        <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
-          <Header />
-        </Route>
-        <Route path="/servers/:serverId/:channelId">
-          <ChannelMessages/>
-        </Route>
+        <Switch>
+          <Route path="/servers/@me">
+            <Header />
+          </Route>
+          <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
+            <Header />
+          </Route>
+        </Switch>
+        <Switch>
+          <Route exact path={["/servers/@me"]}>
+            <UserList />
+          </Route>
+          <Route exact path={"/servers/:serverId"}>
+            <div></div>
+          </Route>
+          <Route path="/servers/:serverId/:channelId">
+            <ChannelMessages />
+          </Route>
+        </Switch>
         <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
           <Members />
         </Route>
