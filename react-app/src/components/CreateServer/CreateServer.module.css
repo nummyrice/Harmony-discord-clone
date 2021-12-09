@@ -83,6 +83,10 @@
     fill: rgb(79,86,96) !important;
 }
 
+.newServerImg {
+    display: none;
+}
+
 .newServerInputWrapper {
     display: flex;
     flex-direction: column;
@@ -95,6 +99,7 @@
 
 .newServerLabel {
     font-size: 12px;
+    margin-top: 1rem;
 }
 
 .newServerInputField {
@@ -105,4 +110,31 @@
     height: 3rem;
     margin: .25rem 0;
     font-size: 18px;
+}
+
+.newServerButtons {
+    background-color: lawngreen;
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newServerBack {
+    color: black;
+    cursor: pointer;
+}
+
+.newServerSubmit {
+    color: white;
+    background-color: rgb(87,102,242);
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.newServerSubmit:hover {
+    transition: ease-in 0.2s;
+    background-color: rgb(71,82,196);
 }
