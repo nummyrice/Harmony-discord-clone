@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { postServerThunk } from '../../store/servers';
+import { postServerThunk, postChannelThunk } from '../../store/servers';
 
 import style from './CreateServer.module.css';
 
@@ -26,7 +26,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         return;
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = validate();
@@ -41,7 +41,15 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
             isPrivate: false
         }
 
-        dispatch(postServerThunk(newServer));
+        let createdServer = await dispatch(postServerThunk(newServer));
+        console.log('newserver', createdServer);
+
+        const defaultChannel = {
+            server_id: createdServer.id,
+            name: 'Welcome'
+        }
+
+        dispatch(postChannelThunk(defaultChannel));
         setCreateNewServer(false);
     }
 
