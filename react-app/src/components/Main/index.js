@@ -6,6 +6,11 @@ import ChannelMessages from "../Messages";
 import UserList from "../DirectMessages/userlist";
 import ServersList from "../ServerList";
 import DMList from "../DirectMessages/dmlist";
+import arrow from "./assets/discord-arrow.svg";
+
+import CreateServer from "../CreateServer";
+import JoinServer from "../JoinServer";
+
 import Members from "../Members";
 import Header from "../Header";
 import DirectMessages from "../DirectMessages";
@@ -19,6 +24,9 @@ export default function Servers() {
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session);
   const [serverActive, setServerActive] = useState(false);
+  const [createNewServer, setCreateNewServer] = useState(false);
+  const [joinServer, setJoinServer] = useState(false);
+
   useEffect(() => {
     socket = io();
     socket.on("add_server", (server) => {
@@ -55,6 +63,18 @@ export default function Servers() {
       socket.disconnect();
     };
   }, []);
+
+  function openNewServerModal() {
+    setServerActive(false);
+    setCreateNewServer(true);
+    return;
+  }
+
+  function openJoinServerModal() {
+    setServerActive(false);
+    setJoinServer(true);
+  }
+
   function addServerFunc() {
     return (
       <>
@@ -63,27 +83,44 @@ export default function Servers() {
           onClick={() => setServerActive(false)}
         ></div>
         <div className={style.serverModalContainer}>
-          <div className={style.title}>Create a server</div>
-          <div
-            className={style.closeModal}
-            onClick={() => setServerActive(false)}
-          >
-            <svg
-              className={style.closeX}
-              aria-hidden="false"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+          <div className={style.serverModalWrapper}>
+            <div className={style.title}>Create a server</div>
+            <div
+              className={style.closeModal}
+              onClick={() => setServerActive(false)}
             >
-              <path
-                fill="currentColor"
-                d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"
-              ></path>
-            </svg>
-          </div>
-          <div className={style.subheading}>
-            Your server is where you and your friends hang out. Make it yours
-            and start talking.
+              <svg
+                className={style.closeX}
+                aria-hidden="false"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
+              </svg>
+            </div>
+            <div className={style.subheading}>
+              Your server is where you and your friends hang out. Make it yours
+              and start talking.
+            </div>
+            <div
+              className={style.createServerContainer}
+              onClick={() => openNewServerModal()}
+            >
+              <div className={style.createServerName}>Create My Own</div>
+              <img className={style.createServerArrow} src={arrow} />
+            </div>
+            <div className={style.joinServerContainer}>
+              <div className={style.joinServerTitle}>
+                Have an invite already?
+              </div>
+              <div
+                className={style.joinServerButton}
+                onClick={() => openJoinServerModal()}
+              >
+                Join a Server
+              </div>
+            </div>
           </div>
         </div>
       </>
@@ -93,6 +130,18 @@ export default function Servers() {
   return (
     <main className={style.main}>
       {serverActive && addServerFunc()}
+      {createNewServer && (
+        <CreateServer
+          setCreateNewServer={setCreateNewServer}
+          setServerActive={setServerActive}
+        />
+      )}
+      {joinServer && (
+        <JoinServer
+          setServerActive={setServerActive}
+          setJoinServer={setJoinServer}
+        />
+      )}
       <div className={style.div1}>
         <ServersList setServerActive={setServerActive} />
       </div>

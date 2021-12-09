@@ -1,0 +1,151 @@
+.joinServerBackground {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.joinServerContainer {
+    position: fixed;
+    height: fit-content;
+    width: 450px;
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    z-index: 101;
+}
+
+.joinServerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1.5rem;
+}
+
+.joinServerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1.5rem;
+    /* background-color: hotpink; */
+}
+
+.joinServerCloseContainer {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    height: 22px;
+    width: 22px;
+}
+
+.joinServerX {
+    fill: rgb(175,178,182);
+}
+
+.joinServerCloseContainer:hover > svg {
+    transition: ease-in 0.2s;
+    fill: black;
+}
+
+.joinServerHeading {
+    /* background-color: cyan; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    gap: 0.5rem;
+}
+
+.joinServerTitle {
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+}
+
+.joinServerSubheading {
+    font-size: 14px;
+    text-align: center;
+    color: rgb(191,194,197);
+}
+
+.joinServerContent {
+    /* background-color: lawngreen; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.joinServerInputWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.joinServerInputWrapper > * {
+    color: rgb(79,86,96) !important;
+}
+
+.joinServerLabel {
+    font-size: 12px;
+    margin-top: 1rem;
+}
+
+.joinServerLabelSpan {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.joinServerInputField {
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid rgb(175,178,182) !important;
+    border-radius: 4px;
+    height: 3rem;
+    margin: .25rem 0;
+    font-size: 18px;
+    background-color: rgb(224,226,229) !important;
+    color: rgb(133,143,155);
+}
+
+.joinServerButtons {
+    /* background-color: lawngreen; */
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.joinServerBack {
+    color: rgb(191,194,197);
+    cursor: pointer;
+}
+
+.joinServerSubmit {
+    color: white;
+    background-color: rgb(87,102,242);
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.joinServerSubmit:hover {
+    transition: ease-in 0.2s;
+    background-color: rgb(71,82,196);
+}

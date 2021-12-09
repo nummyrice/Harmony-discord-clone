@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    overflow-y: scroll
 }
 
 .home {
@@ -21,6 +22,10 @@
 .directMessages {
     height: 65%;
     margin-top: 5px;
+}
+
+.serverWrapper {
+    padding: 0;
 }
 
 .serverImg {
