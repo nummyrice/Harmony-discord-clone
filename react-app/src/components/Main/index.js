@@ -7,6 +7,7 @@ import arrow from './assets/discord-arrow.svg';
 
 import ServersList from "../ServerList";
 import CreateServer from "../CreateServer";
+import JoinServer from "../JoinServer";
 
 import Members from "../Members";
 import Header from "../Header";
@@ -19,6 +20,11 @@ export default function Servers() {
     setServerActive(false);
     setCreateNewServer(true);
     return;
+  }
+
+  function openJoinServerModal() {
+    setServerActive(false);
+    setJoinServer(true);
   }
 
   function addServerFunc() {
@@ -66,6 +72,7 @@ export default function Servers() {
               <div className={style.joinServerTitle}>Have an invite already?</div>
               <div
                 className={style.joinServerButton}
+                onClick={() => openJoinServerModal()}
               >
                 Join a Server
               </div>
@@ -83,6 +90,12 @@ export default function Servers() {
         <CreateServer
           setCreateNewServer={setCreateNewServer}
           setServerActive={setServerActive}
+        />
+      )}
+      {joinServer && (
+        <JoinServer
+          setServerActive={setServerActive}
+          setJoinServer={setJoinServer}
         />
       )}
       <div className={style.div1}>

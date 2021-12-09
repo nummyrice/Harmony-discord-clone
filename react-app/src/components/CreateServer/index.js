@@ -20,7 +20,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         return validationErrors;
     }
 
-    const clicky = () => {
+    const goBack = () => {
         setCreateNewServer(false);
         setServerActive(true);
         return;
@@ -107,7 +107,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
                     <div className={style.newServerButtons}>
                         <div
                             className={style.newServerBack}
-                            onClick={() => clicky()}
+                            onClick={() => goBack()}
                         >
                             Back
                         </div>

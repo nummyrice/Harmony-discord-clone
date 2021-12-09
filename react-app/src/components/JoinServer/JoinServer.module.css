@@ -1,4 +1,4 @@
-.newServerBackground {
+.joinServerBackground {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -7,11 +7,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
-  }
+}
 
-.newServerContainer {
+.joinServerContainer {
     position: fixed;
-    height: fit-content;
+    height: 500px;
     width: 500px;
     font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: white;
@@ -22,16 +22,24 @@
     z-index: 101;
 }
 
-.newServerForm {
+.joinServerForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     margin: 1.5rem;
-    /* background-color: hotpink; */
 }
 
-.newServerCloseContainer {
+.joinServerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1.5rem;
+    background-color: hotpink;
+}
+
+.joinServerCloseContainer {
     position: absolute;
     right: 15px;
     top: 15px;
@@ -39,37 +47,40 @@
     width: 22px;
 }
 
-.newServerX {
+.joinServerX {
     fill: rgb(175,178,182);
 }
 
-.newServerCloseContainer:hover > svg {
+.joinServerCloseContainer:hover > svg {
     transition: ease-in 0.2s;
     fill: black;
 }
 
-.newServerHeading {
-    direction: flex;
+.joinServerHeading {
+    background-color: cyan;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    gap: 0.5rem;
 }
 
-.newServerTitle {
+.joinServerTitle {
     font-weight: bold;
     font-size: 24px;
     color: black;
     text-align: center;
 }
 
-.newServerSubheading {
+.joinServerSubheading {
     font-size: 14px;
     text-align: center;
     color: rgb(191,194,197);
 }
 
-.newServerContent {
-    /* background-color: cyan; */
+.joinServerContent {
+    background-color: lawngreen;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,30 +90,28 @@
     width: 100%;
 }
 
-.imgIconContainer {
-    fill: rgb(79,86,96) !important;
-}
-
-.newServerImg {
-    display: none;
-}
-
-.newServerInputWrapper {
+.joinServerInputWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.newServerInputWrapper > * {
+.joinServerInputWrapper > * {
     color: rgb(79,86,96) !important;
 }
 
-.newServerLabel {
+.joinServerLabel {
     font-size: 12px;
     margin-top: 1rem;
 }
 
-.newServerInputField {
+.joinServerLabelSpan {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.joinServerInputField {
     box-sizing: border-box;
     padding: 10px;
     border: 1px solid rgb(175,178,182) !important;
@@ -110,9 +119,11 @@
     height: 3rem;
     margin: .25rem 0;
     font-size: 18px;
+    background-color: rgb(224,226,229) !important;
+    color: rgb(133,143,155);
 }
 
-.newServerButtons {
+.joinServerButtons {
     /* background-color: lawngreen; */
     width: 100%;
     height: 4rem;
@@ -121,12 +132,12 @@
     align-items: center;
 }
 
-.newServerBack {
-    color: black;
+.joinServerBack {
+    color: rgb(191,194,197);
     cursor: pointer;
 }
 
-.newServerSubmit {
+.joinServerSubmit {
     color: white;
     background-color: rgb(87,102,242);
     padding: 10px 30px;
@@ -134,7 +145,7 @@
     cursor: pointer;
 }
 
-.newServerSubmit:hover {
+.joinServerSubmit:hover {
     transition: ease-in 0.2s;
     background-color: rgb(71,82,196);
 }
