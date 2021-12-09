@@ -20,7 +20,6 @@ export default function DMList() {
       (member) => +session.user.id !== +member.id
     );
     if (otherMember) {
-      console.log(server.channels);
       return (
         <Link
           key={otherMember.id}

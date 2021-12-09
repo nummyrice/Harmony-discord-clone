@@ -9,9 +9,52 @@ import DMList from "../DirectMessages/dmlist";
 import Members from "../Members";
 import Header from "../Header";
 import DirectMessages from "../DirectMessages";
+import { io } from "socket.io-client";
+import { useDispatch, useSelector } from "react-redux";
+import * as serverActions from "../../store/servers";
+
+let socket;
 
 export default function Servers() {
+  const dispatch = useDispatch();
+  const session = useSelector((state) => state.session);
   const [serverActive, setServerActive] = useState(false);
+  useEffect(() => {
+    socket = io();
+    socket.on("add_server", (server) => {
+      if (server.members.includes(session.user.id))
+        dispatch(serverActions.postServer(server));
+    });
+    socket.on("edit_server", (server) => {
+      if (server.members.includes(session.user.id))
+        dispatch(serverActions.editServer(server));
+    });
+    socket.on("delete_server", (server) => {
+      if (server.members.includes(session.user.id))
+        dispatch(serverActions.deleteServer(server));
+    });
+    socket.on("add_channel", (channel) => {
+      dispatch(serverActions.postChannel(channel));
+    });
+    socket.on("edit_channel", (channel) => {
+      dispatch(serverActions.editChannel(channel));
+    });
+    socket.on("delete_channel", (channel) => {
+      dispatch(serverActions.deleteChannel(channel));
+    });
+    socket.on("add_message", (message) => {
+      dispatch(serverActions.postMessage(message));
+    });
+    socket.on("edit_message", (message) => {
+      dispatch(serverActions.editMessage(message));
+    });
+    socket.on("delete_message", (message) => {
+      dispatch(serverActions.deleteMessage(message));
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
   function addServerFunc() {
     return (
       <>

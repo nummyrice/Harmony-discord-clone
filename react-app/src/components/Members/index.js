@@ -12,7 +12,6 @@ export default function Members() {
 
   if (!server) dispatch(serverActions.getServersThunk());
   const members = server?.member_list;
-  console.log({ server });
   return (
     <aside className={style.main}>
       <h5>MEMBERS - {members ? members.length : 0}</h5>

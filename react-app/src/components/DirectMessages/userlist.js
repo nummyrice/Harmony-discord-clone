@@ -29,7 +29,6 @@ export default function UserList() {
     );
   }
   async function privateServer(member) {
-    console.log(member, hasMember(member));
     if (hasMember(member)) return;
 
     let server = await dispatch(

@@ -25,15 +25,15 @@ const getServers = (servers) => ({
   type: GET_SERVERS,
   servers,
 });
-const postServer = (server) => ({
+export const postServer = (server) => ({
   type: POST_SERVER,
   server,
 });
-const editServer = (server) => ({
+export const editServer = (server) => ({
   type: EDIT_SERVER,
   server,
 });
-const deleteServer = (serverId) => ({
+export const deleteServer = (serverId) => ({
   type: DELETE_SERVER,
   serverId,
 });
@@ -54,15 +54,15 @@ const getChannels = (channels, serverId) => ({
   channels,
   serverId,
 });
-const postChannel = (channel) => ({
+export const postChannel = (channel) => ({
   type: POST_CHANNEL,
   channel,
 });
-const editChannel = (channel) => ({
+export const editChannel = (channel) => ({
   type: EDIT_CHANNEL,
   channel,
 });
-const deleteChannel = (channel) => ({
+export const deleteChannel = (channel) => ({
   type: DELETE_CHANNEL,
   channel,
 });
@@ -73,17 +73,17 @@ const getMessages = (messages, server_id) => ({
   messages,
   server_id,
 });
-const postMessage = (message, server_id) => ({
+export const postMessage = (message, server_id) => ({
   type: POST_MESSAGE,
   message,
   server_id,
 });
-const editMessage = (message, server_id) => ({
+export const editMessage = (message, server_id) => ({
   type: EDIT_MESSAGE,
   message,
   server_id,
 });
-const deleteMessage = (message) => ({
+export const deleteMessage = (message) => ({
   type: DELETE_MESSAGE,
   message,
 });
@@ -127,6 +127,7 @@ export const editServerThunk = (server) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(editServer(data));
+
   return data;
 };
 
@@ -148,6 +149,9 @@ export const postMemberThunk = (serverId) => async (dispatch) => {
     },
   });
   const data = await response.json();
+  const response2 = await fetch(`/api/servers/`);
+  const data2 = await response2.json();
+  dispatch(getServers(data2.servers));
   dispatch(postMember(data));
   return data;
 };
@@ -175,6 +179,9 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
     },
   });
   const data = await response.json();
+  const response2 = await fetch(`/api/servers/`);
+  const data2 = await response2.json();
+  dispatch(getServers(data2.servers));
   dispatch(deleteMember(data));
   return data;
 };
@@ -306,18 +313,20 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case POST_MEMBER:
       serverId = action.server.id;
-      newState[serverId].members = action.server.members;
-      newState[serverId].member_list = action.server.member_list;
+      if (serverId) {
+        newState[serverId].members = action.server.members;
+        newState[serverId].member_list = action.server.member_list;
+      }
       return newState;
     case DELETE_MEMBER:
       serverId = action.server.id;
-      newState[serverId].members = action.server.members;
-      newState[serverId].member_list = action.server.member_list;
+      if (serverId) {
+        newState[serverId].members = action.server.members;
+        newState[serverId].member_list = action.server.member_list;
+      }
       return newState;
     case GET_CHANNELS:
       for (let channel of action.channels) {
-        console.log("////////////////////made it");
-        console.log("server", newState[channel.server_id]);
         if (newState[channel.server_id]) {
           // console.log('newState from reducer: ', newState[channel.server_id]);
           newState[channel.server_id].channels[channel.id] = channel;
