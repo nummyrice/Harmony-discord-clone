@@ -236,6 +236,8 @@ export const postMessageThunk = (message) => async (dispatch) => {
     }),
   });
   const data = await response.json();
+  console.log('///////////////////')
+  console.log(data)
   dispatch(postMessage(data, server_id));
   return data;
 };
@@ -293,12 +295,8 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case GET_CHANNELS:
       for (let channel of action.channels) {
-        console.log('////////////////////made it')
-        console.log('server', newState[channel.server_id])
         if (newState[channel.server_id]) {
-          // console.log('newState from reducer: ', newState[channel.server_id]);
           newState[channel.server_id].channels[channel.id] = channel;
-          // console.log('channel from reducer-----: ', channel);
         }
       }
       return newState
