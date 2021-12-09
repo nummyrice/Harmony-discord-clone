@@ -5,9 +5,11 @@ import style from "./servers.module.css";
 import ChannelMessages from "../Messages";
 import UserList from "../DirectMessages/userlist";
 import ServersList from "../ServerList";
-
+import DMList from "../DirectMessages/dmlist";
 import Members from "../Members";
 import Header from "../Header";
+import DirectMessages from "../DirectMessages";
+
 export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
   function addServerFunc() {
@@ -53,8 +55,8 @@ export default function Servers() {
       </div>
       <div className={style.div2}>
         <Switch>
-          <Route exact path="/servers/@me">
-            <div></div>
+          <Route path="/servers/@me">
+            <DMList />
           </Route>
           <Route path="/servers/:serverId">
             <ChannelList />
@@ -63,10 +65,10 @@ export default function Servers() {
       </div>
       <div className={style.div3}>
         <Switch>
-          <Route path="/servers/@me">
-            <Header />
+          <Route exact path="/servers/@me">
+            <DirectMessages />
           </Route>
-          <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
+          <Route path={["/servers/:serverId/:channelId"]}>
             <Header />
           </Route>
         </Switch>
@@ -81,9 +83,14 @@ export default function Servers() {
             <ChannelMessages />
           </Route>
         </Switch>
-        <Route path={["/servers/:serverId", "/servers/:serverId/:channelId"]}>
-          <Members />
-        </Route>
+        <Switch>
+          <Route exact path="/servers/@me">
+            <div className={style.div10}></div>
+          </Route>
+          <Route path={["/servers/@me/:serverId", "/servers/:serverId"]}>
+            <Members />
+          </Route>
+        </Switch>
       </div>
     </main>
   );

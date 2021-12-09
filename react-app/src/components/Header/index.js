@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 import style from "./header.module.css";
 
 export default function Member() {
   let [searchVal, setSearchVal] = useState("");
   let [width, setWidth] = useState("150px");
   let [color, setColor] = useState("white");
+  let { serverId, channelId } = useParams();
+  let url = useLocation().pathname;
+  console.log({ url });
+  const channel = useSelector(
+    (state) => state.servers[serverId]?.channels?.[channelId]
+  );
+  const servers = useSelector((state) => state.servers);
+  const session = useSelector((state) => state.session);
+
+  let server;
+  if (isNaN(+serverId)) {
+    server = servers[channelId];
+  }
+
   let usersIcon = (
     <svg
       x="0"
@@ -187,12 +203,22 @@ export default function Member() {
       setColor("rgb(142,146,151)");
     }
   }
+  function titel() {
+    if (url.includes("@me")) {
+      const otherMember = server.member_list.find(
+        (member) => +session.user.id !== +member.id
+      );
+      return otherMember.username;
+    } else {
+      return channel?.name;
+    }
+  }
 
   return (
     <div className={style.main}>
       <div className={style.left}>
         {channelIcon}
-        <h3>Channel</h3>
+        <h3>{titel()}</h3>
       </div>
       <div className={style.right}>
         {threadIcon}

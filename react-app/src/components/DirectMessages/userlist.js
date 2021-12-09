@@ -8,8 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 export default function UserList() {
   const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
+  const servers = useSelector((state) => state.servers);
   const session = useSelector((state) => state.session);
 
+  let privateServers;
+  if (servers) {
+    privateServers = Object.values(servers).filter((server) => server.private);
+  }
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("/api/users/@me");
@@ -18,8 +23,15 @@ export default function UserList() {
     }
     fetchData();
   }, []);
+  function hasMember(member) {
+    return privateServers.find((server) =>
+      server.member_list.find((user) => +user.id === +member.id)
+    );
+  }
   async function privateServer(member) {
-    console.log(member);
+    console.log(member, hasMember(member));
+    if (hasMember(member)) return;
+
     let server = await dispatch(
       serverActions.postServerThunk({
         name: "DM server",
@@ -28,15 +40,23 @@ export default function UserList() {
       })
     );
     dispatch(serverActions.postPrivateMemberThunk(server.id, member.id));
+    dispatch(
+      serverActions.postChannelThunk({ name: "hidden", server_id: server.id })
+    );
+    dispatch(serverActions.getServersThunk());
   }
 
   return (
     <div className={style.main}>
-      {users?.map((member) => (
-        <div onClick={() => privateServer(member)}>
-          <Member key={member.id} member={member} />
-        </div>
-      ))}
+      {users?.map((member) => {
+        if (+member.id !== +session.user.id && !hasMember(member)) {
+          return (
+            <div key={member.id} onClick={() => privateServer(member)}>
+              <Member member={member} />
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

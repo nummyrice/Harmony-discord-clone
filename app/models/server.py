@@ -30,7 +30,7 @@ class Server(db.Model):
             'owner_id': self.owner_id,
             'members': [user.id for user in self.members],
             "member_list": [user.to_dict() for user in self.members],
-            'channels': {},
+            'channels': self.channels[0].to_dict() if len(self.channels) and self.private else {},
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

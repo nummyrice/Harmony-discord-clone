@@ -63,3 +63,10 @@
   transition: ease-in 0.2s;
   color: black;
 }
+
+.div2 {
+  overflow-y: scroll;
+}
+.div10 {
+  width: 15rem;
+}
