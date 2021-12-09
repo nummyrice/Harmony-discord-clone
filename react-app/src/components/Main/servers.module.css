@@ -15,6 +15,11 @@
   background-color: rgb(32,34,37);
 }
 
+.div2 {
+  background: rgb(47, 49, 54);
+  overflow: hidden;
+}
+
 .div3 {
   display: grid;
   grid-template-columns: 1fr auto;

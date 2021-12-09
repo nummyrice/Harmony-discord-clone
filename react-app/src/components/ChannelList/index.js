@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, useParams, Link } from "react-router-dom"
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 import ServerDetails from "./ServerDetails";
+import UserDetails from "./UserDetails";
 
 const ChannelList = () => {
     const {serverId} = useParams();
@@ -30,7 +31,7 @@ const ChannelList = () => {
                     return (
                         <div key={channel.id}>
                             <div>
-                                <Link>
+                                <Link to={channel.id}>
                                     <div className={style.channelIcon}>
                                         {channelIcon}
                                     </div>
@@ -41,6 +42,7 @@ const ChannelList = () => {
                     );
                 })}
             </div>
+            <UserDetails />
         </div>
     );
 }
