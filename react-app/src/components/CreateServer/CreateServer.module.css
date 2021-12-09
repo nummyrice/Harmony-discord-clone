@@ -1,0 +1,34 @@
+.newServerBackground {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+
+.newServerContainer {
+    position: fixed;
+    height: 500px;
+    width: 400px;
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    z-index: 101;
+}
+
+.newServerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1.5rem;
+    height: 90%;
+    width: 90%;
+    background-color: cyan;
+}

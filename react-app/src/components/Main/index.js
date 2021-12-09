@@ -6,18 +6,28 @@ import ChannelMessages from "../Messages";
 import arrow from './assets/discord-arrow.svg';
 
 import ServersList from "../ServerList";
+import CreateServer from "../CreateServer";
 
 import Members from "../Members";
 import Header from "../Header";
 export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
+  const [createNewServer, setCreateNewServer] = useState(false);
+
+  function clickifier() {
+    setServerActive(false);
+    setCreateNewServer(true);
+    return;
+  }
+
   function addServerFunc() {
     return (
       <>
         <div
           className={style.serverModalBackground}
           onClick={() => setServerActive(false)}
-        ></div>
+        >
+        </div>
         <div className={style.serverModalContainer}>
           <div className={style.serverModalWrapper}>
             <div className={style.title}>Create a server</div>
@@ -41,7 +51,10 @@ export default function Servers() {
               Your server is where you and your friends hang out. Make it yours
               and start talking.
             </div>
-            <div className={style.createServerContainer}>
+            <div
+              className={style.createServerContainer}
+              onClick={() => clickifier()}
+            >
               <div className={style.createServerName}>Create My Own</div>
               <img
                 className={style.createServerArrow}
@@ -54,9 +67,27 @@ export default function Servers() {
     );
   }
 
+  // function newServer() {
+  //   return (
+  //     <>
+  //       <div
+  //         className={style.newServerBackground}
+  //         onClick={() => setCreateNewServer(false)}
+  //       >
+  //       </div>
+  //       <div className={style.newServerContainer}>
+  //         <form className={style.newServerForm}
+  //       </div>
+  //     </>
+  //   )
+  // }
+
   return (
     <main className={style.main}>
       {serverActive && addServerFunc()}
+      {createNewServer && (
+        <CreateServer setCreateNewServer={setCreateNewServer}/>
+      )}
       <div className={style.div1}>
         <ServersList setServerActive={setServerActive} />
       </div>

@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as serverActions from '../../store/servers'
-import { Modal } from '../../context/Modal';
-import NewServerModal from './newServerModal';
 
 import style from './serversList.module.css';
 import logo from './images/white-logo.png';
@@ -12,12 +10,6 @@ import logo from './images/white-logo.png';
 export default function ServersList({setServerActive}) {
     const dispatch = useDispatch();
     const servers = useSelector((state) => Object.values(state.servers));
-    // let channels = useSelector((state) => Object.values(state.servers))
-    // console.log('all servers', servers)
-    // const [showModal, setShowModal] = useState(false);
-    // console.log('show', showModal)
-
-
 
     useEffect(() => {
         dispatch(serverActions.getServersThunk())
@@ -59,14 +51,6 @@ export default function ServersList({setServerActive}) {
                     <div className={style.addServer}>+</div>
                 </div>
             </button>
-            {/* //{showModal && (
-                <Modal onClose = {() => setShowModal(false)}>
-                    <NewServerModal
-                        setShowModal = { setShowModal }
-                    />
-                </Modal>
-            )} */}
-
         </div>
     )
 }
