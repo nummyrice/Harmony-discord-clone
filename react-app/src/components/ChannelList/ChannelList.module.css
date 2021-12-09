@@ -1,12 +1,13 @@
 * {
     border: none !important;
-    color: #83878C;
+    /* color: #83878C; */
     font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
     text-decoration: none;
 }
 
 .channelComponentWrapper {
     background: rgb(47, 49, 54);
+    /* font-weight: 500; */
     height: 100%;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .channelListWrapper > p:first-child {
-    font-weight: 500;
+    /* font-weight: 500; */
     font-size: 14px;
     margin-bottom: 4px;
     padding-left: 9px;
@@ -28,16 +29,17 @@
     margin-right: 8px;
 }
 
-a {
+.channelListWrapper a {
     align-items: center;
     border-radius: 4px;
+    color: #83878C;
     display: flex;
     padding: 4px 8px;
     margin: 2px auto;
 }
 
 a:hover, a:active {
-    background: #32353A;
+    background: rgb(57, 60, 67);
 }
 
 a:hover p, a:active p {
@@ -56,6 +58,7 @@ a:hover p, a:active p {
 
 .serverMenuDropdown {
     align-items: center;
+    color: #fff;
     display: flex;
     justify-content: space-between;
     padding: 12px 16px;
@@ -88,15 +91,15 @@ a:hover p, a:active p {
     background: rgb(54, 57, 63);
 }
 
-.serverDetailsWrapper > div p {
+/* .serverDetailsWrapper > div p {
     color: #fff;
     font-weight: 500;
-}
+} */
 
 .serverSettingsMenu {
     background: #18191C;
     border-radius: 4px;
-    padding: 12px 16px;
+    padding: 8px;
     position: absolute;
     top: 58px;
     transform: scale(0.7);
@@ -109,3 +112,62 @@ a:hover p, a:active p {
     transform: scale(1.0);
     visibility: visible;
 }
+
+.settingLink a, .disableOption {
+    align-items: center;
+    border-radius: 3px;
+    display: flex;
+    font-size: 13px;
+    justify-content: space-between;
+    padding: 6px 8px;
+}
+
+.inviteLink {
+    color: #959EF4;
+}
+
+.inviteLink svg {
+    fill: #959EF4;
+}
+
+.stdServerLink {
+    color: #B9BBBE;
+}
+
+.inviteLink:hover, .stdServerLink:hover {
+    background: #959EF4;
+    color: #fff;
+}
+
+.inviteLink:hover svg {
+    fill: #fff;
+}
+
+.disableOption {
+    /* background: #fff; */
+    /* border-radius: 3px; */
+    color: #EB444A;
+    /* padding: 6px 8px; */
+}
+
+.disableOption:hover {
+    background: #EB444A;
+    color: #fff;
+    /* cursor: pointer; */
+}
+
+.disableOption svg {
+    fill: #EB444A;
+}
+
+.disableOption:hover svg {
+    fill: #fff;
+}
+
+/* .disableOption p {
+    color: #EB444A !important;
+}
+
+.disableOption:hover {
+    color: #fff !important;
+} */
