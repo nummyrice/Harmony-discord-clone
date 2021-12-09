@@ -11,7 +11,7 @@
 
 .newServerContainer {
     position: fixed;
-    height: 500px;
+    height: fit-content;
     width: 500px;
     font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: white;
@@ -28,7 +28,7 @@
     align-items: center;
     box-sizing: border-box;
     margin: 1.5rem;
-    background-color: hotpink;
+    /* background-color: hotpink; */
 }
 
 .newServerCloseContainer {
@@ -69,7 +69,7 @@
 }
 
 .newServerContent {
-    background-color: cyan;
+    /* background-color: cyan; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -113,7 +113,7 @@
 }
 
 .newServerButtons {
-    background-color: lawngreen;
+    /* background-color: lawngreen; */
     width: 100%;
     height: 4rem;
     display: flex;

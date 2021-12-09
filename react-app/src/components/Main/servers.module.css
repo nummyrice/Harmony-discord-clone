@@ -38,7 +38,7 @@
 
 .serverModalContainer {
   position: fixed;
-  height: 500px;
+  height: fit-content;
   width: 400px;
   font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
   background-color: white;
@@ -65,6 +65,7 @@
 .title {
   font-weight: bold;
   font-size: 24px;
+  margin-bottom: 0.5rem;
 }
 
 .closeModal {
@@ -86,7 +87,7 @@
 
 .subheading {
   color: rgb(191,194,197) !important;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
 }
 
@@ -118,4 +119,32 @@
   color: rgb(83,90,99) !important;
 }
 
+.joinServerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
 
+.joinServerTitle {
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
+
+.joinServerButton {
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  background-color: rgb(116,127,141);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.joinServerButton:hover {
+  transition: ease-in 0.2s;
+  background-color: rgb(94,103,114);
+}

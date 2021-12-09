@@ -13,8 +13,9 @@ import Header from "../Header";
 export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
   const [createNewServer, setCreateNewServer] = useState(false);
+  const [joinServer, setJoinServer] = useState(false);
 
-  function clickifier() {
+  function openNewServerModal() {
     setServerActive(false);
     setCreateNewServer(true);
     return;
@@ -53,7 +54,7 @@ export default function Servers() {
             </div>
             <div
               className={style.createServerContainer}
-              onClick={() => clickifier()}
+              onClick={() => openNewServerModal()}
             >
               <div className={style.createServerName}>Create My Own</div>
               <img
@@ -61,26 +62,19 @@ export default function Servers() {
                 src={arrow}
               />
             </div>
+            <div className={style.joinServerContainer}>
+              <div className={style.joinServerTitle}>Have an invite already?</div>
+              <div
+                className={style.joinServerButton}
+              >
+                Join a Server
+              </div>
+            </div>
           </div>
         </div>
       </>
     );
   }
-
-  // function newServer() {
-  //   return (
-  //     <>
-  //       <div
-  //         className={style.newServerBackground}
-  //         onClick={() => setCreateNewServer(false)}
-  //       >
-  //       </div>
-  //       <div className={style.newServerContainer}>
-  //         <form className={style.newServerForm}
-  //       </div>
-  //     </>
-  //   )
-  // }
 
   return (
     <main className={style.main}>
