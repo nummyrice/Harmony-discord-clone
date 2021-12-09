@@ -1,5 +1,6 @@
 from .db import db
 from sqlalchemy.sql import func
+import datetime
 
 
 class Server(db.Model):
@@ -31,8 +32,8 @@ class Server(db.Model):
             'members': [user.id for user in self.members],
             "member_list": [user.to_dict() for user in self.members],
             'channels': self.channels[0].to_dict() if len(self.channels) and self.private else {},
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'created_at': self.created_at.strftime('%m/%d/%Y %H:%M:%S'),
+            'updated_at': self.updated_at.strftime('%m/%d/%Y %H:%M:%S')
         }
 
     def member_ids(self):
