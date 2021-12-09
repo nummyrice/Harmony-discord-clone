@@ -86,7 +86,10 @@ export default function Servers() {
     <main className={style.main}>
       {serverActive && addServerFunc()}
       {createNewServer && (
-        <CreateServer setCreateNewServer={setCreateNewServer}/>
+        <CreateServer
+          setCreateNewServer={setCreateNewServer}
+          setServerActive={setServerActive}
+        />
       )}
       <div className={style.div1}>
         <ServersList setServerActive={setServerActive} />
