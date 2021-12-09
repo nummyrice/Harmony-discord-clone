@@ -23,6 +23,10 @@
     margin-top: 5px;
 }
 
+.serverWrapper {
+    padding: 0;
+}
+
 .serverImg {
     height: 64px;
     width: 64px;

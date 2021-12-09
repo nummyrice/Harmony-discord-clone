@@ -34,18 +34,23 @@ export default function ServersList({setServerActive}) {
                     src={logo}
                 />
             </NavLink>
-            { servers?.map(server => (
-                <NavLink
-                    to={`/servers/${server.id}`}
-                    className={style.serverWrapper}
-                    key={server.id}
-                >
-                    <img
-                        className={style.serverImg}
-                        src={ server.image_url }
-                    />
-                </NavLink>
-            ))}
+            { servers?.map(server => {
+                if (!server.private) {
+                    return(
+                        <NavLink
+                            to={`/servers/${server.id}`}
+                            className={style.serverWrapper}
+                            key={server.id}
+                        >
+                            <img
+                                className={style.serverImg}
+                                src={ server.image_url }
+                            />
+                        </NavLink>
+                    )
+                }
+            }
+            )}
             <button
                 className={style.newServer}
                 onClick={() => setServerActive(true)}
