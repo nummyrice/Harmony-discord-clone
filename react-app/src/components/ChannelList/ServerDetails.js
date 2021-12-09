@@ -18,13 +18,44 @@ const ServerDetails = () => {
     // }
     console.log('CURRENT SERVER----: ', server)
 
+
+
+    const serverSettingsMenu = document.getElementById('serverSettingsMenu');
+    const serverMenuDropdown = document.getElementById('serverMenuDropdown');
+    const serverMenuIcon = document.getElementById('serverMenuIcon');
+
+    const handleServerMenuDropdown = () => {
+        if (serverSettingsMenu.classList.contains(style.serverMenuOpen)
+            && serverMenuDropdown.classList.contains(style.serverMenuDropdownActive)) {
+            serverMenuDropdown.classList.remove(style.serverMenuDropdownActive);
+            serverSettingsMenu.classList.remove(style.serverMenuOpen);
+            serverMenuIcon.classList.remove(style.iconClose);
+            serverMenuIcon.classList.add(style.iconOpen);
+
+            // window.addEventListener('click', () => {
+            //     serverSettingsMenu.style.background = 'yellow'
+            //     console.log('hello')
+            // });
+        } else {
+            serverMenuDropdown.classList.add(style.serverMenuDropdownActive);
+            serverSettingsMenu.classList.add(style.serverMenuOpen);
+            serverMenuIcon.classList.remove(style.iconOpen);
+            serverMenuIcon.classList.add(style.iconClose);
+
+            // window.addEventListener('click', () => {
+            //     serverSettingsMenu.style.background = 'yellow'
+            //     console.log('hello')
+            // });
+        }
+    }
+
     return (
         <div className={style.serverDetailsWrapper}>
-            <div>
+            <div id='serverMenuDropdown' className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
                 <p>{server?.name}</p>
-                <p>X</p>
+                <i id='serverMenuIcon' className={style.iconOpen}></i>
             </div>
-            <div className={style.serverSettingsMenu}>
+            <div id='serverSettingsMenu' className={style.serverSettingsMenu}>
                 <p>Settings</p>
             </div>
         </div>

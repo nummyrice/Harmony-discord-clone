@@ -11,7 +11,15 @@
 }
 
 .channelListWrapper {
-    padding: 6px;
+    padding: 20px 6px;
+}
+
+.channelListWrapper > p:first-child {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+    padding-left: 9px;
+    text-transform: uppercase;
 }
 
 .channelIcon {
@@ -46,7 +54,7 @@ a:hover p, a:active p {
     position: relative;
 }
 
-.serverDetailsWrapper > div:first-child {
+.serverMenuDropdown {
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -55,14 +63,34 @@ a:hover p, a:active p {
     width: 100%;
 }
 
-.serverDetailsWrapper > div:first-child:hover {
+.serverMenuDropdown i {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 18px;
+    width: 18px;
+}
+
+.iconOpen {
+    background: url('./assets/down-arrow-wht.svg');
+}
+
+.iconClose {
+    background: url('./assets/exit-wht.svg');
+}
+
+.serverMenuDropdown:hover {
     background: rgb(54, 57, 63);
     cursor: pointer;
 }
 
+.serverMenuDropdownActive {
+    background: rgb(54, 57, 63);
+}
+
 .serverDetailsWrapper > div p {
     color: #fff;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .serverSettingsMenu {
@@ -71,5 +99,13 @@ a:hover p, a:active p {
     padding: 12px 16px;
     position: absolute;
     top: 58px;
+    transform: scale(0.7);
+    transition: transform 250ms;
+    visibility: hidden;
     width: 93%;
+}
+
+.serverMenuOpen {
+    transform: scale(1.0);
+    visibility: visible;
 }

@@ -25,6 +25,7 @@ const ChannelList = () => {
         <div className={style.channelComponentWrapper}>
             <ServerDetails />
             <div className={style.channelListWrapper}>
+                <p>Channels</p>
                 { channels && Object.values(channels).map((channel) => {
                     return (
                         <div key={channel.id}>
