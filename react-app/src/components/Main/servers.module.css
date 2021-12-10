@@ -13,6 +13,13 @@
 
 .div1 {
   background-color: rgb(32, 34, 37);
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.div1::-webkit-scrollbar {
+  display: none;
 }
 
 .div3 {

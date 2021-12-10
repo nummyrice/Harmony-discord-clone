@@ -1,83 +1,83 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    overflow-y: scroll
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  position: relative;
 }
 
 .home {
-    margin-top: 10px;
-    height: 64px;
-    width: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 50%;
-    background-color: rgb(46,49,54);
+  margin-top: 10px;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: rgb(46, 49, 54);
 }
 
 .directMessages {
-    height: 65%;
-    margin-top: 5px;
+  height: 65%;
+  margin-top: 5px;
 }
 
 .serverWrapper {
-    padding: 0;
+  padding: 0;
 }
 
 .serverImg {
-    height: 64px;
-    width: 64px;
-    overflow: hidden;
-    border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .newServer {
-    height: 64px;
-    width: 64px;
-    border-radius: 50%;
-    background-color: rgb(46,49,54);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    border: none;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background-color: rgb(46, 49, 54);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: none;
 }
 
 .newWrapper {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .addServer {
-    font-size: 48px;
-    color: rgb(59, 165, 93);
-    text-align: center;
+  font-size: 48px;
+  color: rgb(59, 165, 93);
+  text-align: center;
 }
 
 a > .serverImg:hover,
 .newServer:hover,
 .home:hover {
-    transition: ease 0.2s;
-    border-radius: 16px;
+  transition: ease 0.2s;
+  border-radius: 16px;
 }
 
 .newServer:hover {
-    background-color: rgb(59, 165, 93);
+  background-color: rgb(59, 165, 93);
 }
 
 .newServer:hover * {
-    color: white;
+  color: white;
 }
 
 .home:hover {
-    transition: ease 0.2s;
-    border-radius: 24px;
-    background-color: rgb(87,102,242);
+  transition: ease 0.2s;
+  border-radius: 24px;
+  background-color: rgb(87, 102, 242);
 }
 
 .newservmodal {
-    background-color: pink;
+  background-color: pink;
 }

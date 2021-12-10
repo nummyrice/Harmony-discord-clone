@@ -60,6 +60,8 @@
 }
 .card > img {
   height: 80px;
+  width: 80px;
+  border-radius: 50%;
   margin: 10px 0;
 }
 .card > h3 {
