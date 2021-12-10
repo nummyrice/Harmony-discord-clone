@@ -1,13 +1,31 @@
 * {
     border: none !important;
-    color: #83878C;
-    text-decoration: none;
 }
 
-.channelHeading {
-    background: #292B2F;
+.channelComponentWrapper {
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-decoration: none;
+    /* ---------------------- */
+    background: rgb(47, 49, 54);
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    height: 100vh;
+    justify-content: space-between;
+    position: relative;
+}
+
+.channelListWrapper {
     height: 100%;
-    padding: 6px;
+    overflow-y: scroll;
+    padding: 20px 6px;
+}
+
+.channelListWrapper > p:first-child {
+    font-size: 14px;
+    margin-bottom: 4px;
+    padding-left: 9px;
+    text-transform: uppercase;
 }
 
 .channelIcon {
@@ -16,20 +34,265 @@
     margin-right: 8px;
 }
 
-a {
+.channelListWrapper a {
     align-items: center;
     border-radius: 4px;
+    color: #464A51;
     display: flex;
-    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 18px;
     padding: 4px 8px;
     margin: 2px auto;
+    text-decoration: none;
+    text-transform: lowercase;
 }
 
 a:hover, a:active {
-    background: #32353A;
+    background: rgb(57, 60, 67);
 }
 
 a:hover p, a:active p {
     color: #fff;
+}
+
+.serverDetailsWrapper {
+    align-items: center;
+    background: rgb(47, 49, 54);
+    border-bottom: 1px solid #292b2f !important;
+    box-shadow: 0 1px 1px rgb(0, 0, 0, 30%);
+    display: flex;
+    flex-direction: column;
+}
+
+.serverMenuDropdown {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    transition: all 200ms;
+    width: 100%;
+}
+
+.serverMenuDropdown i {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 18px;
+    width: 18px;
+}
+
+.iconOpen {
+    background: url('./assets/down-arrow-wht.svg');
+}
+
+.iconClose {
+    background: url('./assets/exit-wht.svg');
+}
+
+.serverMenuDropdown:hover {
+    background: rgb(54, 57, 63);
+    cursor: pointer;
+}
+
+.serverMenuDropdownActive {
+    background: rgb(54, 57, 63);
+}
+
+.serverSettingsMenu {
+    background: #18191C;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    top: 58px;
+    transform: scale(0.7);
+    transition: transform 250ms;
+    visibility: hidden;
+    width: 93%;
+}
+
+.serverMenuOpen {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+.settingLink a, .disableOption {
+    align-items: center;
+    border-radius: 3px;
+    display: flex;
+    font-size: 13px;
+    justify-content: space-between;
+    padding: 6px 8px;
+    text-decoration: none;
+}
+
+.inviteLink {
+    color: #959EF4;
+}
+
+.inviteLink svg {
+    fill: #959EF4;
+}
+
+.stdServerLink {
+    color: #B9BBBE;
+}
+
+.inviteLink:hover, .stdServerLink:hover {
+    background: #959EF4;
+    color: #fff;
+}
+
+.inviteLink:hover svg {
+    fill: #fff;
+}
+
+.disableOption {
+    color: #EB444A;
+}
+
+.disableOption:hover {
+    background: #EB444A;
+    color: #fff;
+}
+
+.disableOption svg {
+    fill: #EB444A;
+}
+
+.disableOption:hover svg {
+    fill: #fff;
+}
+
+.userDetailsWrapper {
+    align-items: center;
+    background: #292B2F;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 8px;
+    width: 100%;
+}
+
+.userDetailsContent {
+    align-items: center;
+    display: flex;
+}
+
+.userProfileImage {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    height: 32px;
+    margin-right: 8px;
+    width: 32px;
+}
+
+.sampleProfileImage {
+    background: url('assets/sample-profile-img.svg') !important;
+}
+
+.detailsUsername {
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.detailsId {
+    color: #B9BBBE;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+}
+
+.userDetailsSettingsBtn {
+    border-radius: 4px;
+    display: flex;
+    padding: 8px;
+    position: relative;
+}
+
+.userDetailsSettingsBtn:hover {
+    background: rgb(57, 60, 67);
+    cursor: pointer;
+}
+
+.userDetailsSettingsBtn svg {
+    color: #B9BBBE;
+}
+
+.userDetailsSettingsBtn:hover svg {
+    color: #fff;
+}
+
+.settingsTooltip {
+    background: #18191C;
+    border-radius: 4px;
+    color: #DCDDDE;
+    font-size: 14px;
+    left: -67px;
+    padding: 6px 10px;
+    position: absolute;
+    top: -37px;
+    transform: scale(0.7);
+    transition: transform 200ms;
+    visibility: hidden;
+    white-space: nowrap;
+}
+
+.userDetailsSettingsBtn:hover .settingsTooltip {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+.userSettingsModalBg {
+    background: #36393F;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    /* ------------------ */
+    transform: scale(1.25);
+    transition: transform 200ms;
+    visibility: hidden;
+}
+
+.userSettingsModalBgActive {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+.userSettingsModal {
+    align-items: center;
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.userSettingsWrapper {
+    max-width: 660px;
+    width: 100%;
+    z-index: 20;
+}
+
+.userSettingsWrapper h2 {
+    color: #fff;
+    font-size: 21px;
+    margin-bottom: 16px;
+}
+
+.userSettingsWrapper > div {
+    background: #202225;
+    border-radius: 8px;
+    display: flex;
+    padding: 14px;
+}
+
+.deleteUserBtn {
+    background: red;
+}
+
+#settingsAvatar {
+    height: 94px;
+    width: 94px;
 }

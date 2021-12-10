@@ -70,3 +70,6 @@ div#root {
   background-color: rgb(54, 57, 63);
   color: rgb(254, 254, 254);
 }
+::-webkit-scrollbar {
+  display: none;
+}

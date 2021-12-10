@@ -17,6 +17,7 @@ import DirectMessages from "../DirectMessages";
 import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from "../../store/servers";
+import UserSettingsModal from "../ChannelList/UserSettingsModal";
 
 let socket;
 
@@ -150,7 +151,10 @@ export default function Servers() {
           <Route path="/servers/@me">
             <DMList />
           </Route>
-          <Route path="/servers/:serverId">
+          <Route
+            exact
+            path={["/servers/:serverId", "/servers/:serverId/:channelId"]}
+          >
             <ChannelList />
           </Route>
         </Switch>
@@ -184,6 +188,7 @@ export default function Servers() {
           </Route>
         </Switch>
       </div>
+      <UserSettingsModal />
     </main>
   );
 }
