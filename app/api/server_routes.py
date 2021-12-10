@@ -66,7 +66,7 @@ def delete_server(id):
         handle_delete_server(server.to_dict())
         db.session.delete(server)
         db.session.commit()
-        return {"result": "success"}
+        return server.to_dict()
 
 
 @server_routes.route('/<int:serverId>/members', methods=['POST'])

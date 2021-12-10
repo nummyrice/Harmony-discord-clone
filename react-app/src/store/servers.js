@@ -136,7 +136,7 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
     method: "DELETE",
   });
   const data = await response.json();
-  dispatch(deleteServer(data));
+  dispatch(deleteServer(data.id));
   return data;
 };
 
@@ -320,11 +320,9 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case DELETE_MEMBER:
       serverId = action.server.id;
-      if (serverId) {
-        newState[serverId].members = action.server.members;
-        newState[serverId].member_list = action.server.member_list;
-      }
+      delete newState[serverId];
       return newState;
+
     case GET_CHANNELS:
       let temp = {};
       for (let channel of action.channels) {
