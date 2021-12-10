@@ -5,6 +5,7 @@ import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 import ServerDetails from "./ServerDetails";
 import UserDetails from "./UserDetails";
+import UserSettingsModal from "./UserSettingsModal";
 
 const ChannelList = () => {
     const {serverId} = useParams();

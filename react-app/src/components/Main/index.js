@@ -8,6 +8,7 @@ import ServersList from "../ServerList";
 
 import Members from "../Members";
 import Header from "../Header";
+import UserSettingsModal from "../ChannelList/UserSettingsModal";
 export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
   function addServerFunc() {
@@ -67,6 +68,7 @@ export default function Servers() {
           <Members />
         </Route>
       </div>
+      <UserSettingsModal />
     </main>
   );
 }

@@ -17,8 +17,8 @@ const ServerDetails = () => {
     // if (JSON.stringify(channels) === '{}') {
     //     dispatch(serverActions.getChannelsThunk(+serverId))
     // }
-    console.log('SESSION USER----: ', +sessionUser.id)
-    console.log('SERVER OWNER----: ', +server?.owner_id)
+    // console.log('SESSION USER----: ', +sessionUser.id)
+    // console.log('SERVER OWNER----: ', +server?.owner_id)
 
 
 
