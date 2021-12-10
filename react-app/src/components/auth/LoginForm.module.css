@@ -1,0 +1,49 @@
+.loginFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(87,102,241);
+}
+
+.loginFormContainer > * {
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.loginFormWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2rem;
+    width: 400px;
+    height: 400px;
+    background-color: rgb(54,57,62);
+    border-radius: 4px;
+    gap: 1rem;
+}
+
+.loginFormHeading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: salmon;
+}
+
+.loginFormTitle {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.loginFormSubheading {
+    font-size: 14px;
+    text-align: center;
+    color: rgb(191,194,197);
+}
+
+.loginFormForm {
+    background-color: hotpink;
+}

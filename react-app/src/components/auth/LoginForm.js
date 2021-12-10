@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 import * as serverActions from "../../store/servers";
+import style from './LoginForm.module.css';
+
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  
+
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -31,34 +33,65 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <>
+      <div className={style.loginFormContainer}>
+        <div className={style.loginFormWrapper}>
+          <div className={style.loginFormHeading}>
+            <div className={style.loginFormTitle}>Welcome Back!</div>
+            <div className={style.loginFormSubheading}>We're so glad to see you again!</div>
+          </div>
+          <form
+            onSubmit={onLogin}
+            className={style.loginFormForm}
+          >
+            {/* <div>
+              {errors.map((error, ind) => (
+                <div key={ind}>{error}</div>
+              ))}
+            </div> */}
+            <div
+              className={style.loginFormInputFields}
+            >
+              <label htmlFor="email">
+                Email<span
+                    className={style.loginFormErrorSpan}
+                  >
+                    {errors[0] ? ` - ${errors[0].split(':')[1]}` : null}
+                    {errors[0] ? console.log(errors[0].split(':')[1]) : null}
+                  </span>
+              </label>
+              <input
+                name="email"
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
+            <div
+              className={style.loginFormInputFields}
+            >
+              <label htmlFor="password">
+                Password<span
+                    className={style.loginFormErrorSpan}
+                  >
+                    {errors[0] ? ` - ${errors[1].split(':')[1]}` : null}
+                    {errors[0] ? console.log(errors[0].split(':')[1]) : null}
+                  </span>
+              </label>
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={updatePassword}
+              />
+              <button type="submit">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    </>
   );
 };
 
