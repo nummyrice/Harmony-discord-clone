@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import style from "./members.module.css";
 import * as serverActions from "../../store/servers";
 import { useParams } from "react-router-dom";
 import Member from "./member";
 export default function Members() {
-  const { serverId } = useParams();
+  const { serverId, channelId } = useParams();
   const dispatch = useDispatch();
   const server = useSelector((state) => state.servers[serverId]);
 

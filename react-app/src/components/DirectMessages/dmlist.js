@@ -5,7 +5,7 @@ import * as serverActions from "../../store/servers";
 import { useDispatch, useSelector } from "react-redux";
 import Member from "../Members/member";
 import { Link } from "react-router-dom";
-
+import UserDetails from "../ChannelList/UserDetails";
 export default function DMList() {
   const dispatch = useDispatch();
   const servers = useSelector((state) => state.servers);
@@ -30,10 +30,15 @@ export default function DMList() {
       );
     }
   }
+
   return (
     <div class={style.privateServerList}>
-      <h3>DIRECT MESSAGES</h3>
-      {privateServers?.map(privateServer)}
+      <div>
+        <div className={style.dmlistHeader}></div>
+        <h3>DIRECT MESSAGES</h3>
+        {privateServers?.map(privateServer)}
+      </div>
+      <UserDetails />
     </div>
   );
 }

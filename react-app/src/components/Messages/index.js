@@ -10,7 +10,10 @@ export default function ChannelMessages() {
   const { serverId, channelId } = useParams();
 
   const server = useSelector((state) => state.servers?.[serverId]);
-
+  const channel = server?.channels?.[channelId];
+  const messages = useSelector(
+    (state) => state.servers?.[serverId]?.channels?.[channelId]?.messages
+  );
   const sessionUser = useSelector((state) => state.session?.user);
   const [messageInput, setMessageInput] = useState("");
   const [editMessageInput, setEditMessageInput] = useState({
@@ -51,8 +54,6 @@ export default function ChannelMessages() {
       );
     }
   }
-  const channel = server?.channels?.[channelId];
-  const messages = channel?.messages;
 
   // Prevents message store without channel store
   if (channel) {
