@@ -42,7 +42,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         }
 
         let createdServer = await dispatch(postServerThunk(newServer));
-        console.log('newserver', createdServer);
+        // console.log('newserver', createdServer);
 
         const defaultChannel = {
             server_id: createdServer.id,
@@ -51,6 +51,12 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
 
         dispatch(postChannelThunk(defaultChannel));
         setCreateNewServer(false);
+    }
+
+    const uploadImage = (e) => {
+        const file = e.target.files[0].name;
+        console.log('file', file)
+        setImageUrl(file);
     }
 
     return (
@@ -101,6 +107,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
                                 id='imgFile'
                                 type='file'
                                 accept='.jpg, .jpeg, .png, .gif'
+                                onChange={uploadImage}
                             />
                         </div>
                         <div className={style.newServerInputWrapper}>

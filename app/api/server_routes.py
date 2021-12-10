@@ -4,8 +4,10 @@ from flask_login import login_required, current_user
 from app.models import Server, User, Member, server, db
 from app.forms import NewServerForm, EditServerForm
 from app.socket import handle_add_channel, handle_edit_server, handle_delete_server
+from app.aws_upload import (upload_file_to_s3, allowed_file, get_unique_filename)
 server_routes = Blueprint('servers', __name__)
 
+@server_routes.route('', )
 
 @server_routes.route('/')
 @login_required
@@ -16,16 +18,35 @@ def servers():
 
     return {'servers': [server.to_dict() for server in user_servers]}
 
-
 @server_routes.route('/', methods=['POST'])
 @login_required
 def new_server():
     form = NewServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
+
+    image = request.files["image"]
+    print('image!!!!', image)
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        return upload, 400
+
+    url = upload["url"]
+
     if form.validate_on_submit():
         server = Server(
             name=form.data['name'],
-            image_url=form.data['image_url'],
+            image_url=url,
             private=form.data['private'],
             owner_id=current_user.id
         )
