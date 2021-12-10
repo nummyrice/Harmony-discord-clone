@@ -163,13 +163,50 @@ a:hover p, a:active p {
 }
 
 .userDetailsWrapper {
-    background: #fff;
-    padding: 8px 16px 8px 8px;
+    align-items: center;
+    background: #292B2F;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px 10px 8px;
     width: 100%;
 }
 
-.sampleDiv {
-    background: lightcoral;
-    height: 1000px;
-    width: 100%;
+.userDetailsContent {
+    align-items: center;
+    display: flex;
+}
+
+.userProfileImage {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    height: 32px;
+    margin-right: 8px;
+    width: 32px;
+}
+
+.sampleProfileImage {
+    background: url('assets/sample-profile-img.svg') !important;
+}
+
+.detailsUsername {
+    color: #fff;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.detailsId {
+    color: #B9BBBE;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+}
+
+.userDetailsSettingsBtn {
+    display: flex;
+}
+
+.userDetailsSettingsBtn svg {
+    color: #B9BBBE;
 }
