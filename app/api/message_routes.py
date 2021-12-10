@@ -4,6 +4,8 @@ from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.models import Message, Server, User, Member, server, db
 from app.forms import NewMessageForm
+from app.socket import handle_add_message, handle_edit_message, handle_delete_message
+
 message_routes = Blueprint('messages', __name__)
 
 
@@ -28,6 +30,7 @@ def new_message(serverId, channelId):
         )
         db.session.add(message)
         db.session.commit()
+        handle_add_message(message.to_dict())
         return message.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
@@ -43,6 +46,7 @@ def edit_message(serverId, channelId, messageId):
         message.content = form.data['content']
 
         db.session.commit()
+        handle_edit_message(message.to_dict())
 
         return message.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
@@ -53,6 +57,7 @@ def edit_message(serverId, channelId, messageId):
 def delete_message(serverId, channelId, messageId):
     message = Message.query.get(int(messageId))
     if message.owner_id == current_user.id:
+        handle_delete_message(message.to_dict())
         db.session.delete(message)
         db.session.commit()
         return {"result": "success"}

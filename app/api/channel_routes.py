@@ -1,3 +1,4 @@
+from app.socket import handle_add_channel, handle_edit_channel, handle_delete_channel
 from .auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
@@ -27,6 +28,7 @@ def new_channel(id):
         )
         db.session.add(channel)
         db.session.commit()
+        handle_add_channel(channel.to_dict())
         return channel.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
@@ -41,6 +43,7 @@ def edit_channel(serverId, channelId):
         channel = Channel.query.get(int(channelId))
         channel.name = form.data['name']
         db.session.commit()
+        handle_edit_channel(channel.to_dict())
 
         return channel.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
@@ -52,6 +55,7 @@ def delete_channel(serverId, channelId):
     server = Server.query.get(int(serverId))
     if server.owner_id == current_user.id:
         channel = Channel.query.get(int(channelId))
+        handle_delete_channel(channel.to_dict())
         db.session.delete(channel)
         db.session.commit()
     return {"result": "success"}

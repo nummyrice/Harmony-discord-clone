@@ -1,10 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 import style from "./header.module.css";
+import * as serverActions from "../../store/servers";
 
-export default function Member() {
+export default function Header() {
+  const dispatch = useDispatch();
   let [searchVal, setSearchVal] = useState("");
   let [width, setWidth] = useState("150px");
   let [color, setColor] = useState("white");
+  let { serverId, channelId } = useParams();
+  let url = useLocation().pathname;
+  const servers = useSelector((state) => state.servers);
+  const session = useSelector((state) => state.session);
+
+  let server;
+  let channel;
+  if (isNaN(+serverId)) {
+    server = servers[channelId];
+  } else {
+    server = servers[serverId];
+    channel = server?.channels?.[channelId];
+  }
+  console.log("!!!!!!!!!!", server);
+  useEffect(() => {
+    if (!server) {
+      if (isNaN(+serverId)) {
+        dispatch(serverActions.postMemberThunk(channelId));
+      } else {
+        dispatch(serverActions.postMemberThunk(serverId));
+      }
+    }
+  }, []);
+
   let usersIcon = (
     <svg
       x="0"
@@ -187,12 +215,22 @@ export default function Member() {
       setColor("rgb(142,146,151)");
     }
   }
+  function titel() {
+    if (url.includes("@me")) {
+      const otherMember = server.member_list.find(
+        (member) => +session.user.id !== +member.id
+      );
+      return otherMember.username;
+    } else {
+      return channel?.name;
+    }
+  }
 
   return (
     <div className={style.main}>
       <div className={style.left}>
         {channelIcon}
-        <h3>Channel</h3>
+        <h3>{titel()}</h3>
       </div>
       <div className={style.right}>
         {threadIcon}
