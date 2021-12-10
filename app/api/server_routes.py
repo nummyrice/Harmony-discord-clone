@@ -112,9 +112,10 @@ def delete_member(serverId):
     userId = current_user.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
+
     if user in server.members:
-        member = Member.query.filter(
-            userId == Member.user_id and serverId == Member.server_id)[0]
+        member = Member.query.filter(userId == Member.user_id).filter(
+            serverId == Member.server_id)[0]
         db.session.delete(member)
         db.session.commit()
         handle_edit_server(server.to_dict())

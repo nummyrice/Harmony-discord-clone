@@ -9,9 +9,9 @@ export default function Members() {
   const { serverId, channelId } = useParams();
   const dispatch = useDispatch();
   const server = useSelector((state) => state.servers[serverId]);
+  const members = useSelector((state) => state.servers[serverId]?.member_list);
 
   if (!server) dispatch(serverActions.getServersThunk());
-  const members = server?.member_list;
   return (
     <aside className={style.main}>
       <h5>MEMBERS - {members ? members.length : 0}</h5>

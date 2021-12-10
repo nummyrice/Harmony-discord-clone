@@ -40,7 +40,7 @@ export default function Servers() {
     });
     socket.on("delete_server", (server) => {
       if (server.members.includes(session.user.id))
-        dispatch(serverActions.deleteServer(server));
+        dispatch(serverActions.deleteServer(server.id));
     });
     socket.on("add_channel", (channel) => {
       dispatch(serverActions.postChannel(channel));
@@ -52,13 +52,19 @@ export default function Servers() {
       dispatch(serverActions.deleteChannel(channel));
     });
     socket.on("add_message", (message) => {
-      dispatch(serverActions.postMessage(message));
+      dispatch(serverActions.postMessage(message.data, message.server_id));
     });
     socket.on("edit_message", (message) => {
-      dispatch(serverActions.editMessage(message));
+      dispatch(serverActions.editMessage(message.data, message.server_id));
     });
     socket.on("delete_message", (message) => {
-      dispatch(serverActions.deleteMessage(message));
+      dispatch(
+        serverActions.deleteMessage({
+          message_id: message.data.id,
+          channel_id: message.data.channel_id,
+          server_id: message.server_id,
+        })
+      );
     });
     return () => {
       socket.disconnect();
@@ -164,7 +170,10 @@ export default function Servers() {
           <Route exact path="/servers/@me">
             <DirectMessages />
           </Route>
-          <Route path="/servers/:serverId/:channelId">
+          <Route
+            exact
+            path={["/servers/:serverId", "/servers/:serverId/:channelId"]}
+          >
             <Header />
           </Route>
         </Switch>
@@ -175,7 +184,13 @@ export default function Servers() {
           <Route exact path={"/servers/:serverId"}>
             <div></div>
           </Route>
-          <Route path="/servers/:serverId/:channelId">
+          <Route
+            exact
+            path={[
+              "/servers/@me/:serverId/:channelId",
+              "/servers/:serverId/:channelId",
+            ]}
+          >
             <ChannelMessages />
           </Route>
         </Switch>

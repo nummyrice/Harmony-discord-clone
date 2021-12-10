@@ -22,7 +22,6 @@ export default function Header() {
     server = servers[serverId];
     channel = server?.channels?.[channelId];
   }
-  console.log("!!!!!!!!!!", server);
   useEffect(() => {
     if (!server) {
       if (isNaN(+serverId)) {

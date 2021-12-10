@@ -405,6 +405,7 @@ export default function serverReducer(state = {}, action) {
       }
       return newState;
     case DELETE_MESSAGE:
+      console.log("****************", action.message);
       if (
         newState[action.message.server_id] &&
         newState[action.message.server_id].channels[action.message.channel_id]
@@ -412,11 +413,13 @@ export default function serverReducer(state = {}, action) {
         delete newState[action.message.server_id].channels[
           action.message.channel_id
         ].messages[action.message.message_id];
-        newState[action.server_id].channels[
+
+        newState[action.message.server_id].channels[
           action.message.channel_id
         ].messages = {
-          ...newState[action.server_id].channels[action.message.channel_id]
-            .messages,
+          ...newState[action.message.server_id].channels[
+            action.message.channel_id
+          ].messages,
         };
       }
       return newState;
