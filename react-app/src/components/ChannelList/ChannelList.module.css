@@ -68,7 +68,7 @@ a:hover p, a:active p {
     display: flex;
     justify-content: space-between;
     padding: 12px 16px;
-    transition: all 250ms;
+    transition: all 200ms;
     width: 100%;
 }
 
@@ -167,7 +167,7 @@ a:hover p, a:active p {
     background: #292B2F;
     display: flex;
     justify-content: space-between;
-    padding: 10px 16px 10px 8px;
+    padding: 10px 8px;
     width: 100%;
 }
 
@@ -204,9 +204,62 @@ a:hover p, a:active p {
 }
 
 .userDetailsSettingsBtn {
+    border-radius: 4px;
     display: flex;
+    padding: 8px;
+    position: relative;
+}
+
+.userDetailsSettingsBtn:hover {
+    background: rgb(57, 60, 67);
+    cursor: pointer;
 }
 
 .userDetailsSettingsBtn svg {
     color: #B9BBBE;
 }
+
+.userDetailsSettingsBtn:hover svg {
+    color: #fff;
+}
+
+.settingsTooltip {
+    background: #18191C;
+    border-radius: 4px;
+    color: #DCDDDE;
+    font-size: 14px;
+    left: -67px;
+    padding: 6px 10px;
+    position: absolute;
+    top: -37px;
+    transform: scale(0.7);
+    transition: transform 200ms;
+    visibility: hidden;
+    white-space: nowrap;
+}
+
+.userDetailsSettingsBtn:hover .settingsTooltip {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+/*
+
+.serverSettingsMenu {
+    background: #18191C;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    top: 58px;
+    transform: scale(0.7);
+    transition: transform 250ms;
+    visibility: hidden;
+    width: 93%;
+}
+
+.serverMenuOpen {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+*/

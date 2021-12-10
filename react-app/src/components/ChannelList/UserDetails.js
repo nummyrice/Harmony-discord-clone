@@ -41,6 +41,7 @@ const UserDetails = () => {
             </div>
             <div className={style.userDetailsSettingsBtn}>
                 {userSettingsIcon}
+                <div className={style.settingsTooltip}>User Settings</div>
             </div>
         </div>
     );
