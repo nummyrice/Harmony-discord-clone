@@ -10,9 +10,11 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
     const user = useSelector(state => state.session.user)
 
     const [imageUrl, setImageUrl] = useState('https://i.ibb.co/QNxL2kj/Discord-Logo-Color.png');
+    const [oldImageUrl, setOldImageUrl] = useState('');
     const [serverName, setServerName] = useState(`${user.username}'s server`);
     const [errors, setErrors] = useState([]);
     const [imgFile, setImgFile] = useState('');
+    const [oldPreview, setOldPreview] = useState('');
 
     const validate = () => {
         const validationErrors = [];
@@ -53,15 +55,23 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         setCreateNewServer(false);
     }
 
-    // let previewImg = '';
+    // let oldSelection = '';
     const setImage = (e) => {
         let file = e.target.files[0];
         // previewImg = file.name
         console.log('file', file)
         setImageUrl(e.target.files[0]);
-        file = URL.createObjectURL(file)
+        if (file) {
+            setOldImageUrl(file);
 
-        setImgFile(file)
+            file = URL.createObjectURL(file);
+            setImgFile(file);
+            setOldPreview(file);
+        } else {
+            setImgFile(oldPreview);
+            setImageUrl(oldImageUrl)
+        }
+
     }
 
     return (
