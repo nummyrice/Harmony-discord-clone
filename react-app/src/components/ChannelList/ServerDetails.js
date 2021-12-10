@@ -37,14 +37,26 @@ const ServerDetails = () => {
         <svg class="icon-LYJorE" aria-hidden="false" width="18" height="18" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M19.2929 9.8299L19.9409 9.18278C21.353 7.77064 21.353 5.47197 19.9409 4.05892C18.5287 2.64678 16.2292 2.64678 14.817 4.05892L14.1699 4.70694L19.2929 9.8299ZM12.8962 5.97688L5.18469 13.6906L10.3085 18.813L18.0201 11.0992L12.8962 5.97688ZM4.11851 20.9704L8.75906 19.8112L4.18692 15.239L3.02678 19.8796C2.95028 20.1856 3.04028 20.5105 3.26349 20.7337C3.48669 20.9569 3.8116 21.046 4.11851 20.9704Z" fill="currentColor"></path></svg>
     );
 
-    deleteServer = (
-      <div className={style.settingLink}>
-        <Link className={style.disableOption}>
-          <p>Delete Server</p>
-          {disableServerIcon}
-        </Link>
-      </div>
-    );
+    const disableServerIcon = (
+        <svg
+          class="icon-LYJorE"
+          aria-hidden="false"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+        >
+          <path d="M10.418 13L12.708 15.294L11.292 16.706L6.586 11.991L11.294 7.292L12.707 8.708L10.41 11H21.949C21.446 5.955 17.177 2 12 2C6.486 2 2 6.487 2 12C2 17.513 6.486 22 12 22C17.177 22 21.446 18.046 21.949 13H10.418Z"></path>
+        </svg>
+      );
+
+    // deleteServer = (
+    //   <div className={style.settingLink}>
+    //     <Link className={style.disableOption}>
+    //       <p>Delete Server</p>
+    //       {disableServerIcon}
+    //     </Link>
+    //   </div>
+    // );
 
     let invitePeople;
     let editServer;
