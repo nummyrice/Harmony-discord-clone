@@ -118,5 +118,5 @@ def delete_member(serverId):
         db.session.delete(member)
         db.session.commit()
         handle_edit_server(server.to_dict())
-        return {"result": "success"}
+        return server.to_dict()
     return {"result": "failed"}
