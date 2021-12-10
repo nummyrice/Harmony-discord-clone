@@ -25,6 +25,6 @@ class Message(db.Model):
             "channel_id": self.channel_id,
             "owner_id": self.owner_id,
             "owner": self.users.to_dict(),
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
+            'created_at': self.created_at.strftime('%m/%d/%Y %H:%M:%S'),
+            'updated_at': self.updated_at.strftime('%m/%d/%Y %H:%M:%S')
         }

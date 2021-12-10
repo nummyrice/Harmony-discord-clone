@@ -25,15 +25,15 @@ const getServers = (servers) => ({
   type: GET_SERVERS,
   servers,
 });
-const postServer = (server) => ({
+export const postServer = (server) => ({
   type: POST_SERVER,
   server,
 });
-const editServer = (server) => ({
+export const editServer = (server) => ({
   type: EDIT_SERVER,
   server,
 });
-const deleteServer = (serverId) => ({
+export const deleteServer = (serverId) => ({
   type: DELETE_SERVER,
   serverId,
 });
@@ -52,17 +52,17 @@ const deleteMember = (server) => ({
 const getChannels = (channels, serverId) => ({
   type: GET_CHANNELS,
   channels,
-  serverId
+  serverId,
 });
-const postChannel = (channel) => ({
+export const postChannel = (channel) => ({
   type: POST_CHANNEL,
   channel,
 });
-const editChannel = (channel) => ({
+export const editChannel = (channel) => ({
   type: EDIT_CHANNEL,
   channel,
 });
-const deleteChannel = (channel) => ({
+export const deleteChannel = (channel) => ({
   type: DELETE_CHANNEL,
   channel,
 });
@@ -71,19 +71,19 @@ const deleteChannel = (channel) => ({
 const getMessages = (messages, server_id) => ({
   type: GET_MESSAGES,
   messages,
-  server_id
+  server_id,
 });
-const postMessage = (message, server_id) => ({
+export const postMessage = (message, server_id) => ({
   type: POST_MESSAGE,
   message,
-  server_id
+  server_id,
 });
-const editMessage = (message, server_id) => ({
+export const editMessage = (message, server_id) => ({
   type: EDIT_MESSAGE,
   message,
-  server_id
+  server_id,
 });
-const deleteMessage = (message) => ({
+export const deleteMessage = (message) => ({
   type: DELETE_MESSAGE,
   message,
 });
@@ -127,6 +127,7 @@ export const editServerThunk = (server) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(editServer(data));
+
   return data;
 };
 
@@ -148,9 +149,27 @@ export const postMemberThunk = (serverId) => async (dispatch) => {
     },
   });
   const data = await response.json();
+  const response2 = await fetch(`/api/servers/`);
+  const data2 = await response2.json();
+  dispatch(getServers(data2.servers));
   dispatch(postMember(data));
   return data;
 };
+export const postPrivateMemberThunk =
+  (serverId, memberId) => async (dispatch) => {
+    const response = await fetch(
+      `/api/servers/${serverId}/members/${memberId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    dispatch(postMember(data));
+    return data;
+  };
 
 export const deleteMemberThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`/api/servers/${serverId}/members`, {
@@ -160,6 +179,9 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
     },
   });
   const data = await response.json();
+  const response2 = await fetch(`/api/servers/`);
+  const data2 = await response2.json();
+  dispatch(getServers(data2.servers));
   dispatch(deleteMember(data));
   return data;
 };
@@ -206,7 +228,7 @@ export const editChannelThunk = (channel) => async (dispatch) => {
 };
 
 export const deleteChannelThunk = (channel) => async (dispatch) => {
-  const { server_id, id} = channel
+  const { server_id, id } = channel;
   const response = await fetch(`/api/servers/${server_id}/${id}`, {
     method: "DELETE",
   });
@@ -216,7 +238,7 @@ export const deleteChannelThunk = (channel) => async (dispatch) => {
 
 // Message Thunks
 export const getMessagesThunk = (message) => async (dispatch) => {
-  const {server_id, channel_id} = message;
+  const { server_id, channel_id } = message;
   const response = await fetch(`/api/servers/${server_id}/${channel_id}`);
   const data = await response.json();
 
@@ -242,15 +264,18 @@ export const postMessageThunk = (message) => async (dispatch) => {
 
 export const editMessageThunk = (message) => async (dispatch) => {
   const { content, server_id, channel_id, message_id } = message;
-  const response = await fetch(`/api/servers/${server_id}/${channel_id}/${message_id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      content,
-    }),
-  });
+  const response = await fetch(
+    `/api/servers/${server_id}/${channel_id}/${message_id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    }
+  );
   const data = await response.json();
   dispatch(editMessage(data, server_id));
   return data;
@@ -258,16 +283,19 @@ export const editMessageThunk = (message) => async (dispatch) => {
 
 export const deleteMessageThunk = (message) => async (dispatch) => {
   const { server_id, channel_id, message_id } = message;
-  const response = await fetch(`/api/servers/${server_id}/${channel_id}/${message_id}`, {
-    method: "DELETE",
-  });
+  const response = await fetch(
+    `/api/servers/${server_id}/${channel_id}/${message_id}`,
+    {
+      method: "DELETE",
+    }
+  );
   const data = await response.json();
   dispatch(deleteMessage(message));
   return data;
 };
 
 export default function serverReducer(state = {}, action) {
-  let serverId
+  let serverId;
   const newState = { ...state };
   switch (action.type) {
     case GET_SERVERS:
@@ -285,11 +313,17 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case POST_MEMBER:
       serverId = action.server.id;
-      if (serverId) newState[serverId].members = action.server.members;
+      if (serverId) {
+        newState[serverId].members = action.server.members;
+        newState[serverId].member_list = action.server.member_list;
+      }
       return newState;
     case DELETE_MEMBER:
       serverId = action.server.id;
-      if (serverId) newState[serverId].members = action.server.members;
+      if (serverId) {
+        newState[serverId].members = action.server.members;
+        newState[serverId].member_list = action.server.member_list;
+      }
       return newState;
     case GET_CHANNELS:
       for (let channel of action.channels) {
@@ -297,44 +331,66 @@ export default function serverReducer(state = {}, action) {
           newState[channel.server_id].channels[channel.id] = channel;
         }
       }
-      return newState
+      return newState;
     case POST_CHANNEL:
       if (newState[action.channel.server_id]) {
-        newState[action.channel.server_id].channels[action.channel.id] = action.channel
+        newState[action.channel.server_id].channels[action.channel.id] =
+          action.channel;
       }
       return newState;
     case EDIT_CHANNEL:
       if (newState[action.channel.server_id]) {
-        newState[action.channel.server_id].channels[action.channel.id] = action.channel
+        newState[action.channel.server_id].channels[action.channel.id] =
+          action.channel;
       }
       return newState;
     case DELETE_CHANNEL:
       if (newState[action.channel.server_id]) {
-        delete newState[action.channel.server_id].channels[action.channel.id]
+        delete newState[action.channel.server_id].channels[action.channel.id];
       }
       return newState;
     case GET_MESSAGES:
       for (let message of action.messages) {
-        if (newState[action.server_id] && newState[action.server_id].channels[message.channel_id]) {
-          newState[action.server_id].channels[message.channel_id].messages[message.id] = message
+        if (
+          newState[action.server_id] &&
+          newState[action.server_id].channels[message.channel_id]
+        ) {
+          newState[action.server_id].channels[message.channel_id].messages[
+            message.id
+          ] = message;
         }
       }
-      return newState
+      return newState;
     case POST_MESSAGE:
-      if (newState[action.server_id] && newState[action.server_id].channels[action.message.channel_id]) {
-        newState[action.server_id].channels[action.message.channel_id].messages[action.message.id] = action.message
+      if (
+        newState[action.server_id] &&
+        newState[action.server_id].channels[action.message.channel_id]
+      ) {
+        newState[action.server_id].channels[action.message.channel_id].messages[
+          action.message.id
+        ] = action.message;
       }
-      return newState
+      return newState;
     case EDIT_MESSAGE:
-      if (newState[action.server_id] && newState[action.server_id].channels[action.message.channel_id]) {
-        newState[action.server_id].channels[action.message.channel_id].messages[action.message.id] = action.message
+      if (
+        newState[action.server_id] &&
+        newState[action.server_id].channels[action.message.channel_id]
+      ) {
+        newState[action.server_id].channels[action.message.channel_id].messages[
+          action.message.id
+        ] = action.message;
       }
-      return newState
+      return newState;
     case DELETE_MESSAGE:
-      if (newState[action.message.server_id] && newState[action.message.server_id].channels[action.message.channel_id]) {
-        delete newState[action.message.server_id].channels[action.message.channel_id].messages[action.message.message_id]
+      if (
+        newState[action.message.server_id] &&
+        newState[action.message.server_id].channels[action.message.channel_id]
+      ) {
+        delete newState[action.message.server_id].channels[
+          action.message.channel_id
+        ].messages[action.message.message_id];
       }
-      return newState
+      return newState;
     default:
       return state;
   }

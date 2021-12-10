@@ -41,6 +41,6 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'image_url': self.image_url,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'created_at': self.created_at.strftime('%m/%d/%Y %H:%M:%S'),
+            'updated_at': self.updated_at.strftime('%m/%d/%Y %H:%M:%S')
         }
