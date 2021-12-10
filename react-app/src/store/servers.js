@@ -326,9 +326,11 @@ export default function serverReducer(state = {}, action) {
       }
       return newState;
     case GET_CHANNELS:
+      let temp = {};
       for (let channel of action.channels) {
         if (newState[channel.server_id]) {
-          newState[channel.server_id].channels[channel.id] = channel;
+          temp[channel.id] = channel;
+          newState[channel.server_id].channels = temp;
         }
       }
       return newState;
@@ -336,28 +338,39 @@ export default function serverReducer(state = {}, action) {
       if (newState[action.channel.server_id]) {
         newState[action.channel.server_id].channels[action.channel.id] =
           action.channel;
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
+
       return newState;
     case EDIT_CHANNEL:
       if (newState[action.channel.server_id]) {
         newState[action.channel.server_id].channels[action.channel.id] =
           action.channel;
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
       return newState;
     case DELETE_CHANNEL:
       if (newState[action.channel.server_id]) {
         delete newState[action.channel.server_id].channels[action.channel.id];
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
       return newState;
     case GET_MESSAGES:
+      let temp2 = {};
       for (let message of action.messages) {
         if (
           newState[action.server_id] &&
           newState[action.server_id].channels[message.channel_id]
         ) {
-          newState[action.server_id].channels[message.channel_id].messages[
-            message.id
-          ] = message;
+          temp2[message.id] = message;
+          newState[action.server_id].channels[message.channel_id].messages =
+            temp2;
         }
       }
       return newState;
@@ -369,6 +382,12 @@ export default function serverReducer(state = {}, action) {
         newState[action.server_id].channels[action.message.channel_id].messages[
           action.message.id
         ] = action.message;
+        newState[action.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.server_id].channels[action.message.channel_id]
+            .messages,
+        };
       }
       return newState;
     case EDIT_MESSAGE:
@@ -379,6 +398,12 @@ export default function serverReducer(state = {}, action) {
         newState[action.server_id].channels[action.message.channel_id].messages[
           action.message.id
         ] = action.message;
+        newState[action.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.server_id].channels[action.message.channel_id]
+            .messages,
+        };
       }
       return newState;
     case DELETE_MESSAGE:
@@ -389,6 +414,12 @@ export default function serverReducer(state = {}, action) {
         delete newState[action.message.server_id].channels[
           action.message.channel_id
         ].messages[action.message.message_id];
+        newState[action.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.server_id].channels[action.message.channel_id]
+            .messages,
+        };
       }
       return newState;
     default:

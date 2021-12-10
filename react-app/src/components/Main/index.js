@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import ChannelList from "../ChannelList";
 import style from "./servers.module.css";
 import ChannelMessages from "../Messages";
@@ -164,7 +164,7 @@ export default function Servers() {
           <Route exact path="/servers/@me">
             <DirectMessages />
           </Route>
-          <Route path={["/servers/:serverId/:channelId"]}>
+          <Route path="/servers/:serverId/:channelId">
             <Header />
           </Route>
         </Switch>
@@ -183,7 +183,15 @@ export default function Servers() {
           <Route exact path="/servers/@me">
             <div className={style.div10}></div>
           </Route>
-          <Route path={["/servers/@me/:serverId", "/servers/:serverId"]}>
+          <Route
+            exact
+            path={[
+              "/servers/@me/:serverId",
+              "/servers/:serverId",
+              "/servers/:serverId/:channelId",
+              "/servers/@me/:serverId/:channelId",
+            ]}
+          >
             <Members />
           </Route>
         </Switch>
