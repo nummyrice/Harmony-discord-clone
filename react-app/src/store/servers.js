@@ -236,8 +236,6 @@ export const postMessageThunk = (message) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  console.log('///////////////////')
-  console.log(data)
   dispatch(postMessage(data, server_id));
   return data;
 };

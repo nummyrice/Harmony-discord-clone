@@ -1,8 +1,9 @@
 .channel_messages_container {
-    display: block;
+    /* display: block; */
     padding: 1rem;
     /* overflow-x: hidden; */
     overflow-y: scroll;
+    height: calc(100vh - 105px);
 }
 
 .server_image {
@@ -34,15 +35,15 @@
 }
 
 .message_container {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    padding: 15px 10px 15px 10px;
     display: grid;
-    grid-template-columns: 3.5rem 3.5rem 100%;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 3.5rem auto auto 50px;
+    grid-template-rows: 1fr auto;
     gap: 0px 0px;
     grid-template-areas:
-      "image name date"
-      "image text text";
+      "image name date options"
+      "image text text text";
+      /* width: 100%; */
 }
 
 .message_container:hover {
@@ -55,6 +56,8 @@
     height: 40px;
     width: 40px;
     grid-area: image;
+    justify-self: center;
+    /* align-self: center; */
 }
 
 .owner_username {
@@ -63,6 +66,7 @@
     color: #f9f9fa;
     font-weight: 500;
     grid-area: name;
+    align-self: end;
 
 }
 
@@ -70,32 +74,209 @@
     font-family: Helvetica;
     font-size: 13px;
     grid-area: date;
+    align-self: center;
 
 }
+.message_container:hover .message_options {
+    visibility: visible;
+}
+.message_options {
+    visibility: hidden;
+    border: 3px solid #292b30 !important;
+    border-radius: 15%;
+    width: 6rem;
+    height: 2.50rem;
+    grid-area: options;
+    margin-right: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+    "edit delete";
+    justify-self: end;
+    justify-content: end;
+    align-content: strendetch;
+    box-shadow: 2px 2px 2px #292b30;
 
+    /* justify-content: center;
+    align-content: center; */
+}
+
+.message_edit {
+    grid-area: edit;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 5px;
+    /* pointer-events: none; */
+}
+
+.message_delete {
+    grid-area: delete;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 5px;
+
+}
 .message_content {
     font-family: Helvetica;
     font-size: 16px;
     color: #f9f9fa;
     grid-area: text;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    overflow-x: hidden;
 }
+
 
 .message_input_container {
     font-family: Helvetica;
-    position: fixed;
-    bottom: 1rem;
+    position: static;
+    /* top: 1rem; */
     background-color: #40444b;
-    width: 50%;
-    border-radius: 8px;
+    /* width: 100%; */
+    border-radius: 7.25px;
     height: 40px;
     text-rendering: optimizeLegibility;
-    justify-content: center;
-    padding: 0px;
+    /* justify-content: center; */
+    margin: 10px;
 }
 
 .message_input_field {
+    font-family: Helvetica;
     background-color: transparent !important;
-    width: 100%;
+    width: -webkit-fill-available;
+    /* width: 100%; */
     margin-left: 1rem;
     margin-top: .5rem;
+}
+
+.edit_message_input_container {
+    background-color: #36393f;
+    position: fixed;
+    bottom: 1rem;
+    margin: 5px;
+    border-top: 1px solid #a7a9ac !important;
+
+}
+
+.edit_message_input_field {
+    font-family: Helvetica;
+    background-color: #40444b;
+    border-radius: 8px;
+    height: 40px;
+    margin: 5px;
+    padding: 10px;
+    color: #f9f9fa;
+    font-size: 16px;
+
+
+}
+
+.edit_message_cancel {
+    font-family: Helvetica;
+    cursor: pointer;
+    margin: 5px;
+    color: #2d7ba6;
+    font-weight: bold;
+    display: inline-block;
+}
+
+
+/* MODAL RELATED */
+
+.grey_modal_background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    /* width: 100vw;
+    height: 100vw; */
+    background-color: rgba(8, 9, 9, .8);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete_message_modal {
+    background-color: #36393e;
+    padding: 20px;
+    border-radius: 3.35px;
+}
+
+.delete_message_title {
+    font-family: Helvetica;
+    color: #f9f9fa;
+    font-size: 24px;
+    padding: 5px 10px 5px 5px;
+}
+
+.delete_message_question {
+    font-family: Helvetica;
+    color: #f9f9fa;
+    padding: 5px 10px 10px 5px;
+
+}
+
+.delete_message_card {
+    display: grid;
+    grid-template-columns: 3rem 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1px solid #292b30 !important;
+    grid-template-areas:
+    "image name date"
+    "image text text";
+    padding: 10px;
+    box-shadow: 2px 2px 2px #292b30;
+    border-radius: 2.25;
+
+}
+
+.owner_image {
+    grid-area: image;
+    align-self: center;
+    justify-self: start;
+    /* justify-self: center; */
+    left: 0px;
+}
+
+.owner_username {
+    grid-area: name;
+}
+
+.message_created_at {
+    grid-area: date;
+}
+
+.message_content {
+    grid-area: text;
+}
+
+.delete_message_buttons {
+    margin: 10px;
+    text-align: right;
+}
+
+.cancel_button {
+    font-family: Helvetica;
+    margin: 10px;
+    border: none !important;
+    background-color: transparent !important;
+    cursor: pointer;
+    color: #f9f9fa;
+
+}
+
+.cancel_button:hover {
+    text-decoration:underline;
+
+}
+
+.delete_button {
+    font-family: Helvetica;
+    margin: 10px;
+    background-color: #ed4145;
+    color: #f9f9fa;
+    cursor: pointer;
 }
