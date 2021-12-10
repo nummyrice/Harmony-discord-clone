@@ -3,6 +3,7 @@ import style from "./members.module.css";
 
 export default function Member({ member, owner_id, card }) {
   const { image_url, id, username } = member;
+
   return (
     <>
       <div className={style.div1} tabIndex="1">
