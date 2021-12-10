@@ -181,8 +181,8 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
   const data = await response.json();
   const response2 = await fetch(`/api/servers/`);
   const data2 = await response2.json();
-  dispatch(getServers(data2.servers));
   dispatch(deleteMember(data));
+  dispatch(getServers(data2.servers));
   return data;
 };
 

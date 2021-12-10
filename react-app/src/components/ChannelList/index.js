@@ -12,9 +12,9 @@ const ChannelList = () => {
     const servers = useSelector(state => (state.servers));
     const channels = useSelector(state => (state.servers[serverId]?.channels));
 
-    useEffect(() => {
-        dispatch(serverActions.getServersThunk())
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(serverActions.getServersThunk())
+    // }, [dispatch]);
 
     if (JSON.stringify(channels) === '{}') {
         dispatch(serverActions.getChannelsThunk(+serverId))

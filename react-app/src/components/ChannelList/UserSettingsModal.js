@@ -10,9 +10,9 @@ const UserSettingsModal = () => {
     const server = useSelector(state => (state.servers[serverId]));
     const sessionUser = useSelector(state => state.session.user);
 
-    useEffect(() => {
-        dispatch(serverActions.getServersThunk())
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(serverActions.getServersThunk())
+    // }, [dispatch]);
 
     // if (JSON.stringify(channels) === '{}') {
     //     dispatch(serverActions.getChannelsThunk(+serverId))

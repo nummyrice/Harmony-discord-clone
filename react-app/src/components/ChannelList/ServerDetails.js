@@ -11,9 +11,9 @@ const ServerDetails = () => {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
 
-    useEffect(() => {
-        dispatch(serverActions.getServersThunk())
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(serverActions.getServersThunk())
+    // }, [dispatch]);
 
     // if (JSON.stringify(channels) === '{}') {
     //     dispatch(serverActions.getChannelsThunk(+serverId))
@@ -46,14 +46,13 @@ const ServerDetails = () => {
     let deleteServer;
     let leaveServer;
 
-    // const deleteServerBtn = () => {
-    //     console.log('server id', serverId)
-    //     dispatch(serverActions.deleteServerThunk(+serverId))
-    //     .then(() => dispatch(serverActions.getServersThunk()));
-
-    //     history.push('/servers/@me');
-    //     console.log('delete server!!!')
-    // };
+    const deleteServerBtn = () => {
+        console.log('server id', serverId)
+        dispatch(serverActions.deleteServerThunk(+serverId))
+        .then(() => dispatch(serverActions.getServersThunk()))
+        .then(() => history.push('/servers/@me'));
+        console.log('delete server!!!')
+    };
 
     const leaveServerBtn = () => {
         dispatch(serverActions.deleteMemberThunk(serverId))
@@ -89,36 +88,36 @@ const ServerDetails = () => {
         );
 
         deleteServer = (
-            <div className={style.settingLink}>
-                <Link className={style.disableOption}>
+            <div className={style.settingLink} onClick={deleteServerBtn}>
+                <div className={style.disableOption}>
                     <p>Delete Server</p>
                     {disableServerIcon}
-                </Link>
+                </div>
             </div>
         );
     } else {
         leaveServer = (
-            <div className={style.settingLink}>
-                <Link className={style.disableOption} onClick={leaveServerBtn}>
+            <div className={style.settingLink} onClick={leaveServerBtn}>
+                <div className={style.disableOption}>
                     <p>Leave Server</p>
                     {disableServerIcon}
-                </Link>
+                </div>
             </div>
         );
     }
 
     const handleServerMenuDropdown = () => {
-        if (serverSettingsMenu.classList.contains(style.serverMenuOpen)
-            && serverMenuDropdown.classList.contains(style.serverMenuDropdownActive)) {
-            serverMenuDropdown.classList.remove(style.serverMenuDropdownActive);
-            serverSettingsMenu.classList.remove(style.serverMenuOpen);
-            serverMenuIcon.classList.remove(style.iconClose);
-            serverMenuIcon.classList.add(style.iconOpen);
+        if (serverSettingsMenu?.classList.contains(style.serverMenuOpen)
+            && serverMenuDropdown?.classList.contains(style.serverMenuDropdownActive)) {
+            serverMenuDropdown?.classList.remove(style.serverMenuDropdownActive);
+            serverSettingsMenu?.classList.remove(style.serverMenuOpen);
+            serverMenuIcon?.classList.remove(style.iconClose);
+            serverMenuIcon?.classList.add(style.iconOpen);
         } else {
-            serverMenuDropdown.classList.add(style.serverMenuDropdownActive);
-            serverSettingsMenu.classList.add(style.serverMenuOpen);
-            serverMenuIcon.classList.remove(style.iconOpen);
-            serverMenuIcon.classList.add(style.iconClose);
+            serverMenuDropdown?.classList.add(style.serverMenuDropdownActive);
+            serverSettingsMenu?.classList.add(style.serverMenuOpen);
+            serverMenuIcon?.classList.remove(style.iconOpen);
+            serverMenuIcon?.classList.add(style.iconClose);
         }
     }
 
