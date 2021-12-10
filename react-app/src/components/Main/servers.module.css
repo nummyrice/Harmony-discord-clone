@@ -18,8 +18,10 @@
   overflow-x: hidden;
   position: relative;
 }
-.div1::-webkit-scrollbar {
-  display: none;
+
+.div2 {
+  background: rgb(47, 49, 54);
+  overflow: hidden;
 }
 
 .div3 {
