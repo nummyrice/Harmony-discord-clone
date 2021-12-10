@@ -53,7 +53,7 @@ export default function Servers() {
         <ServersList setServerActive={setServerActive} />
       </div>
       <div className={style.div2}>
-        <Route path='/servers/:serverId'>
+        <Route path={['/servers/:serverId', '/servers/:serverId/:channelId']}>
           <ChannelList />
         </Route>
       </div>

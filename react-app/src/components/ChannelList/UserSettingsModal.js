@@ -26,6 +26,19 @@ const UserSettingsModal = () => {
         settingsAvatar?.classList.add(style.sampleProfileImage);
     }
 
+    const openUserSettings = document.getElementById('userSettingsModal');
+
+    const closeUserModal = (e) => {
+        console.log('random....', openUserSettings);
+        // e.target.stopPropagation();
+        if (openUserSettings?.classList.contains(style.userSettingsModalBgActive)) {
+            // openUserSettings.classList.remove(style.userSettingsModalBgActive)
+            openUserSettings.classList.remove(style.userSettingsModalBgActive)
+
+            console.log('close this', openUserSettings.classList);
+        }
+    };
+
     return (
         // <div className={style.userDetailsWrapper}>
         //     <div className={style.userDetailsContent}>
@@ -40,7 +53,7 @@ const UserSettingsModal = () => {
         //         <div className={style.settingsTooltip}>User Settings</div>
         //     </div>
         // </div>
-        <div className={style.userSettingsModalBg}>
+        <div id='userSettingsModal' className={style.userSettingsModalBg} onClick={closeUserModal}>
             <div className={style.userSettingsModal}>
                 <div className={style.userSettingsWrapper}>
                     <h2>

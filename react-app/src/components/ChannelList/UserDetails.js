@@ -30,6 +30,14 @@ const UserDetails = () => {
         channelListAvatar?.classList.add(style.sampleProfileImage)
     }
 
+    const userSettings = document.getElementById('userSettingsModal');
+
+    const userSettingsModal = () => {
+        if (!userSettings.classList.contains(style.userSettingsModalBgActive)) {
+            userSettings.classList.add(style.userSettingsModalBgActive)
+        }
+    };
+
     return (
         <div className={style.userDetailsWrapper}>
             <div className={style.userDetailsContent}>
@@ -39,7 +47,7 @@ const UserDetails = () => {
                     <p className={style.detailsId}>#{sessionUser.id}</p>
                 </div>
             </div>
-            <div className={style.userDetailsSettingsBtn}>
+            <div className={style.userDetailsSettingsBtn} onClick={userSettingsModal}>
                 {userSettingsIcon}
                 <div className={style.settingsTooltip}>User Settings</div>
             </div>

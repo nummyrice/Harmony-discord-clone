@@ -249,7 +249,15 @@ a:hover p, a:active p {
     position: fixed;
     width: 100%;
     z-index: 10;
+    /* ------------------ */
+    transform: scale(1.25);
+    transition: transform 200ms;
+    visibility: hidden;
+}
 
+.userSettingsModalBgActive {
+    transform: scale(1.0);
+    visibility: visible;
 }
 
 .userSettingsModal {
@@ -283,28 +291,7 @@ a:hover p, a:active p {
     background: red;
 }
 
-/* . {
+#settingsAvatar {
     height: 94px;
     width: 94px;
-} */
-
-/*
-
-.serverSettingsMenu {
-    background: #18191C;
-    border-radius: 4px;
-    padding: 8px;
-    position: absolute;
-    top: 58px;
-    transform: scale(0.7);
-    transition: transform 250ms;
-    visibility: hidden;
-    width: 93%;
 }
-
-.serverMenuOpen {
-    transform: scale(1.0);
-    visibility: visible;
-}
-
-*/
