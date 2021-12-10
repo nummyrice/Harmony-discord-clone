@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { BrowserRouter, Route, Switch, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 
@@ -90,21 +90,11 @@ const ServerDetails = () => {
             serverSettingsMenu.classList.remove(style.serverMenuOpen);
             serverMenuIcon.classList.remove(style.iconClose);
             serverMenuIcon.classList.add(style.iconOpen);
-
-            // window.addEventListener('click', () => {
-            //     serverSettingsMenu.style.background = 'yellow'
-            //     console.log('hello')
-            // });
         } else {
             serverMenuDropdown.classList.add(style.serverMenuDropdownActive);
             serverSettingsMenu.classList.add(style.serverMenuOpen);
             serverMenuIcon.classList.remove(style.iconOpen);
             serverMenuIcon.classList.add(style.iconClose);
-
-            // window.addEventListener('click', () => {
-            //     serverSettingsMenu.style.background = 'yellow'
-            //     console.log('hello')
-            // });
         }
     }
 

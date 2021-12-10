@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { BrowserRouter, Route, Switch, useParams, Link } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 
@@ -17,8 +17,8 @@ const UserSettingsModal = () => {
     // if (JSON.stringify(channels) === '{}') {
     //     dispatch(serverActions.getChannelsThunk(+serverId))
     // }
-    console.log('SESSION USER----: ', +sessionUser.id)
-    console.log('SERVER OWNER----: ', +server?.owner_id)
+    // console.log('SESSION USER----: ', +sessionUser.id)
+    // console.log('SERVER OWNER----: ', +server?.owner_id)
 
     const settingsAvatar = document.getElementById('settingsAvatar');
 
@@ -26,36 +26,19 @@ const UserSettingsModal = () => {
         settingsAvatar?.classList.add(style.sampleProfileImage);
     }
 
-    const openUserSettings = document.getElementById('userSettingsModal');
 
     const closeUserModal = (e) => {
-        console.log('random....', openUserSettings);
-        // e.target.stopPropagation();
-        if (openUserSettings?.classList.contains(style.userSettingsModalBgActive)) {
-            // openUserSettings.classList.remove(style.userSettingsModalBgActive)
-            openUserSettings.classList.remove(style.userSettingsModalBgActive)
+        const openUserSettings = document.getElementById('userSettingsModal');
 
-            console.log('close this', openUserSettings.classList);
+        if (openUserSettings?.classList.contains(style.userSettingsModalBgActive)) {
+            openUserSettings.classList.remove(style.userSettingsModalBgActive)
         }
     };
 
     return (
-        // <div className={style.userDetailsWrapper}>
-        //     <div className={style.userDetailsContent}>
-        //         <div id='channelListAvatar' className={style.userProfileImage} style={{backgroundImage:'url(' + sessionUser.image_url + ')'}}></div>
-        //         <div>
-        //             <p className={style.detailsUsername}>{sessionUser.username}</p>
-        //             <p className={style.detailsId}>#{sessionUser.id}</p>
-        //         </div>
-        //     </div>
-        //     <div className={style.userDetailsSettingsBtn}>
-        //         {userSettingsIcon}
-        //         <div className={style.settingsTooltip}>User Settings</div>
-        //     </div>
-        // </div>
         <div id='userSettingsModal' className={style.userSettingsModalBg} onClick={closeUserModal}>
             <div className={style.userSettingsModal}>
-                <div className={style.userSettingsWrapper}>
+                <div className={style.userSettingsWrapper} onClick={(e) => (e.stopPropagation())}>
                     <h2>
                         My Account
                     </h2>
@@ -64,17 +47,6 @@ const UserSettingsModal = () => {
                             <div div id='settingsAvatar' className={style.userProfileImage} style={{backgroundImage:'url(' + sessionUser.image_url + ')'}}></div>
                             <div className={style.deleteUserBtn}>Delete Account</div>
                         </div>
-                        {/* <div className={style.userDetailsContent}>
-                            <div id='channelListAvatar' className={style.userProfileImage} style={{backgroundImage:'url(' + sessionUser.image_url + ')'}}></div>
-                            <div>
-                                <p className={style.detailsUsername}>{sessionUser.username}</p>
-                                <p className={style.detailsId}>#{sessionUser.id}</p>
-                            </div>
-                        </div>
-                        <div className={style.userDetailsSettingsBtn}>
-                            {userSettingsIcon}
-                            <div className={style.settingsTooltip}>User Settings</div>
-                        </div> */}
                     </div>
                 </div>
             </div>

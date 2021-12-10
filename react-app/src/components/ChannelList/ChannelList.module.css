@@ -272,6 +272,7 @@ a:hover p, a:active p {
 .userSettingsWrapper {
     max-width: 660px;
     width: 100%;
+    z-index: 20;
 }
 
 .userSettingsWrapper h2 {
