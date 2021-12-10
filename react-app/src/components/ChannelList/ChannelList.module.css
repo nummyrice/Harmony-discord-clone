@@ -46,7 +46,7 @@
 }
 
 a:hover, a:active {
-    background: rgb(57, 60, 67);
+    background: rgb(57, 60, 67) !important;
 }
 
 a:hover p, a:active p {

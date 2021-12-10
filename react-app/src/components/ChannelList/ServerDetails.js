@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory, Redirect } from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 
@@ -9,6 +9,7 @@ const ServerDetails = () => {
     const dispatch = useDispatch();
     const server = useSelector(state => (state.servers[serverId]));
     const sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(serverActions.getServersThunk())
@@ -28,12 +29,12 @@ const ServerDetails = () => {
 
     const inviteIcon = (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.2727 2.72727H24V4.54545H21.2727V7.27273H19.4545V4.54545H16.7273V2.72727H19.4545V0H21.2727V2.72727ZM11.2727 10.9091C13.2773 10.9091 14.9091 9.27727 14.9091 7.27273C14.9091 5.26818 13.2773 3.63636 11.2727 3.63636C9.26818 3.63636 7.63636 5.26818 7.63636 7.27273C7.63636 9.27727 9.26818 10.9091 11.2727 10.9091ZM11.2727 11.8182C6.99 11.8182 4 14.0609 4 17.2727V18.1818H18.5455V17.2727C18.5455 14.0609 15.5555 11.8182 11.2727 11.8182Z"/>
+        <path clip-rule="evenodd" d="M21.2727 2.72727H24V4.54545H21.2727V7.27273H19.4545V4.54545H16.7273V2.72727H19.4545V0H21.2727V2.72727ZM11.2727 10.9091C13.2773 10.9091 14.9091 9.27727 14.9091 7.27273C14.9091 5.26818 13.2773 3.63636 11.2727 3.63636C9.26818 3.63636 7.63636 5.26818 7.63636 7.27273C7.63636 9.27727 9.26818 10.9091 11.2727 10.9091ZM11.2727 11.8182C6.99 11.8182 4 14.0609 4 17.2727V18.1818H18.5455V17.2727C18.5455 14.0609 15.5555 11.8182 11.2727 11.8182Z"/>
         </svg>
     );
 
     const editIcon = (
-        <svg class="icon-LYJorE" aria-hidden="false" width="18" height="18" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2929 9.8299L19.9409 9.18278C21.353 7.77064 21.353 5.47197 19.9409 4.05892C18.5287 2.64678 16.2292 2.64678 14.817 4.05892L14.1699 4.70694L19.2929 9.8299ZM12.8962 5.97688L5.18469 13.6906L10.3085 18.813L18.0201 11.0992L12.8962 5.97688ZM4.11851 20.9704L8.75906 19.8112L4.18692 15.239L3.02678 19.8796C2.95028 20.1856 3.04028 20.5105 3.26349 20.7337C3.48669 20.9569 3.8116 21.046 4.11851 20.9704Z" fill="currentColor"></path></svg>
+        <svg class="icon-LYJorE" aria-hidden="false" width="18" height="18" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M19.2929 9.8299L19.9409 9.18278C21.353 7.77064 21.353 5.47197 19.9409 4.05892C18.5287 2.64678 16.2292 2.64678 14.817 4.05892L14.1699 4.70694L19.2929 9.8299ZM12.8962 5.97688L5.18469 13.6906L10.3085 18.813L18.0201 11.0992L12.8962 5.97688ZM4.11851 20.9704L8.75906 19.8112L4.18692 15.239L3.02678 19.8796C2.95028 20.1856 3.04028 20.5105 3.26349 20.7337C3.48669 20.9569 3.8116 21.046 4.11851 20.9704Z" fill="currentColor"></path></svg>
     );
 
     const disableServerIcon = (
@@ -44,6 +45,29 @@ const ServerDetails = () => {
     let editServer;
     let deleteServer;
     let leaveServer;
+
+    // const deleteServerBtn = () => {
+    //     console.log('server id', serverId)
+    //     dispatch(serverActions.deleteServerThunk(+serverId))
+    //     .then(() => dispatch(serverActions.getServersThunk()));
+
+    //     history.push('/servers/@me');
+    //     console.log('delete server!!!')
+    // };
+
+    const leaveServerBtn = () => {
+        dispatch(serverActions.deleteMemberThunk(serverId))
+        .then(() => dispatch(serverActions.getServersThunk()))
+        .then(() => history.push('/servers/@me'));
+        // dispatch(serverActions.getServersThunk());
+        console.log('removed member!!!');
+    };
+
+    // if (!server?.members.includes(sessionUser.id)) {
+    //     return (
+    //         <Redirect to='/servers/@me' />
+    //     )
+    // }
 
     if (+sessionUser.id === +server?.owner_id) {
         invitePeople = (
@@ -75,7 +99,7 @@ const ServerDetails = () => {
     } else {
         leaveServer = (
             <div className={style.settingLink}>
-                <Link className={style.disableOption}>
+                <Link className={style.disableOption} onClick={leaveServerBtn}>
                     <p>Leave Server</p>
                     {disableServerIcon}
                 </Link>
