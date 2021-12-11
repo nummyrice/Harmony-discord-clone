@@ -1,0 +1,31 @@
+.channelSettingsBg {
+    background: #36393F;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    /* ------------------ */
+    transform: scale(1.25);
+    transition: transform 200ms;
+    visibility: hidden;
+}
+
+.channelSettingsBgActive {
+    transform: scale(1.0);
+    visibility: visible;
+}
+
+.channelSettingsModal {
+    align-items: center;
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.channelSettingsWrapper {
+    max-width: 660px;
+    width: 100%;
+    z-index: 20;
+}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from '../../store/servers';
 import '../CreateChannel/CreateChannel.css';
 
-const EditChannel = () => {
+const EditChannel = ({setEditChannelModalActive}) => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
     const id = channelId;
@@ -22,6 +22,8 @@ const EditChannel = () => {
             server_id,
             id
         }))
+
+        {setEditChannelModalActive(false)}
         console.log('EDITED CHANNEL!!')
     }
 
@@ -31,7 +33,7 @@ const EditChannel = () => {
                 <div className='input-wrapper'>
                     <label htmlFor='name'>Channel Name</label>
                     <div>
-                        <input type='text' name='name' placeholder='new-channel' value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type='text' name='name' placeholder='edit-channel' value={name} onChange={(e) => setName(e.target.value)} required />
                     </div>
                 </div>
                 <button>Save Changes</button>

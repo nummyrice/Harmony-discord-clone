@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from '../../store/servers';
 import './CreateChannel.css';
 
-const CreateChannel = () => {
+const CreateChannel = ({setChannelModalActive}) => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
     const history = useHistory();
@@ -30,7 +30,7 @@ const CreateChannel = () => {
 
         history.push(`/servers/${serverId}/${createdChannel.id}`);
 
-
+        {setChannelModalActive(false)}
         reset();
     }
 

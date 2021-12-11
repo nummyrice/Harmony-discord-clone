@@ -14,6 +14,11 @@ const DeleteChannel = () => {
     const dispatch = useDispatch();
     const channelList = useSelector((state) => state.servers?.[serverId]?.channels);
     const channelsArr = Object.values(channelList);
+
+    // if (JSON.stringify(channelList) !== '{}') {
+    //     const channelsArr = Object.values(channelList);
+    // }
+
     const firstChannel = channelsArr[0];
 
     console.log('CHANNEL LIST FROM DELETE--', channelsArr[0]?.id);

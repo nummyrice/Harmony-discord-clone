@@ -19,6 +19,7 @@ import { io } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from "../../store/servers";
 import UserSettingsModal from "../ChannelList/UserSettingsModal";
+import EditChannelModal from "../EditChannel/EditChannelModal";
 
 let socket;
 
