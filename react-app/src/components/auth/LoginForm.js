@@ -44,11 +44,6 @@ const LoginForm = () => {
             onSubmit={onLogin}
             className={style.loginFormForm}
           >
-            <div>
-              {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
             <div
               className={style.loginFormInputContainer}
             >
@@ -63,16 +58,12 @@ const LoginForm = () => {
                       error.includes('email')
                     )) ? errors.map(error => error.includes('email') ?
                       ` - ${error.split(':')[1]}` : null) : null}
-                    {/* {errors.length > 0 && errors.map(error => (
-                      error.includes('email')
-                    )) ? ` - ${errors[0].split(':')[1]}` : null} */}
                   </span>
               </label>
               <input
                 className={style.loginFormInputField}
                 name="email"
                 type="text"
-                placeholder="Email"
                 value={email}
                 onChange={updateEmail}
               />
@@ -91,21 +82,21 @@ const LoginForm = () => {
                       error.includes('password')
                     )) ? errors.map(error => error.includes('password') ?
                       ` - ${error.split(':')[1]}` : null) : null}
-
-                    {errors.length > 0 && errors.map(error => (
-                      error.includes('password')
-                    )) ?  errors.map(error => (console.log(error, error.split(':')[1]))) : null}
                   </span>
               </label>
               <input
                 className={style.loginFormInputField}
                 name="password"
                 type="password"
-                placeholder="Password"
                 value={password}
                 onChange={updatePassword}
               />
-              <button type="submit">Login</button>
+              <button
+                type="submit"
+                className={style.loginFormButtom}
+              >
+                Login
+              </button>
             </div>
           </form>
         </div>

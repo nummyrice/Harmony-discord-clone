@@ -45,7 +45,6 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         formData.append('isPrivate', false);
 
         let createdServer = await dispatch(postServerThunk(formData));
-
         const defaultChannel = {
             server_id: createdServer.id,
             name: 'Welcome'
@@ -60,6 +59,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
         let file = e.target.files[0];
         // previewImg = file.name
         console.log('file', file)
+        console.log('oldfile', oldImageUrl)
         setImageUrl(e.target.files[0]);
         if (file) {
             setOldImageUrl(file);
@@ -69,7 +69,7 @@ export default function CreateServer({setCreateNewServer, setServerActive}) {
             setOldPreview(file);
         } else {
             setImgFile(oldPreview);
-            setImageUrl(oldImageUrl)
+            setImageUrl(oldImageUrl);
         }
 
     }
