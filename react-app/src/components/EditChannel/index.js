@@ -8,12 +8,11 @@ const EditChannel = () => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
     const id = channelId;
-    let channel = useSelector((state) => state.servers?.[serverId]?.channels[id]);
+    const channel = useSelector((state) => state.servers?.[serverId]?.channels[id]);
     let channelName = channel?.name;
 
-    console.log('SERVER FROM CHANNEL EDIT--', channel?.name);
     const dispatch = useDispatch();
-    const [name, setName] = useState(`#${channelName}`);
+    const [name, setName] = useState(`${channelName}`);
 
     const handleSubmit = (e) => {
         e.preventDefault();

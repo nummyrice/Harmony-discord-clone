@@ -14,6 +14,10 @@ const CreateChannel = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
 
+    const reset = () => {
+        setName('');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -26,12 +30,8 @@ const CreateChannel = () => {
 
         history.push(`/servers/${serverId}/${createdChannel.id}`);
 
-        // let newChannel = await dispatch(serverActions.postChannelThunk({
-        //     name,
-        //     server_id
-        // }));
 
-        console.log('CREATED NEW CHANNEL!!', createdChannel)
+        reset();
     }
 
     return (
