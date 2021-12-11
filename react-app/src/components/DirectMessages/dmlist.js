@@ -19,11 +19,13 @@ export default function DMList() {
     const otherMember = server.member_list.find(
       (member) => +session.user.id !== +member.id
     );
+
     if (otherMember) {
+      let channel = Object.values(server.channels)[0];
       return (
         <Link
           key={otherMember.id}
-          to={`/servers/@me/${server.id}/${server.channels.id}`}
+          to={`/servers/@me/${server.id}/${channel.id}`}
         >
           <Member member={otherMember} />
         </Link>

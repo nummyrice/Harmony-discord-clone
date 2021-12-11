@@ -172,7 +172,11 @@ export default function Servers() {
           </Route>
           <Route
             exact
-            path={["/servers/:serverId", "/servers/:serverId/:channelId"]}
+            path={[
+              "/servers/:serverId",
+              "/servers/@me/:serverId/:channelId",
+              "/servers/:serverId/:channelId",
+            ]}
           >
             <Header />
           </Route>

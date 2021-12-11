@@ -14,14 +14,9 @@ export default function Header() {
   const servers = useSelector((state) => state.servers);
   const session = useSelector((state) => state.session);
 
-  let server;
-  let channel;
-  if (isNaN(+serverId)) {
-    server = servers[channelId];
-  } else {
-    server = servers[serverId];
-    channel = server?.channels?.[channelId];
-  }
+  let server = servers?.[serverId];
+  let channel = server?.channels?.[channelId];
+
   useEffect(() => {
     if (!server) {
       if (isNaN(+serverId)) {
@@ -216,10 +211,10 @@ export default function Header() {
   }
   function titel() {
     if (url.includes("@me")) {
-      const otherMember = server.member_list.find(
+      const otherMember = server?.member_list.find(
         (member) => +session.user.id !== +member.id
       );
-      return otherMember.username;
+      return otherMember?.username;
     } else {
       return channel?.name;
     }
