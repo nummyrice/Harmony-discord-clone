@@ -315,3 +315,69 @@ a:hover p, a:active p {
     position: fixed;
     width: 100vw;
 }
+
+.serverModalBackground {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+
+.channelModalContainer {
+    position: fixed;
+    height: fit-content;
+    width: 400px;
+    font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: teal;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    z-index: 101;
+  }
+
+  .serverModalWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 1.5rem;
+    /* background-color: hotpink; */
+  }
+
+  .serverModalWrapper > div {
+    color: black;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+  }
+
+  .closeModal {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    height: 22px;
+    width: 22px;
+  }
+
+  .closeX {
+    fill: rgb(175, 178, 182);
+  }
+
+  .closeModal:hover > svg {
+    transition: ease-in 0.2s;
+    fill: black;
+  }
+
+  .subheading {
+    color: rgb(191, 194, 197) !important;
+    font-size: 14px;
+    text-align: center;
+  }

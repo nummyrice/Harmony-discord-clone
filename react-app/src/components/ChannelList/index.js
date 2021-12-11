@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, createSelectorHook } from "react-redux";
 import { useParams, Link, Redirect } from "react-router-dom";
 import * as serverActions from "../../store/servers";
@@ -9,12 +9,14 @@ import style from "./ChannelList.module.css";
 import ServerDetails from "./ServerDetails";
 import UserDetails from "./UserDetails";
 
-const ChannelList = ({setChannelModalActive}) => {
+const ChannelList = () => {
   const { serverId, channelId } = useParams();
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const server = useSelector((state) => state.servers?.[serverId]);
   let channels = useSelector((state) => state.servers?.[serverId]?.channels);
+
+  const [channelModalActive, setChannelModalActive] = useState(false)
 
   if (server && JSON.stringify(channels) === "{}" && !channelId) {
     dispatch(serverActions.getChannelsThunk(+serverId));
@@ -46,13 +48,50 @@ const ChannelList = ({setChannelModalActive}) => {
       );
     }
 
+    function addChannelFunc() {
+      return (
+        <>
+          <div
+            className={style.serverModalBackground}
+            onClick={() => setChannelModalActive(false)}
+          ></div>
+          <div id='channelModal' className={style.channelModalContainer}>
+            <div className={style.serverModalWrapper}>
+                <CreateChannel />
+              <div className={style.title}>Create Text Channel</div>
+              <div
+                className={style.closeModal}
+                onClick={() => setChannelModalActive(false)}
+              >
+                <svg
+                  className={style.closeX}
+                  aria-hidden="false"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
+                </svg>
+              </div>
+              <div className={style.subheading}>
+                Your server is where you and your friends hang out. Make it yours
+                and start talking.
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
     return (
         <div className={style.channelComponentWrapper}>
+            {channelModalActive && addChannelFunc()}
             <ServerDetails />
             <div className={style.channelListWrapper}>
                 <div className={style.channelHeader}>
                     <p>Channels</p>
                     {newChannelBtn}
+                    {/* <p>new2</p> */}
                 </div>
                 { channels && channelId && Object.values(channels).map((channel) => {
                     return (
@@ -70,7 +109,7 @@ const ChannelList = ({setChannelModalActive}) => {
                 })}
             </div>
             <UserDetails />
-            <CreateChannel serverId={serverId} />
+            {/* <CreateChannel /> */}
             <EditChannel />
             <DeleteChannel />
         </div>
