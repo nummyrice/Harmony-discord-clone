@@ -296,3 +296,22 @@ a:hover p, a:active p {
     height: 94px;
     width: 94px;
 }
+
+/* --- channel heading --- */
+
+.channelHeader {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+/* .channelModalContainer {
+    background: teal;
+} */
+
+.testModal {
+    background: yellow;
+    position: fixed;
+    width: 100vw;
+}

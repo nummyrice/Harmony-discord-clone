@@ -114,8 +114,8 @@ const ServerDetails = () => {
         );
     } else {
         leaveServer = (
-            <div className={style.settingLink} onClick={leaveServerBtn}>
-                <div className={style.disableOption}>
+            <div className={style.settingLink}>
+                <div className={style.disableOption} onClick={leaveServerBtn}>
                     <p>Leave Server</p>
                     {disableServerIcon}
                 </div>
@@ -126,10 +126,10 @@ const ServerDetails = () => {
     const handleServerMenuDropdown = () => {
         if (serverSettingsMenu?.classList.contains(style.serverMenuOpen)
             && serverMenuDropdown?.classList.contains(style.serverMenuDropdownActive)) {
-            serverMenuDropdown?.classList.remove(style.serverMenuDropdownActive);
-            serverSettingsMenu?.classList.remove(style.serverMenuOpen);
-            serverMenuIcon?.classList.remove(style.iconClose);
-            serverMenuIcon?.classList.add(style.iconOpen);
+            serverMenuDropdown.classList.remove(style.serverMenuDropdownActive);
+            serverSettingsMenu.classList.remove(style.serverMenuOpen);
+            serverMenuIcon.classList.remove(style.iconClose);
+            serverMenuIcon.classList.add(style.iconOpen);
         } else {
             serverMenuDropdown?.classList.add(style.serverMenuDropdownActive);
             serverSettingsMenu?.classList.add(style.serverMenuOpen);
