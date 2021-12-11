@@ -44,23 +44,32 @@ const LoginForm = () => {
             onSubmit={onLogin}
             className={style.loginFormForm}
           >
-            {/* <div>
+            <div>
               {errors.map((error, ind) => (
                 <div key={ind}>{error}</div>
               ))}
-            </div> */}
+            </div>
             <div
-              className={style.loginFormInputFields}
+              className={style.loginFormInputContainer}
             >
-              <label htmlFor="email">
+              <label
+                htmlFor="email"
+                className={style.loginFormLabel}
+              >
                 Email<span
                     className={style.loginFormErrorSpan}
                   >
-                    {errors[0] ? ` - ${errors[0].split(':')[1]}` : null}
-                    {errors[0] ? console.log(errors[0].split(':')[1]) : null}
+                    {errors.length > 0 && errors.map(error => (
+                      error.includes('email')
+                    )) ? errors.map(error => error.includes('email') ?
+                      ` - ${error.split(':')[1]}` : null) : null}
+                    {/* {errors.length > 0 && errors.map(error => (
+                      error.includes('email')
+                    )) ? ` - ${errors[0].split(':')[1]}` : null} */}
                   </span>
               </label>
               <input
+                className={style.loginFormInputField}
                 name="email"
                 type="text"
                 placeholder="Email"
@@ -69,17 +78,27 @@ const LoginForm = () => {
               />
             </div>
             <div
-              className={style.loginFormInputFields}
+              className={style.loginFormInputContainer}
             >
-              <label htmlFor="password">
+              <label
+                htmlFor="password"
+                className={style.loginFormLabel}
+              >
                 Password<span
                     className={style.loginFormErrorSpan}
                   >
-                    {errors[0] ? ` - ${errors[1].split(':')[1]}` : null}
-                    {errors[0] ? console.log(errors[0].split(':')[1]) : null}
+                    {errors.length > 0 && errors.map(error => (
+                      error.includes('password')
+                    )) ? errors.map(error => error.includes('password') ?
+                      ` - ${error.split(':')[1]}` : null) : null}
+
+                    {errors.length > 0 && errors.map(error => (
+                      error.includes('password')
+                    )) ?  errors.map(error => (console.log(error, error.split(':')[1]))) : null}
                   </span>
               </label>
               <input
+                className={style.loginFormInputField}
                 name="password"
                 type="password"
                 placeholder="Password"

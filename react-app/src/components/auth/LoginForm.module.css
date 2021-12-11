@@ -45,5 +45,21 @@
 }
 
 .loginFormForm {
-    background-color: hotpink;
+    background-color: cyan;
+    width: 100%;
+}
+
+.loginFormInputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.loginFormLabel {
+    font-size: 12px;
+}
+
+.loginFormErrorSpan {
+    font-size: 12px;
+    color: red;
 }
