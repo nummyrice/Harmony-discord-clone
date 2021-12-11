@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import * as serverActions from "../../store/servers";
 import style from './LoginForm.module.css';
@@ -29,7 +29,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/servers/@me" />;
   }
 
   return (
@@ -93,10 +93,18 @@ const LoginForm = () => {
               />
               <button
                 type="submit"
-                className={style.loginFormButtom}
+                className={style.loginFormLoginButton}
               >
                 Login
               </button>
+              <div className={style.loginFormRegister}>
+                Need an account? <NavLink
+                  to='/sign-up'
+                  className={style.loginFormRegisterLink}
+                >
+                  Register
+                </NavLink>
+              </div>
             </div>
           </form>
         </div>
