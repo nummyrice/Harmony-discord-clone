@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
+import EditServer from "../EditServer";
 
 const ServerDetails = () => {
     const {serverId} = useParams();
@@ -10,6 +11,7 @@ const ServerDetails = () => {
     const server = useSelector(state => (state.servers[serverId]));
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
+    const [editServerModalActive, setEditServerModalActive] = useState(false);
 
     // useEffect(() => {
     //     dispatch(serverActions.getServersThunk())
@@ -63,6 +65,11 @@ const ServerDetails = () => {
     let deleteServer;
     let leaveServer;
 
+    const editServerBtn = () => {
+        {setEditServerModalActive(true)}
+        console.log('SERVER EDIT HERE!')
+    };
+
     const deleteServerBtn = () => {
         dispatch(serverActions.deleteServerThunk(+serverId))
         .then(() => dispatch(serverActions.getServersThunk()))
@@ -93,11 +100,11 @@ const ServerDetails = () => {
         );
 
         editServer = (
-            <div className={style.settingLink}>
-                <Link className={style.stdServerLink}>
+            <div className={style.settingLink} onClick={editServerBtn}>
+                <div className={style.stdServerLink}>
                     <p>Edit Server</p>
                     {editIcon}
-                </Link>
+                </div>
             </div>
         );
 
@@ -135,8 +142,42 @@ const ServerDetails = () => {
         }
     }
 
+    function editServerFunc() {
+        return (
+          <>
+                <div
+                className={style.channelModalBackground}
+                onClick={() => setEditServerModalActive(false)}
+                ></div>
+                <div id='channelModal' className={style.channelModalContainer}>
+                <div className={style.channelModalWrapper}>
+                    <div className={style.newChannelModalHeading}>
+                        <h2>Edit Server</h2>
+                    </div>
+                    <EditServer setEditServerModalActive={setEditServerModalActive}/>
+                    <div
+                    className={style.channelsCloseModal}
+                    onClick={() => setEditServerModalActive(false)}
+                    >
+                    <svg
+                        className={style.channelsCloseX}
+                        aria-hidden="false"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
+                    </svg>
+                    </div>
+                </div>
+                </div>
+            </>
+        );
+    };
+
     return (
         <div className={style.serverDetailsWrapper}>
+            {editServerModalActive && editServerFunc()}
             <div id='serverMenuDropdown' className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
                 <p>{server?.name}</p>
                 <i id='serverMenuIcon' className={style.iconOpen}></i>

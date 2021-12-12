@@ -21,12 +21,24 @@
     text-decoration: underline;
 }
 
-.channel-create-form button {
+.channel-create-form button, input[type=file]::file-selector-button {
     background: #5A6AEF;
     border-radius: 4px;
     color: #fff;
     padding: 8px 14px;
     transition: all 200ms;
+}
+
+input[type=file]::file-selector-button {
+    background: #fff;
+    border: none;
+    color: #5A6AEF;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: #5A6AEF;
+    color: #fff;
+    cursor: pointer;
 }
 
 .channel-create-form button:hover {
@@ -107,4 +119,40 @@
 
 .delete-channel-btn:hover {
     background: #34373C !important;
+}
+
+.image-uploader-wrapper {
+    background: #2A2D31;
+    border: 1px solid #1D1F23 !important;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 16px;
+    padding: 8px;
+    transition: all 200ms;
+    width: 100%;
+}
+
+.image-uploader-wrapper:hover {
+    border: 1px solid #040405 !important;
+}
+
+/*
+.image-uploader-wrapper input {
+    background: teal;
+} */
+
+.image-uploader-wrapper > div {
+    align-items: center;
+    display: flex;
+}
+
+.edit-server-image-placeholder {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background: white; */
+    height: 94px;
+    margin-right: 16px;
+    width: 94px;
 }

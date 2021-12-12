@@ -122,7 +122,7 @@ a:hover p {
     visibility: visible;
 }
 
-.settingLink a, .disableOption {
+.settingLink a, .disableOption, .stdServerLink {
     align-items: center;
     border-radius: 3px;
     display: flex;
@@ -130,6 +130,10 @@ a:hover p {
     justify-content: space-between;
     padding: 6px 8px;
     text-decoration: none;
+}
+
+.disableOption:hover, .stdServerLink:hover {
+    cursor: pointer;
 }
 
 .inviteLink {
@@ -160,7 +164,7 @@ a:hover p {
 .disableOption:hover {
     background: #EB444A;
     color: #fff;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .disableOption svg {
