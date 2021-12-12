@@ -1,0 +1,119 @@
+.signupFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background: url('./assets/login-bg.svg');
+}
+
+.signupFormContainer > * {
+    font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.signupFormWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2rem;
+    width: 60%;
+    height: 40%px;
+    background-color: rgb(54,57,62);
+    border-radius: 4px;
+}
+
+.signupFormHeading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signupFormTitle {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.signupFormForm {
+    width: 100%;
+}
+
+.signupFormInputContainer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.signupFormLabel {
+    font-size: 12px;
+    color: rgb(191,194,197);
+    /* color: red; */
+    margin-bottom: 5px;
+}
+
+.signupFormErrorSpan {
+    font-size: 12px;
+    color: red;
+    font-style: italic;
+}
+
+.redtrue {
+    color: red;
+}
+
+.signupFormInputField {
+    background-color: rgb(48,51,56);
+    border: 1.5px rgb(38,39,42) solid !important;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    color: white;
+    font-size: 16px;
+}
+
+.signupFormInputField:hover {
+    outline: none;
+    border: 1.5px black solid !important;
+}
+
+.signupFormInputField:focus {
+    outline: none;
+    border: 1.5px rgb(24,134,183) solid !important;
+}
+
+.signupFormSignupButton {
+    background-color: rgb(87,102,241);
+    color: white;
+    border-radius: 4px;
+    margin: 1rem 0;
+    padding: 6px 0;
+}
+
+.signupFormSignupButton:hover {
+    background-color: rgb(71,82,196);
+}
+
+#signupFormButtonDiv {
+    margin-bottom: 0.5rem;
+}
+
+#signupFormLoginDiv {
+    margin-top: 0;
+}
+
+#signupFormContinue {
+    margin-bottom: 0 !important;
+}
+
+.signupFormLoginLink {
+    text-decoration: none;
+    color: rgb(24,134,183);
+    font-size: 14px;
+}

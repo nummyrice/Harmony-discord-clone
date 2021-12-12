@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import * as serverActions from "../../store/servers";
+import style from './LoginForm.module.css';
+
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  
+
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -27,38 +29,101 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/servers/@me" />;
+  }
+
+  const emailRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('email'))) {
+      return {color:'red'} ;
+    }
+  }
+
+  const passwordRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('password'))) {
+      return {color:'red'} ;
+    }
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <>
+      <div className={style.loginFormContainer}>
+        <div className={style.loginFormWrapper}>
+          <div className={style.loginFormHeading}>
+            <div className={style.loginFormTitle}>Welcome Back!</div>
+            <div className={style.loginFormSubheading}>We're so glad to see you again!</div>
+          </div>
+          <form
+            onSubmit={onLogin}
+            className={style.loginFormForm}
+          >
+            <div
+              className={style.loginFormInputContainer}
+            >
+              <label
+                htmlFor="email"
+                className={style.loginFormLabel}
+                style={emailRed()}
+              >
+                Email<span
+                    className={style.loginFormErrorSpan}
+                  >
+                    {errors.length > 0 && errors.map(error => (
+                      error.includes('email')
+                    )) ? errors.map(error => error.includes('email') ?
+                      ` - ${error.split(':')[1]}` : null) : null}
+                  </span>
+              </label>
+              <input
+                className={style.loginFormInputField}
+                name="email"
+                type="text"
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
+            <div
+              className={style.loginFormInputContainer}
+            >
+              <label
+                htmlFor="password"
+                className={style.loginFormLabel}
+                style={passwordRed()}
+              >
+                Password<span
+                    className={style.loginFormErrorSpan}
+                  >
+                    {errors.length > 0 && errors.map(error => (
+                      error.includes('password')
+                    )) ? errors.map(error => error.includes('password') ?
+                      ` - ${error.split(':')[1]}` : null) : null}
+                  </span>
+              </label>
+              <input
+                className={style.loginFormInputField}
+                name="password"
+                type="password"
+                value={password}
+                onChange={updatePassword}
+              />
+              <button
+                type="submit"
+                className={style.loginFormLoginButton}
+              >
+                Login
+              </button>
+              <div className={style.loginFormRegister}>
+                Need an account? <NavLink
+                  to='/sign-up'
+                  className={style.loginFormRegisterLink}
+                >
+                  Register
+                </NavLink>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+    </>
   );
 };
 
