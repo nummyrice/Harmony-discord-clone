@@ -24,7 +24,9 @@ const ChannelList = () => {
   if (server && JSON.stringify(channels) === "{}" && !channelId) {
     dispatch(serverActions.getChannelsThunk(+serverId));
   }
-
+  if (!server) {
+    return <Redirect to="/servers/@me" />;
+  }
   if (channels && !channelId && JSON.stringify(channels) !== "{}") {
     let firstChannel = Object.values(channels)[0];
     return <Redirect to={`/servers/${serverId}/${firstChannel?.id}`} />;

@@ -4,11 +4,12 @@ from flask_login import login_required, current_user
 from app.models import Server, User, Member, server, db
 from app.forms import NewServerForm, EditServerForm
 from app.socket import handle_add_channel, handle_edit_server, handle_delete_server
-from app.aws_upload import (upload_file_to_s3, allowed_file, get_unique_filename)
+from app.aws_upload import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 server_routes = Blueprint('servers', __name__)
 
-@server_routes.route('', )
 
+@server_routes.route('', )
 @server_routes.route('/')
 @login_required
 def servers():
@@ -18,31 +19,34 @@ def servers():
 
     return {'servers': [server.to_dict() for server in user_servers]}
 
+
 @server_routes.route('/', methods=['POST'])
 @login_required
 def new_server():
     print('in route')
-
     form = NewServerForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if "image_url" not in form.data:
-        return {"errors": "image required"}, 400
+    url = "strings"
+    print(form.data["private"])
+    if not form.data["private"]:
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if "image_url" not in form.data:
+            return {"errors": "image required"}, 400
 
-    image = form.data["image_url"]
+        image = form.data["image_url"]
 
-    if not allowed_file(image.filename):
-        return {"errors": "file type not permitted"}, 400
+        # if not allowed_file(image.filename):
+        #     return {"errors": "file type not permitted"}, 400
 
-    image.filename = get_unique_filename(image.filename)
+        image.filename = get_unique_filename(image.filename)
 
-    upload = upload_file_to_s3(image)
+        upload = upload_file_to_s3(image)
 
-    if "url" not in upload:
-        return upload, 400
+        if "url" not in upload:
+            return upload, 400
 
-    url = upload["url"]
+        url = upload["url"]
 
-    if form.validate_on_submit():
+    if form.data["name"]:
         print('request files', form.data)
         server = Server(
             name=form.data['name'],

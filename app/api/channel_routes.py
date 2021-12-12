@@ -28,7 +28,7 @@ def new_channel(id):
         )
         db.session.add(channel)
         db.session.commit()
-        handle_add_channel(channel.to_dict(), server.todict().id)
+        handle_add_channel(channel.to_dict())
         return channel.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 

@@ -31,10 +31,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar exact path={['/', '/login', '/sign-up', '/users', '/users/:userId']} />
+      <Route exact path="/">
+        <NavBar />
+      </Route>
       <Switch>
-        <Route  exact={true} path='/'>
-          <Landing/>
+        <Route exact={true} path="/">
+          <Landing />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />

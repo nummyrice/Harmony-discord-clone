@@ -30,14 +30,13 @@ export default function UserList() {
   }
   async function privateServer(member) {
     if (hasMember(member)) return;
+    const formData = new FormData();
 
-    let server = await dispatch(
-      serverActions.postServerThunk({
-        name: "Your Direct Message",
-        isPrivate: true,
-        owner_id: session.id,
-      })
-    );
+    // formData.append("image_url", imageUrl);
+    formData.append("name", "Your Direct Message");
+    formData.append("private", true);
+    formData.append("owner_id", session.user.id);
+    let server = await dispatch(serverActions.postServerThunk(formData));
     dispatch(serverActions.postPrivateMemberThunk(server.id, member.id));
     dispatch(
       serverActions.postChannelThunk({

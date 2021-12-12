@@ -10,9 +10,9 @@ const UserSettingsModal = () => {
   const server = useSelector((state) => state.servers[serverId]);
   const sessionUser = useSelector((state) => state.session.user);
 
-    // useEffect(() => {
-    //     dispatch(serverActions.getServersThunk())
-    // }, [dispatch]);
+  // useEffect(() => {
+  //     dispatch(serverActions.getServersThunk())
+  // }, [dispatch]);
 
   // if (JSON.stringify(channels) === '{}') {
   //     dispatch(serverActions.getChannelsThunk(+serverId))
@@ -22,7 +22,7 @@ const UserSettingsModal = () => {
 
   const settingsAvatar = document.getElementById("settingsAvatar");
 
-  if (!sessionUser.image_url) {
+  if (!sessionUser?.image_url) {
     settingsAvatar?.classList.add(style.sampleProfileImage);
   }
 
@@ -53,7 +53,7 @@ const UserSettingsModal = () => {
                 id="settingsAvatar"
                 className={style.userProfileImage}
                 style={{
-                  backgroundImage: "url(" + sessionUser.image_url + ")",
+                  backgroundImage: "url(" + sessionUser?.image_url + ")",
                 }}
               ></div>
               <div className={style.deleteUserBtn}>Delete Account</div>
