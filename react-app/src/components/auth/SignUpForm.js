@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
 import style from './SignupForm.module.css';
@@ -41,7 +41,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/servers/@me' />;
   }
 
   return (
@@ -55,31 +55,24 @@ const SignUpForm = () => {
             onSubmit={onSignUp}
             className={style.signupFormForm}
           >
-            <div>
-              {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-              {console.log(errors)}
-            </div>
             <div
               className={style.signupFormInputContainer}
             >
               <label
-                htmlFor='username'
-                
-              >User Name</label>
+                htmlFor={email}
+                className={style.signupFormLabel}
+              >
+                EMAIL<span
+                className={style.signupFormErrorSpan}
+                >
+                  {errors.length > 0 && errors.map(error => (
+                    error.includes('email')
+                  )) ? errors.map(error => error.includes('email') ?
+                    ` - ${error.split(':')[1]}` : null) : null}
+                </span>
+              </label>
               <input
-                type='text'
-                name='username'
-                onChange={updateUsername}
-                value={username}
-              ></input>
-            </div>
-            <div
-              className={style.signupFormInputContainer}
-            >
-              <label>Email</label>
-              <input
+                className={style.signupFormInputField}
                 type='text'
                 name='email'
                 onChange={updateEmail}
@@ -89,8 +82,45 @@ const SignUpForm = () => {
             <div
               className={style.signupFormInputContainer}
             >
-              <label>Password</label>
+              <label
+                htmlFor='username'
+                className={style.signupFormLabel}
+              >
+                USERNAME<span
+                  className={style.signupFormErrorSpan}
+                >
+                  {errors.length > 0 && errors.map(error => (
+                    error.includes('username')
+                  )) ? errors.map(error => error.includes('username') ?
+                    ` - ${error.split(':')[1]}` : null) : null}
+                </span>
+              </label>
               <input
+                className={style.signupFormInputField}
+                type='text'
+                name='username'
+                onChange={updateUsername}
+                value={username}
+              ></input>
+            </div>
+            <div
+              className={style.signupFormInputContainer}
+            >
+              <label
+                htmlFor='password'
+                className={style.signupFormLabel}
+              >
+                PASSWORD<span
+                  className={style.signupFormErrorSpan}
+                >
+                  {errors.length > 0 && errors.map(error => (
+                    error.includes('password')
+                  )) ? errors.map(error => error.includes('password') ?
+                    ` - ${error.split(':')[1]}` : null) : null}
+                </span>
+              </label>
+              <input
+                className={style.signupFormInputField}
                 type='password'
                 name='password'
                 onChange={updatePassword}
@@ -100,16 +130,52 @@ const SignUpForm = () => {
             <div
               className={style.signupFormInputContainer}
             >
-              <label>Repeat Password</label>
+              <label
+                htmlFor='repeat_password'
+                className={style.signupFormLabel}
+              >
+                REPEAT PASSWORD<span
+                  className={style.signupFormErrorSpan}
+                >
+                  {errors.length > 0 && errors.map(error => (
+                    error.includes('password')
+                  )) ? errors.map(error => error.includes('password') ?
+                    ` - ${error.split(':')[1]}` : null) : null}
+                </span>
+              </label>
               <input
+                className={style.signupFormInputField}
                 type='password'
                 name='repeat_password'
                 onChange={updateRepeatPassword}
                 value={repeatPassword}
-                // required={true}
               ></input>
             </div>
-            <button type='submit'>Sign Up</button>
+            <div
+              className={style.signupFormInputContainer}
+              id={style.signupFormButtonDiv}
+            >
+              <button
+                type='submit'
+                className={style.signupFormSignupButton}
+                id={style.signupFormContinue}
+              >
+                Continue
+              </button>
+            </div>
+            <div
+              className={style.signupFormInputContainer}
+              id={style.signupFormLoginDiv}
+            >
+              <div className={style.signupFormLogin}>
+                <NavLink
+                  to='/login'
+                  className={style.signupFormLoginLink}
+                >
+                  Already have an account?
+                </NavLink>
+              </div>
+            </div>
           </form>
         </div>
       </div>
