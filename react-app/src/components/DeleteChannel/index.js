@@ -3,14 +3,14 @@ import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from '../../store/servers';
+import '../CreateChannel/CreateChannel.css'
 
-const DeleteChannel = () => {
+const DeleteChannel = ({setEditChannelModalActive}) => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
     const id = channelId;
     const history = useHistory();
 
-    console.log('SERVER FROM CHANNEL FORM', useParams());
     const dispatch = useDispatch();
     const channelList = useSelector((state) => state.servers?.[serverId]?.channels);
     const channelsArr = Object.values(channelList);
@@ -21,8 +21,6 @@ const DeleteChannel = () => {
 
     const firstChannel = channelsArr[0];
 
-    console.log('CHANNEL LIST FROM DELETE--', channelsArr[0]?.id);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -30,13 +28,15 @@ const DeleteChannel = () => {
             dispatch(serverActions.deleteChannelThunk({
                 server_id,
                 id
-            })).then(() => history.push(`/servers/${serverId}/${firstChannel}`));
+            })).then(() => history.push(`/servers/${serverId}/${firstChannel.id}`));
         }
+
+        {setEditChannelModalActive(false)}
     }
 
     return (
         <>
-            <button onClick={handleSubmit}>Delete Channel</button>
+            <button onClick={handleSubmit} className='delete-channel-btn'>Delete Channel</button>
         </>
     );
 };

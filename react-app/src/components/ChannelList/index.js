@@ -77,19 +77,22 @@ const ChannelList = () => {
       return (
         <>
           <div
-            className={style.serverModalBackground}
+            className={style.channelModalBackground}
             onClick={() => setEditChannelModalActive(false)}
           ></div>
           <div id='channelModal' className={style.channelModalContainer}>
-            <div className={style.serverModalWrapper}>
+            <div className={style.channelModalWrapper}>
+                <div className={style.newChannelModalHeading}>
+                    <h2>Edit Channel Name</h2>
+                    <p>in Text Channels</p>
+                </div>
                 <EditChannel setEditChannelModalActive={setEditChannelModalActive}/>
-              <div className={style.title}>Create Text Channel</div>
               <div
-                className={style.closeModal}
+                className={style.channelsCloseModal}
                 onClick={() => setEditChannelModalActive(false)}
               >
                 <svg
-                  className={style.closeX}
+                  className={style.channelsCloseX}
                   aria-hidden="false"
                   width="24"
                   height="24"
@@ -97,10 +100,6 @@ const ChannelList = () => {
                 >
                   <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
                 </svg>
-              </div>
-              <div className={style.subheading}>
-                Your server is where you and your friends hang out. Make it yours
-                and start talking.
               </div>
             </div>
           </div>
@@ -112,19 +111,22 @@ const ChannelList = () => {
       return (
         <>
           <div
-            className={style.serverModalBackground}
+            className={style.channelModalBackground}
             onClick={() => setChannelModalActive(false)}
           ></div>
           <div id='channelModal' className={style.channelModalContainer}>
-            <div className={style.serverModalWrapper}>
+            <div className={style.channelModalWrapper}>
+                <div className={style.newChannelModalHeading}>
+                  <h2>Create Text Channel</h2>
+                  <p>in Text Channels</p>
+                </div>
                 <CreateChannel setChannelModalActive={setChannelModalActive}/>
-              <div className={style.title}>Create Text Channel</div>
               <div
-                className={style.closeModal}
+                className={style.channelsCloseModal}
                 onClick={() => setChannelModalActive(false)}
               >
                 <svg
-                  className={style.closeX}
+                  className={style.channelsCloseX}
                   aria-hidden="false"
                   width="24"
                   height="24"
@@ -132,10 +134,6 @@ const ChannelList = () => {
                 >
                   <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
                 </svg>
-              </div>
-              <div className={style.subheading}>
-                Your server is where you and your friends hang out. Make it yours
-                and start talking.
               </div>
             </div>
           </div>

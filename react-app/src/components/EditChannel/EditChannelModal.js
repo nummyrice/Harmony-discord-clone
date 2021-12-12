@@ -49,7 +49,7 @@ const EditChannelModal = () => {
           <div>
             <div className='userContent'>
                  <EditChannel />
-                 <DeleteChannel />
+                 {/* <DeleteChannel /> */}
             </div>
           </div>
         </div>

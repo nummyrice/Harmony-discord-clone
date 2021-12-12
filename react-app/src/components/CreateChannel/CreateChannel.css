@@ -1,3 +1,110 @@
-h1 {
-    color: red;
+.channel-create-form {
+    width: 100%;
+}
+
+.channel-create-form > div:first-child {
+    padding: 16px;
+}
+
+.cancelLink, .channel-create-form button {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400 !important;
+}
+
+.cancelLink {
+    margin-right: 24px;
+}
+
+.cancelLink:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.channel-create-form button {
+    background: #5A6AEF;
+    border-radius: 4px;
+    color: #fff;
+    padding: 8px 14px;
+    transition: all 200ms;
+}
+
+.channel-create-form button:hover {
+    background: #4856C1;
+    cursor: pointer;
+}
+
+.form-btn-wrapper {
+    align-items: center;
+    background: #2F3136;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    padding: 16px;
+}
+
+.input-wrapper label {
+    color: #B9BBBE;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.field-wrapper {
+    align-items: center;
+    display: flex;
+    margin-top: 8px;
+    position: relative;
+}
+
+.input-wrapper input {
+    background: #2A2D31;
+    border: 1px solid #1D1F23 !important;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    padding: 8px 8px 8px 28px;
+    transition: all 200ms;
+    width: 100%;
+}
+
+.input-wrapper input:hover {
+    border: 1px solid #040405 !important;
+}
+
+.input-wrapper input:focus {
+    border: 1px solid #1EB0F1 !important;
+}
+
+.input-wrapper input::placeholder {
+    color: #676B71;
+}
+
+.icon-wrapper {
+    display: flex;
+    left: 8px;
+    position: absolute;
+}
+
+.icon-wrapper svg {
+    fill: #fff;
+}
+
+.edit-form-btns {
+    justify-content: space-between;
+}
+
+.edit-form-btns div {
+    align-items: center;
+    display: flex;
+}
+
+.delete-channel-btn {
+    background: none !important;
+    color: #EB444A !important;
+    transition: all 200ms;
+}
+
+.delete-channel-btn:hover {
+    background: #34373C !important;
 }

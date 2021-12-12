@@ -1,10 +1,9 @@
-.channelSettingsBg {
+/* .channelSettingsBg {
     background: #36393F;
     height: 100%;
     position: fixed;
     width: 100%;
     z-index: 1000;
-    /* ------------------ */
     transform: scale(1.25);
     transition: transform 200ms;
     visibility: hidden;
@@ -28,4 +27,4 @@
     max-width: 660px;
     width: 100%;
     z-index: 20;
-}
+} */

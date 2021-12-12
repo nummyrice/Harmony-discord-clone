@@ -153,6 +153,7 @@ a:hover p, a:active p {
 .disableOption:hover {
     background: #EB444A;
     color: #fff;
+    cursor: pointer;
 }
 
 .disableOption svg {
@@ -307,17 +308,13 @@ a:hover p, a:active p {
     padding: 0 10px;
 }
 
-/* .channelModalContainer {
-    background: teal;
-} */
-
-.testModal {
-    background: yellow;
-    position: fixed;
-    width: 100vw;
+.channelHeader p {
+    color: #B9BBBE;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
-.serverModalBackground {
+.channelModalBackground {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -325,62 +322,82 @@ a:hover p, a:active p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 100;
+    z-index: 101;
   }
 
 .channelModalContainer {
+    padding-top: 32px;
     position: fixed;
     height: fit-content;
-    width: 400px;
+    min-width: 300px;
+    max-width: 440px;
+    width: 100%;
     font-family: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: teal;
+    background-color: #36393F;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 4px;
+    overflow: hidden;
     z-index: 101;
 }
 
-.serverModalWrapper {
-display: flex;
-flex-direction: column;
-align-items: center;
-box-sizing: border-box;
-margin: 1.5rem;
-/* background-color: hotpink; */
+.channelModalWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-.serverModalWrapper > div {
-color: black;
+.channelModalWrapper > div {
+    color: black;
 }
 
-.title {
-font-weight: bold;
-font-size: 24px;
-margin-bottom: 0.5rem;
+.newChannelModalHeading {
+    margin-bottom: 14px;
+    text-align: center;
 }
 
-.closeModal {
-position: absolute;
-right: 15px;
-top: 15px;
-height: 22px;
-width: 22px;
+.newChannelModalHeading h2 {
+    color: #fff;
+    line-height: 32px;
 }
 
-.closeX {
-fill: rgb(175, 178, 182);
+.newChannelModalHeading p {
+    color: #B9BBBE;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
 }
 
-.closeModal:hover > svg {
-transition: ease-in 0.2s;
-fill: black;
+/* .title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+} */
+
+.channelsCloseModal {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    height: 22px;
+    width: 22px;
+}
+
+.channelsCloseX {
+    fill: rgb(175, 178, 182);
+}
+
+.channelsCloseModal:hover > svg {
+    cursor: pointer;
+    transition: ease-in 0.2s;
+    fill: #fff;
 }
 
 .subheading {
-color: rgb(191, 194, 197) !important;
-font-size: 14px;
-text-align: center;
+    color: rgb(191, 194, 197) !important;
+    font-size: 14px;
+    text-align: center;
 }
 
 .channelLink {
@@ -417,3 +434,12 @@ text-align: center;
 .channelLink:hover .channelControls {
     visibility: visible;
 }
+
+/* .cancelLink {
+    color: #fff !important;
+}
+
+.cancelLink:hover {
+    cursor: pointer;
+    text-decoration: underline;
+} */

@@ -64,11 +64,9 @@ const ServerDetails = () => {
     let leaveServer;
 
     const deleteServerBtn = () => {
-        console.log('server id', serverId)
         dispatch(serverActions.deleteServerThunk(+serverId))
         .then(() => dispatch(serverActions.getServersThunk()))
         .then(() => history.push('/servers/@me'));
-        console.log('delete server!!!')
     };
 
     const leaveServerBtn = () => {
@@ -76,7 +74,6 @@ const ServerDetails = () => {
         .then(() => dispatch(serverActions.getServersThunk()))
         .then(() => history.push('/servers/@me'));
         // dispatch(serverActions.getServersThunk());
-        console.log('removed member!!!');
     };
 
     // if (!server?.members.includes(sessionUser.id)) {

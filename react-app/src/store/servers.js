@@ -197,7 +197,6 @@ export const getChannelsThunk = (serverId) => async (dispatch) => {
 
 export const postChannelThunk = (channel) => async (dispatch) => {
   const { name, server_id } = channel;
-  console.log('STORE SERVER.id---: ', server_id)
   const response = await fetch(`/api/servers/${server_id}`, {
     method: "POST",
     headers: {
