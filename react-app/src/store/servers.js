@@ -97,19 +97,14 @@ export const getServersThunk = () => async (dispatch) => {
 };
 
 export const postServerThunk = (server) => async (dispatch) => {
-  const { name, image_url, isPrivate } = server;
+  // const { name, image_url, isPrivate } = server;
+  console.log('image_url!!!', server)
   const response = await fetch(`/api/servers/`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      image_url,
-      private: isPrivate,
-    }),
+    body: server
   });
   const data = await response.json();
+  console.log('after fetch', data)
   dispatch(postServer(data));
   return data;
 };
