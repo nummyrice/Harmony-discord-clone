@@ -12,21 +12,26 @@ const EditServer = ({setEditServerModalActive}) => {
     // let channelName = channel?.name;
 
     const server = useSelector((state) => state.servers?.[serverId]);
-    console.log('SERVER NAME: ', server.id, server.image_url);
+    // console.log('SERVER NAME: ', server.id, server.image_url);
     const id = server.id;
-    const image_url = server.image_url;
+    // const image_url = server.image_url;
     const dispatch = useDispatch();
-    const [name, setName] = useState(`${server.name}`);
+    const [serverName, setServerName] = useState(`${server.name}`);
     const [imageUrl, setImageUrl] = useState('');
 
     const handleSubmit = (e) => {
+        console.log('NAME', serverName)
+        console.log('image url', imageUrl)
         e.preventDefault();
+        const formData = new FormData();
+        console.log('FORM DATA----', formData)
+        formData.append('name', serverName);
+        console.log('FORM DATA APPEND----', formData)
+        formData.append('image_url', imageUrl);
+        formData.append('id', id);
 
-        dispatch(serverActions.editServerThunk({
-            name,
-            image_url,
-            id
-        }))
+
+        dispatch(serverActions.editServerThunk(formData))
 
         {setEditServerModalActive(false)}
     }
@@ -45,7 +50,7 @@ const EditServer = ({setEditServerModalActive}) => {
                     <div className='input-wrapper'>
                         <label htmlFor='name'>Server Name</label>
                         <div className='field-wrapper'>
-                            <input type='text' name='name' placeholder='edit-server' value={name} onChange={(e) => setName(e.target.value)} required />
+                            <input type='text' name='name' placeholder='edit-server' value={serverName} onChange={(e) => setServerName(e.target.value)} required />
                             <div className='icon-wrapper'>
                                     {serverIcon}
                             </div>
@@ -59,11 +64,11 @@ const EditServer = ({setEditServerModalActive}) => {
                         </div> */}
                     </div>
                     <div>
-                        <label htmlFor='name'>Edit Image</label>
+                        <label htmlFor='edit-server-image'>Edit Image</label>
                         <div className='image-uploader-wrapper'>
                             <div>
-                                <div className='edit-server-image-placeholder' style={{backgroundImage:'url(' + server.image_url + ')'}}></div>
-                                <input type='file'/>
+                                <div className='edit-server-image-placeholder' style={{backgroundImage:'url(' + imageUrl + ')'}}></div>
+                                <input type='file' accept='.jpg, .jpeg, .png, .gif' name='edit-server-image' value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
                             </div>
                         </div>
                     </div>
