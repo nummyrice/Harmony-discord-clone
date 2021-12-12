@@ -23,6 +23,9 @@ class Server(db.Model):
         'Channel', back_populates='servers', cascade="all, delete")
 
     def to_dict(self):
+        if len(self.channels) and self.private:
+            channel = self.channels[0].to_dict()
+            channelId = channel["id"]
         return {
             'id': self.id,
             'name': self.name,
@@ -31,7 +34,7 @@ class Server(db.Model):
             'owner_id': self.owner_id,
             'members': [user.id for user in self.members],
             "member_list": [user.to_dict() for user in self.members],
-            'channels': self.channels[0].to_dict() if len(self.channels) and self.private else {},
+            'channels': {channelId: self.channels[0].to_dict()} if len(self.channels) and self.private else {},
             'created_at': self.created_at.strftime('%m/%d/%Y %H:%M:%S'),
             'updated_at': self.updated_at.strftime('%m/%d/%Y %H:%M:%S')
         }

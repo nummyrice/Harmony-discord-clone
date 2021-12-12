@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, Link } from "react-router-dom";
 import ChannelList from "../ChannelList";
 import style from "./servers.module.css";
 import ChannelMessages from "../Messages";
@@ -9,6 +9,7 @@ import DMList from "../DirectMessages/dmlist";
 import arrow from "./assets/discord-arrow.svg";
 
 import CreateServer from "../CreateServer";
+import CreateChannel from '../CreateChannel';
 import JoinServer from "../JoinServer";
 
 import Members from "../Members";
@@ -27,6 +28,7 @@ export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
   const [createNewServer, setCreateNewServer] = useState(false);
   const [joinServer, setJoinServer] = useState(false);
+  // const [channelModalActive, setChannelModalActive] = useState(false)
 
   useEffect(() => {
     socket = io();
@@ -40,7 +42,7 @@ export default function Servers() {
     });
     socket.on("delete_server", (server) => {
       if (server.members.includes(session.user.id))
-        dispatch(serverActions.deleteServer(server));
+        dispatch(serverActions.deleteServer(server.id));
     });
     socket.on("add_channel", (channel) => {
       dispatch(serverActions.postChannel(channel));
@@ -52,13 +54,19 @@ export default function Servers() {
       dispatch(serverActions.deleteChannel(channel));
     });
     socket.on("add_message", (message) => {
-      dispatch(serverActions.postMessage(message));
+      dispatch(serverActions.postMessage(message.data, message.server_id));
     });
     socket.on("edit_message", (message) => {
-      dispatch(serverActions.editMessage(message));
+      dispatch(serverActions.editMessage(message.data, message.server_id));
     });
     socket.on("delete_message", (message) => {
-      dispatch(serverActions.deleteMessage(message));
+      dispatch(
+        serverActions.deleteMessage({
+          message_id: message.data.id,
+          channel_id: message.data.channel_id,
+          server_id: message.server_id,
+        })
+      );
     });
     return () => {
       socket.disconnect();
@@ -75,6 +83,41 @@ export default function Servers() {
     setServerActive(false);
     setJoinServer(true);
   }
+
+  // function addChannelFunc() {
+  //   return (
+  //     <>
+  //       <div
+  //         className={style.serverModalBackground}
+  //         onClick={() => setChannelModalActive(false)}
+  //       ></div>
+  //       <div id='channelModal' className={style.channelModalContainer}>
+  //         <div className={style.serverModalWrapper}>
+  //             {/* <CreateChannel /> */}
+  //           <div className={style.title}>Create Text Channel</div>
+  //           <div
+  //             className={style.closeModal}
+  //             onClick={() => setChannelModalActive(false)}
+  //           >
+  //             <svg
+  //               className={style.closeX}
+  //               aria-hidden="false"
+  //               width="24"
+  //               height="24"
+  //               viewBox="0 0 24 24"
+  //             >
+  //               <path d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"></path>
+  //             </svg>
+  //           </div>
+  //           <div className={style.subheading}>
+  //             Your server is where you and your friends hang out. Make it yours
+  //             and start talking.
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   function addServerFunc() {
     return (
@@ -130,6 +173,7 @@ export default function Servers() {
 
   return (
     <main className={style.main}>
+      {/* {channelModalActive && addChannelFunc()} */}
       {serverActive && addServerFunc()}
       {createNewServer && (
         <CreateServer
@@ -164,7 +208,14 @@ export default function Servers() {
           <Route exact path="/servers/@me">
             <DirectMessages />
           </Route>
-          <Route path={["/servers/:serverId/:channelId"]}>
+          <Route
+            exact
+            path={[
+              "/servers/:serverId",
+              "/servers/@me/:serverId/:channelId",
+              "/servers/:serverId/:channelId",
+            ]}
+          >
             <Header />
           </Route>
         </Switch>
@@ -175,7 +226,13 @@ export default function Servers() {
           <Route exact path={"/servers/:serverId"}>
             <div></div>
           </Route>
-          <Route path="/servers/:serverId/:channelId">
+          <Route
+            exact
+            path={[
+              "/servers/@me/:serverId/:channelId",
+              "/servers/:serverId/:channelId",
+            ]}
+          >
             <ChannelMessages />
           </Route>
         </Switch>
@@ -183,7 +240,15 @@ export default function Servers() {
           <Route exact path="/servers/@me">
             <div className={style.div10}></div>
           </Route>
-          <Route path={["/servers/@me/:serverId", "/servers/:serverId"]}>
+          <Route
+            exact
+            path={[
+              "/servers/@me/:serverId",
+              "/servers/:serverId",
+              "/servers/:serverId/:channelId",
+              "/servers/@me/:serverId/:channelId",
+            ]}
+          >
             <Members />
           </Route>
         </Switch>

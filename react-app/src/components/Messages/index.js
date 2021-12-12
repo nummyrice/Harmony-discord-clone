@@ -10,6 +10,10 @@ export default function ChannelMessages() {
   const { serverId, channelId } = useParams();
 
   const server = useSelector((state) => state.servers?.[serverId]);
+  const channel = server?.channels?.[channelId];
+  let messages = useSelector(
+    (state) => state.servers?.[serverId]?.channels?.[channelId]?.messages
+  );
 
   const sessionUser = useSelector((state) => state.session?.user);
   const [messageInput, setMessageInput] = useState("");
@@ -19,7 +23,7 @@ export default function ChannelMessages() {
   });
   const [displayDeleteConfirm, setDisplayDeleteConfirm] = useState("");
   const dispatch = useDispatch();
-
+  console.log({ server, channelId });
   // SUBMIT NEW MESSAGE
   function messageSubmit(e) {
     e.preventDefault();
@@ -28,8 +32,8 @@ export default function ChannelMessages() {
       return dispatch(
         serverActions.postMessageThunk({
           content: messageInput,
-          server_id: server.id,
-          channel_id: channel.id,
+          server_id: serverId,
+          channel_id: channelId,
         })
       );
     }
@@ -51,8 +55,6 @@ export default function ChannelMessages() {
       );
     }
   }
-  const channel = server?.channels?.[channelId];
-  const messages = channel?.messages;
 
   // Prevents message store without channel store
   if (channel) {
@@ -65,10 +67,17 @@ export default function ChannelMessages() {
       );
     }
   }
+  const scroll = () => {
+    let i = document.getElementById("scroll");
+    if (i) i.scrollIntoView();
+  };
+  useEffect(() => {
+    scroll();
+  }, [server, channel, messages]);
 
   // obtains messages from the store
   return (
-    <div>
+    <div className={style.div1}>
       <div className={style.channel_messages_container}>
         {server?.image_url && (
           <img
@@ -191,9 +200,15 @@ export default function ChannelMessages() {
               </div>
             );
           })}
+        <i id="scroll"></i>
       </div>
       {!editMessageInput.value && (
-        <form onSubmit={messageSubmit}>
+        <form
+          onSubmit={(e) => {
+            messageSubmit(e);
+            scroll();
+          }}
+        >
           <div className={style.message_input_container}>
             <input
               className={style.message_input_field}

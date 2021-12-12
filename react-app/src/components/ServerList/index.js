@@ -9,7 +9,7 @@ import logo from "./images/white-logo.png";
 
 export default function ServersList({ setServerActive }) {
   const dispatch = useDispatch();
-  const servers = useSelector((state) => Object.values(state.servers));
+  const servers = useSelector((state) => (state.servers));
 
   useEffect(() => {
     dispatch(serverActions.getServersThunk());
@@ -20,7 +20,7 @@ export default function ServersList({ setServerActive }) {
       <NavLink className={style.home} to={"/servers/@me"}>
         <img className={style.directMessages} src={logo} />
       </NavLink>
-      {servers?.map((server) => {
+      {servers && Object.values(servers)?.map((server) => {
         if (!server.private) {
           return (
             <NavLink

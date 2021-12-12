@@ -4,11 +4,12 @@ from flask_login import login_required, current_user
 from app.models import Server, User, Member, server, db
 from app.forms import NewServerForm, EditServerForm
 from app.socket import handle_add_channel, handle_edit_server, handle_delete_server
-from app.aws_upload import (upload_file_to_s3, allowed_file, get_unique_filename)
+from app.aws_upload import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 server_routes = Blueprint('servers', __name__)
 
-@server_routes.route('', )
 
+@server_routes.route('', )
 @server_routes.route('/')
 @login_required
 def servers():
@@ -18,31 +19,34 @@ def servers():
 
     return {'servers': [server.to_dict() for server in user_servers]}
 
+
 @server_routes.route('/', methods=['POST'])
 @login_required
 def new_server():
     print('in route')
-
     form = NewServerForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if "image_url" not in form.data:
-        return {"errors": "image required"}, 400
+    url = "strings"
+    print(form.data["private"])
+    if not form.data["private"]:
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if "image_url" not in form.data:
+            return {"errors": "image required"}, 400
 
-    image = form.data["image_url"]
+        image = form.data["image_url"]
 
-    if not allowed_file(image.filename):
-        return {"errors": "file type not permitted"}, 400
+        # if not allowed_file(image.filename):
+        #     return {"errors": "file type not permitted"}, 400
 
-    image.filename = get_unique_filename(image.filename)
+        image.filename = get_unique_filename(image.filename)
 
-    upload = upload_file_to_s3(image)
+        upload = upload_file_to_s3(image)
 
-    if "url" not in upload:
-        return upload, 400
+        if "url" not in upload:
+            return upload, 400
 
-    url = upload["url"]
+        url = upload["url"]
 
-    if form.validate_on_submit():
+    if form.data["name"]:
         print('request files', form.data)
         server = Server(
             name=form.data['name'],
@@ -83,11 +87,11 @@ def edit_server(id):
 @login_required
 def delete_server(id):
     server = Server.query.get(int(id))
-    if server.owner_id == current_user.id:
+    if server.owner_id == current_user.id or server.private:
         handle_delete_server(server.to_dict())
         db.session.delete(server)
         db.session.commit()
-        return {"result": "success"}
+        return server.to_dict()
 
 
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
@@ -133,11 +137,12 @@ def delete_member(serverId):
     userId = current_user.id
     user = User.query.get(int(userId))
     server = Server.query.get(int(serverId))
+
     if user in server.members:
-        member = Member.query.filter(
-            userId == Member.user_id and serverId == Member.server_id)[0]
+        member = Member.query.filter(userId == Member.user_id).filter(
+            serverId == Member.server_id)[0]
         db.session.delete(member)
         db.session.commit()
         handle_edit_server(server.to_dict())
-        return {"result": "success"}
+        return server.to_dict()
     return {"result": "failed"}

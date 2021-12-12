@@ -18,7 +18,7 @@ def seed_users():
     db.session.add(bobbie)
     db.session.commit()
     # adjust the range to add more or less seed data
-    for x in range(1, 10):
+    for x in range(4, 10):
         additionalUser = User(
             username= f'{fake.first_name()}{x}',
             email= fake.profile()['mail'],

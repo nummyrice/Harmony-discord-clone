@@ -1,0 +1,154 @@
+/* latin-ext */
+@font-face {
+    font-family: 'Archivo Black';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/archivoblack/v10/HTxqL289NzCGg4MzN6KJ7eW6CYKF_jzx13HOvQ.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Archivo Black';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/archivoblack/v10/HTxqL289NzCGg4MzN6KJ7eW6CYyF_jzx13E.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Staatliches';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/staatliches/v6/HI_OiY8KO6hCsQSoAPmtMYeVvpCfOMPTjMY.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Staatliches';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/staatliches/v6/HI_OiY8KO6hCsQSoAPmtMYebvpCfOMPT.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+.landing {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* background-color: red !important; */
+    /* background-color: none !important; */
+    width: 100vw;
+    height: 100%;
+    overflow-y: scroll;
+;
+}
+.landing_title_block {
+    /* width: 100vw; */
+    background-color: #404eed !important;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    flex-shrink:0;
+}
+
+.landing_title {
+    font-size: 56px;
+    text-transform: uppercase;
+    text-rendering:geometricPrecision;
+    font-family: 'Staatliches';
+    font-weight: 600;
+}
+
+.landing_blurb {
+    font-family: 'Archivo Black';
+    max-width: 30rem;
+    margin-top: 1rem;
+}
+
+.landing_details_block {
+    background-color: white;
+    width: 100vw;
+    height: 500px;
+    flex-shrink:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.landing_details {
+    color: black;
+    font-family: "Archivo Black";
+    font-size: large;
+    width: 50%;
+
+}
+
+.landing_detail_bullets {
+    color: black;
+    font-family: "Archivo Black";
+    font-size: large;
+    /* margin: 0px;
+    padding: 0px; */
+}
+
+/* bullet reset */
+
+ul {
+    list-style: none; /* Remove default bullets */
+  }
+
+  ul li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: black; /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+  }
+
+.github_repo {
+    /* border-radius: 10px; */
+    padding: 10px 15px 10px 15px;
+    background-color: #404eed;
+    color: white;
+    font-family: "Archivo Black";
+    cursor: pointer;
+
+}
+.landing_ref_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 22rem;
+    width: 100vw;
+    flex-shrink: 0;
+}
+
+.git_link {
+    margin: 10px;
+    width: 10rem;
+    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-decoration:none;
+
+}
+
+.git_link > div {
+    color: white;
+    justify-self: center;
+    font-family: "Archivo Black";
+    font-size: 36px;
+}
+
+/* ul::before {
+
+} */

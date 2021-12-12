@@ -108,6 +108,7 @@ export const postServerThunk = (server) => async (dispatch) => {
   dispatch(postServer(data));
   return data;
 };
+
 export const editServerThunk = (server) => async (dispatch) => {
   const { name, image_url, id } = server;
   const response = await fetch(`/api/servers/${id}`, {
@@ -131,7 +132,7 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
     method: "DELETE",
   });
   const data = await response.json();
-  dispatch(deleteServer(data));
+  dispatch(deleteServer(data.id));
   return data;
 };
 
@@ -176,8 +177,8 @@ export const deleteMemberThunk = (serverId) => async (dispatch) => {
   const data = await response.json();
   const response2 = await fetch(`/api/servers/`);
   const data2 = await response2.json();
-  dispatch(getServers(data2.servers));
   dispatch(deleteMember(data));
+  dispatch(getServers(data2.servers));
   return data;
 };
 
@@ -315,15 +316,15 @@ export default function serverReducer(state = {}, action) {
       return newState;
     case DELETE_MEMBER:
       serverId = action.server.id;
-      if (serverId) {
-        newState[serverId].members = action.server.members;
-        newState[serverId].member_list = action.server.member_list;
-      }
+      delete newState[serverId];
       return newState;
+
     case GET_CHANNELS:
+      let temp = {};
       for (let channel of action.channels) {
         if (newState[channel.server_id]) {
-          newState[channel.server_id].channels[channel.id] = channel;
+          temp[channel.id] = channel;
+          newState[channel.server_id].channels = temp;
         }
       }
       return newState;
@@ -331,28 +332,39 @@ export default function serverReducer(state = {}, action) {
       if (newState[action.channel.server_id]) {
         newState[action.channel.server_id].channels[action.channel.id] =
           action.channel;
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
+
       return newState;
     case EDIT_CHANNEL:
       if (newState[action.channel.server_id]) {
         newState[action.channel.server_id].channels[action.channel.id] =
           action.channel;
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
       return newState;
     case DELETE_CHANNEL:
       if (newState[action.channel.server_id]) {
         delete newState[action.channel.server_id].channels[action.channel.id];
+        newState[action.channel.server_id].channels = {
+          ...newState[action.channel.server_id].channels,
+        };
       }
       return newState;
     case GET_MESSAGES:
+      let temp2 = {};
       for (let message of action.messages) {
         if (
           newState[action.server_id] &&
           newState[action.server_id].channels[message.channel_id]
         ) {
-          newState[action.server_id].channels[message.channel_id].messages[
-            message.id
-          ] = message;
+          temp2[message.id] = message;
+          newState[action.server_id].channels[message.channel_id].messages =
+            temp2;
         }
       }
       return newState;
@@ -364,6 +376,12 @@ export default function serverReducer(state = {}, action) {
         newState[action.server_id].channels[action.message.channel_id].messages[
           action.message.id
         ] = action.message;
+        newState[action.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.server_id].channels[action.message.channel_id]
+            .messages,
+        };
       }
       return newState;
     case EDIT_MESSAGE:
@@ -374,9 +392,16 @@ export default function serverReducer(state = {}, action) {
         newState[action.server_id].channels[action.message.channel_id].messages[
           action.message.id
         ] = action.message;
+        newState[action.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.server_id].channels[action.message.channel_id]
+            .messages,
+        };
       }
       return newState;
     case DELETE_MESSAGE:
+      console.log("****************", action.message);
       if (
         newState[action.message.server_id] &&
         newState[action.message.server_id].channels[action.message.channel_id]
@@ -384,6 +409,14 @@ export default function serverReducer(state = {}, action) {
         delete newState[action.message.server_id].channels[
           action.message.channel_id
         ].messages[action.message.message_id];
+
+        newState[action.message.server_id].channels[
+          action.message.channel_id
+        ].messages = {
+          ...newState[action.message.server_id].channels[
+            action.message.channel_id
+          ].messages,
+        };
       }
       return newState;
     default:

@@ -27,17 +27,13 @@ def handle_delete_channel(data):
     socketio.emit("delete_channel", data, broadcast=True)
 
 
-def handle_add_message(data, server_id):
-    print(server_id)
-    socketio.emit("add_message", {"data": data,
-                  "server_id": server_id}, broadcast=True)
+def handle_add_message(data):
+    socketio.emit("add_message", data, broadcast=True)
 
 
-def handle_edit_message(data, server_id):
-    socketio.emit("edit_message", {"data": data,
-                  "server_id": server_id}, broadcast=True)
+def handle_edit_message(data):
+    socketio.emit("edit_message", data, broadcast=True)
 
 
-def handle_delete_message(data, server_id):
-    socketio.emit("delete_message", {"data": data,
-                  "server_id": server_id}, broadcast=True)
+def handle_delete_message(data):
+    socketio.emit("delete_message", data, broadcast=True)
