@@ -5,7 +5,6 @@
 .channelComponentWrapper {
     font-family: Ginto,"Helvetica Neue",Helvetica,Arial,sans-serif;
     text-decoration: none;
-    /* ---------------------- */
     background: rgb(47, 49, 54);
     display: flex;
     flex-direction: column;
@@ -45,11 +44,19 @@
     text-transform: lowercase;
 }
 
-a:hover, a:active {
+.channelListWrapper a:hover {
     background: rgb(57, 60, 67) !important;
 }
 
-a:hover p, a:active p {
+.activeChannelLink {
+    background: rgb(57, 60, 67) !important;
+}
+
+.activeChannelLink p {
+    color: #fff;
+}
+
+a:hover p {
     color: #fff;
 }
 
@@ -107,7 +114,7 @@ a:hover p, a:active p {
     transition: transform 250ms;
     visibility: hidden;
     width: 93%;
-    z-index: 200;
+    z-index: 100;
 }
 
 .serverMenuOpen {
