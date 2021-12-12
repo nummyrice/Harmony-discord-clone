@@ -108,6 +108,7 @@ export const postServerThunk = (server) => async (dispatch) => {
   dispatch(postServer(data));
   return data;
 };
+
 export const editServerThunk = (server) => async (dispatch) => {
   const { name, image_url, id } = server;
   const response = await fetch(`/api/servers/${id}`, {
