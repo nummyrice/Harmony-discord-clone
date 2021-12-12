@@ -12,6 +12,7 @@ import * as serverActions from "./store/servers";
 import Servers from "./components/Main";
 import ChannelList from "./components/ChannelList";
 import Main from "./components/Main";
+import Landing from "./components/Landing";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -30,8 +31,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <NavBar /> */}
+      <NavBar exact path={['/', '/login', '/sign-up', '/users', '/users/:userId']} />
       <Switch>
+        <Route  exact={true} path='/'>
+          <Landing/>
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>

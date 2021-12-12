@@ -7,7 +7,7 @@ fake = Faker()
 
 def seed_messages():
     # adjust the range to add more or less seed data
-    for x in range(0, 20):
+    for x in range(0, 500):
         channel_id = db.session.query(
             Channel.id).order_by(func.random()).first()[0]
         owner_id = db.session.query(User.id).order_by(func.random()).first()[0]
