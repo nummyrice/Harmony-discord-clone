@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from '../../store/servers';
 import '../CreateChannel/CreateChannel.css';
-import DeleteChannel from "../DeleteChannel";
 
 const EditServer = ({setEditServerModalActive}) => {
     const { serverId, channelId } = useParams();
