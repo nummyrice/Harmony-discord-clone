@@ -47,6 +47,9 @@
   text-decoration: none;
   cursor: pointer;
 }
+.privateServerList a:hover > button {
+  visibility: visible;
+}
 
 a:hover {
   background-color: inherit;
@@ -79,4 +82,18 @@ a:hover {
 }
 .dmlistHeader {
   height: 48px;
+}
+.serverX {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  z-index: 100;
+  visibility: hidden;
 }

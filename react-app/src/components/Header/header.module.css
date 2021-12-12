@@ -34,7 +34,7 @@
   margin: 0 8px;
 }
 
-.right > input {
+.right input {
   background-color: rgb(32, 34, 37);
   border-radius: 5px;
   caret-color: snow;
@@ -43,8 +43,8 @@
   font-size: 14px;
   line-height: 1.5rem;
 }
-.right > input:focus,
-.right > input:focus-within {
+.right input:focus,
+.right input:focus-within {
   outline-width: 0;
 }
 .searchIcon {
@@ -62,4 +62,75 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+.message_container {
+  padding: 10px 5px 10px 5px;
+  display: grid;
+  grid-template-columns: 3.5rem auto auto 50px;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "image name date"
+    "image text date";
+  background-color: rgb(54, 57, 63);
+  column-gap: 10px;
+}
+
+.message_container:hover {
+  background-color: #2f3136;
+}
+
+.owner_image {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  grid-area: image;
+  justify-self: center;
+  align-self: center;
+}
+
+.owner_username {
+  font-family: Helvetica;
+  font-size: 17px;
+  color: #f9f9fa;
+  font-weight: 500;
+  grid-area: name;
+  align-self: end;
+}
+
+.message_created_at {
+  font-family: Helvetica;
+  font-size: 13px;
+  grid-area: date;
+  align-self: center;
+}
+.message_content {
+  font-family: Helvetica;
+  font-size: 16px;
+  color: #f9f9fa;
+  grid-area: text;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+  overflow-x: hidden;
+}
+.searchMessage {
+  position: relative;
+}
+.searchMessage:focus input,
+.messages:focus ~ *,
+.searchMessage:focus-within input,
+.messages:focus-within ~ * {
+  width: 250px !important;
+}
+
+.messages {
+  position: absolute;
+  top: 40px;
+  overflow-y: auto;
+  height: 500px;
+  visibility: visible;
+}
+.right input:placeholder-shown ~ div {
+  visibility: hidden;
 }

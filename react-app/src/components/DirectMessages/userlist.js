@@ -33,14 +33,17 @@ export default function UserList() {
 
     let server = await dispatch(
       serverActions.postServerThunk({
-        name: "DM server",
+        name: "Your Direct Message",
         isPrivate: true,
         owner_id: session.id,
       })
     );
     dispatch(serverActions.postPrivateMemberThunk(server.id, member.id));
     dispatch(
-      serverActions.postChannelThunk({ name: "hidden", server_id: server.id })
+      serverActions.postChannelThunk({
+        name: "Direct Message",
+        server_id: server.id,
+      })
     );
     dispatch(serverActions.getServersThunk());
   }

@@ -7,13 +7,15 @@ import * as serverActions from "../../store/servers";
 export default function Header() {
   const dispatch = useDispatch();
   let [searchVal, setSearchVal] = useState("");
-  let [width, setWidth] = useState("150px");
   let [color, setColor] = useState("white");
   let { serverId, channelId } = useParams();
   let url = useLocation().pathname;
   const servers = useSelector((state) => state.servers);
   const session = useSelector((state) => state.session);
-
+  let messages = useSelector(
+    (state) => state.servers?.[serverId]?.channels?.[channelId]?.messages
+  );
+  console.log({ messages });
   let server = servers?.[serverId];
   let channel = server?.channels?.[channelId];
 
@@ -233,20 +235,39 @@ export default function Header() {
         <div className={style.userIcon} onClick={hideMembers}>
           {usersIcon}
         </div>
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchVal}
-          onChange={(e) => setSearchVal(e.target.value)}
-          onClick={() => setWidth("250px")}
-          style={{ width }}
-          onBlur={() => setWidth("150px")}
-        />
-        <div
-          className={style.searchIcon}
-          onClick={() => setWidth("250px")}
-          style={{ color }}
-        >
+        <div className={style.searchMessage}>
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+          />
+          <div className={style.messages}>
+            {messages &&
+              Object.values(messages).map((message) => {
+                if (message.content.toLowerCase().startsWith(searchVal))
+                  return (
+                    <div className={style.message_container} key={message.id}>
+                      <img
+                        alt={"avatar"}
+                        className={style.owner_image}
+                        src={message.owner.image_url}
+                      ></img>
+                      <div className={style.owner_username}>
+                        {message.owner.username}
+                      </div>
+                      <div className={style.message_created_at}>
+                        {message.created_at}
+                      </div>
+                      <div className={style.message_content}>
+                        {message.content}
+                      </div>
+                    </div>
+                  );
+              })}
+          </div>
+        </div>
+        <div className={style.searchIcon} style={{ color }}>
           {searchVal ? xIcon : searchIcon}
         </div>
         {inboxIcon}

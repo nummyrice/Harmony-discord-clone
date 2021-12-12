@@ -20,15 +20,43 @@ export default function DMList() {
       (member) => +session.user.id !== +member.id
     );
 
+    let xIcon = (
+      <svg
+        className={style.xIcon}
+        aria-hidden="false"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="rgb(142,146,151)"
+          d="M18.4 4L12 10.4L5.6 4L4 5.6L10.4 12L4 18.4L5.6 20L12 13.6L18.4 20L20 18.4L13.6 12L20 5.6L18.4 4Z"
+        ></path>
+      </svg>
+    );
+    function removeDm(e, server) {
+      e.preventDefault();
+      dispatch(serverActions.deleteServerThunk(server?.id));
+    }
+
     if (otherMember) {
       let channel = Object.values(server.channels)[0];
       return (
-        <Link
-          key={otherMember.id}
-          to={`/servers/@me/${server.id}/${channel.id}`}
-        >
-          <Member member={otherMember} />
-        </Link>
+        <>
+          <Link
+            key={otherMember.id}
+            to={`/servers/@me/${server?.id}/${channel?.id}`}
+            style={{ position: "relative" }}
+          >
+            <Member member={otherMember} />
+            <button
+              className={style.serverX}
+              onClick={(e) => removeDm(e, server)}
+            >
+              {xIcon}
+            </button>
+          </Link>
+        </>
       );
     }
   }
@@ -38,7 +66,7 @@ export default function DMList() {
       <div>
         <div className={style.dmlistHeader}></div>
         <h3>DIRECT MESSAGES</h3>
-        {privateServers?.map(privateServer)}
+        {privateServers && privateServers?.map(privateServer)}
       </div>
       <UserDetails />
     </div>

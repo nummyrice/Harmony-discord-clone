@@ -8,9 +8,6 @@
   bottom: 0;
   overflow-y: auto;
 }
-.div1 {
-  position: relative;
-}
 
 .server_image {
   object-fit: cover;
