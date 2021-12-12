@@ -32,6 +32,18 @@ const LoginForm = () => {
     return <Redirect to="/servers/@me" />;
   }
 
+  const emailRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('email'))) {
+      return {color:'red'} ;
+    }
+  }
+
+  const passwordRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('password'))) {
+      return {color:'red'} ;
+    }
+  }
+
   return (
     <>
       <div className={style.loginFormContainer}>
@@ -50,6 +62,7 @@ const LoginForm = () => {
               <label
                 htmlFor="email"
                 className={style.loginFormLabel}
+                style={emailRed()}
               >
                 Email<span
                     className={style.loginFormErrorSpan}
@@ -74,6 +87,7 @@ const LoginForm = () => {
               <label
                 htmlFor="password"
                 className={style.loginFormLabel}
+                style={passwordRed()}
               >
                 Password<span
                     className={style.loginFormErrorSpan}

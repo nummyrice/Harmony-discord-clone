@@ -11,6 +11,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -44,6 +45,24 @@ const SignUpForm = () => {
     return <Redirect to='/servers/@me' />;
   }
 
+  const emailRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('email'))) {
+      return {color:'red'} ;
+    }
+  }
+
+  const usernameRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('username'))) {
+      return {color:'red'} ;
+    }
+  }
+
+  const passwordRed = () => {
+    if (errors.length > 0 && errors.map(error => error.includes('password'))) {
+      return {color:'red'} ;
+    }
+  }
+
   return (
     <>
       <div className={style.signupFormContainer}>
@@ -61,6 +80,7 @@ const SignUpForm = () => {
               <label
                 htmlFor={email}
                 className={style.signupFormLabel}
+                style={emailRed()}
               >
                 EMAIL<span
                 className={style.signupFormErrorSpan}
@@ -85,6 +105,7 @@ const SignUpForm = () => {
               <label
                 htmlFor='username'
                 className={style.signupFormLabel}
+                style={usernameRed()}
               >
                 USERNAME<span
                   className={style.signupFormErrorSpan}
@@ -109,6 +130,7 @@ const SignUpForm = () => {
               <label
                 htmlFor='password'
                 className={style.signupFormLabel}
+                style={passwordRed()}
               >
                 PASSWORD<span
                   className={style.signupFormErrorSpan}
@@ -133,6 +155,7 @@ const SignUpForm = () => {
               <label
                 htmlFor='repeat_password'
                 className={style.signupFormLabel}
+                style={passwordRed()}
               >
                 REPEAT PASSWORD<span
                   className={style.signupFormErrorSpan}

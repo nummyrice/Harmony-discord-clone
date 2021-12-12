@@ -54,6 +54,7 @@
 .signupFormLabel {
     font-size: 12px;
     color: rgb(191,194,197);
+    /* color: red; */
     margin-bottom: 5px;
 }
 
@@ -61,6 +62,10 @@
     font-size: 12px;
     color: red;
     font-style: italic;
+}
+
+.redtrue {
+    color: red;
 }
 
 .signupFormInputField {
