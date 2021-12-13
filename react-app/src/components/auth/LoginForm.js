@@ -111,13 +111,24 @@ const LoginForm = () => {
               >
                 Login
               </button>
-              <div className={style.loginFormRegister}>
-                Need an account? <NavLink
-                  to='/sign-up'
-                  className={style.loginFormRegisterLink}
+              <div className={style.loginFormAuth}>
+                <div className={style.loginFormRegister}>
+                  Need an account? <NavLink
+                    to='/sign-up'
+                    className={style.loginFormRegisterLink}
+                  >
+                    Register
+                  </NavLink>
+                </div>
+                <button
+                  className={style.loginFormDemoUser}
+                  onClick={() => {
+                    setEmail('demo@aa.io');
+                    setPassword('password');
+                  }}
                 >
-                  Register
-                </NavLink>
+                  Demo Account
+                </button>
               </div>
             </div>
           </form>

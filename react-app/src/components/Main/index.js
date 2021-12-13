@@ -171,6 +171,8 @@ export default function Servers() {
     );
   }
 
+  if (!session.user) return <Redirect to = '/' />;
+
   return (
     <main className={style.main}>
       {/* {channelModalActive && addChannelFunc()} */}
