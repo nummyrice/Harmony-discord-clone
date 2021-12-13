@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
+import LogoutButton from '../../components/auth/LogoutButton'
 
 const UserSettingsModal = () => {
   const { serverId } = useParams();
@@ -56,6 +57,7 @@ const UserSettingsModal = () => {
                   backgroundImage: "url(" + sessionUser?.image_url + ")",
                 }}
               ></div>
+              <LogoutButton />
               <div className={style.deleteUserBtn}>Delete Account</div>
             </div>
           </div>

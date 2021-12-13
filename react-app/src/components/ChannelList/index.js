@@ -78,7 +78,7 @@ const ChannelList = () => {
   //   }
   // };
 
-  if (+sessionUser.id === +server?.owner_id) {
+  if (+sessionUser?.id === +server?.owner_id) {
     newChannelBtn = (
       <div
         className={style.createChannelIcon}

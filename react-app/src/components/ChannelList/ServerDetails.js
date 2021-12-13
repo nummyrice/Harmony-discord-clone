@@ -90,7 +90,7 @@ const ServerDetails = () => {
     //     )
     // }
 
-    if (+sessionUser.id === +server?.owner_id) {
+    if (+sessionUser?.id === +server?.owner_id) {
         invitePeople = (
             <div className={style.settingLink}>
                 <Link className={style.inviteLink}>
