@@ -4,6 +4,7 @@ import { useParams, Link, useHistory, Redirect } from "react-router-dom";
 import * as serverActions from "../../store/servers";
 import style from "./ChannelList.module.css";
 import EditServer from "../EditServer";
+import InvitePeople from "../InvitePeople";
 
 const ServerDetails = () => {
     const {serverId} = useParams();
@@ -12,7 +13,8 @@ const ServerDetails = () => {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
     const [editServerModalActive, setEditServerModalActive] = useState(false);
-    const [serverSettingsModal, setServerSettingsModal] = useState(false)
+    const [serverSettingsModal, setServerSettingsModal] = useState(false);
+    const [inviteActive, setInviteActive] = useState(false);
 
     // useEffect(() => {
     //     dispatch(serverActions.getServersThunk())
@@ -66,9 +68,16 @@ const ServerDetails = () => {
     let deleteServer;
     let leaveServer;
 
+    const dropdown = document.getElementById(`serverSettingsMenu-${serverId}`);
+    dropdown?.focus();
+
+    const invitePeopleLink = () => {
+        setServerSettingsModal(false)
+        setInviteActive(true)
+    };
+
     const editServerBtn = () => {
-        {setEditServerModalActive(true)}
-        console.log('SERVER EDIT HERE!')
+        setEditServerModalActive(true)
     };
 
     const deleteServerBtn = () => {
@@ -92,11 +101,11 @@ const ServerDetails = () => {
 
     if (+sessionUser?.id === +server?.owner_id) {
         invitePeople = (
-            <div className={style.settingLink}>
-                <Link className={style.inviteLink}>
+            <div className={style.settingLink} onClick={invitePeopleLink}>
+                <div className={style.inviteLink}>
                     <p>Invite People</p>
                     {inviteIcon}
-                </Link>
+                </div>
             </div>
         );
 
@@ -138,6 +147,8 @@ const ServerDetails = () => {
         }
     }
 
+
+
     function editServerFunc() {
         return (
           <>
@@ -152,7 +163,7 @@ const ServerDetails = () => {
                     <div className={style.newChannelModalHeading}>
                         <h2>Edit Server</h2>
                     </div>
-                    <EditServer setEditServerModalActive={setEditServerModalActive}/>
+                    <EditServer setEditServerModalActive={setEditServerModalActive} setServerSettingsModal={setServerSettingsModal}/>
                     <div
                     className={style.channelsCloseModal}
                     onClick={() => setEditServerModalActive(false)}
@@ -177,21 +188,25 @@ const ServerDetails = () => {
 
     return (
         <>
-        <div className={style.serverDetailsWrapper}>
-            {editServerModalActive && editServerFunc()}
-            <div id={`serverMenuDropdown-${serverId}`} className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
-                <p>{server?.name}</p>
-                <i id={`serverMenuIcon-${serverId}`} className={style.iconOpen}></i>
+            {inviteActive && (
+                <InvitePeople setInviteActive={setInviteActive}
+                />
+            )}
+            <div className={style.serverDetailsWrapper}>
+                {editServerModalActive && editServerFunc()}
+                <div id={`serverMenuDropdown-${serverId}`} className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
+                    <p>{server?.name}</p>
+                    <i id={`serverMenuIcon-${serverId}`} className={style.iconOpen}></i>
+                </div>
+            {serverSettingsModal && (
+                <div id={`serverSettingsMenu-${serverId}`} className={style.serverSettingsMenu} onBlur={(e) => (setServerSettingsModal(false))}>
+                    {invitePeople}
+                    {editServer}
+                    {deleteServer}
+                    {leaveServer}
+                </div>
+            )}
             </div>
-        {serverSettingsModal && (
-            <div id={`serverSettingsMenu-${serverId}`} className={style.serverSettingsMenu}>
-                {invitePeople}
-                {editServer}
-                {deleteServer}
-                {leaveServer}
-            </div>
-        )}
-        </div>
         </>
     );
 }
