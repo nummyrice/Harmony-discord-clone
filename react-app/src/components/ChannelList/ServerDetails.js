@@ -12,6 +12,7 @@ const ServerDetails = () => {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
     const [editServerModalActive, setEditServerModalActive] = useState(false);
+    const [serverSettingsModal, setServerSettingsModal] = useState(false)
 
     // useEffect(() => {
     //     dispatch(serverActions.getServersThunk())
@@ -25,9 +26,9 @@ const ServerDetails = () => {
 
 
 
-    const serverSettingsMenu = document.getElementById('serverSettingsMenu');
+    const serverSettingsMenu = document.getElementById(`serverSettingsMenu-${serverId}`);
     const serverMenuDropdown = document.getElementById('serverMenuDropdown');
-    const serverMenuIcon = document.getElementById('serverMenuIcon');
+    const serverMenuIcon = document.getElementById(`serverMenuIcon-${serverId}`);
 
     const inviteIcon = (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,23 +129,20 @@ const ServerDetails = () => {
     }
 
     const handleServerMenuDropdown = () => {
-        if (serverSettingsMenu?.classList.contains(style.serverMenuOpen)
-            && serverMenuDropdown?.classList.contains(style.serverMenuDropdownActive)) {
-            serverMenuDropdown.classList.remove(style.serverMenuDropdownActive);
-            serverSettingsMenu.classList.remove(style.serverMenuOpen);
-            serverMenuIcon.classList.remove(style.iconClose);
-            serverMenuIcon.classList.add(style.iconOpen);
+        if (serverSettingsModal === true) {
+            setServerSettingsModal(false)
+            console.log(serverSettingsModal)
         } else {
-            serverMenuDropdown?.classList.add(style.serverMenuDropdownActive);
-            serverSettingsMenu?.classList.add(style.serverMenuOpen);
-            serverMenuIcon?.classList.remove(style.iconOpen);
-            serverMenuIcon?.classList.add(style.iconClose);
+            setServerSettingsModal(true)
+            console.log(serverSettingsModal)
         }
     }
 
     function editServerFunc() {
         return (
           <>
+            {serverSettingsModal && (
+                <>
                 <div
                 className={style.channelModalBackground}
                 onClick={() => setEditServerModalActive(false)}
@@ -171,24 +169,30 @@ const ServerDetails = () => {
                     </div>
                 </div>
                 </div>
+                </>
+            )}
             </>
         );
     };
 
     return (
+        <>
         <div className={style.serverDetailsWrapper}>
             {editServerModalActive && editServerFunc()}
-            <div id='serverMenuDropdown' className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
+            <div id={`serverMenuDropdown-${serverId}`} className={style.serverMenuDropdown} onClick={handleServerMenuDropdown}>
                 <p>{server?.name}</p>
-                <i id='serverMenuIcon' className={style.iconOpen}></i>
+                <i id={`serverMenuIcon-${serverId}`} className={style.iconOpen}></i>
             </div>
-            <div id='serverSettingsMenu' className={style.serverSettingsMenu}>
+        {serverSettingsModal && (
+            <div id={`serverSettingsMenu-${serverId}`} className={style.serverSettingsMenu}>
                 {invitePeople}
                 {editServer}
                 {deleteServer}
                 {leaveServer}
             </div>
+        )}
         </div>
+        </>
     );
 }
 

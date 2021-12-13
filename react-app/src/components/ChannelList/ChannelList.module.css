@@ -110,17 +110,17 @@ a:hover p {
     padding: 8px;
     position: absolute;
     top: 58px;
-    transform: scale(0.7);
+    /* transform: scale(0.7); */
     transition: transform 250ms;
-    visibility: hidden;
+    /* visibility: hidden; */
     width: 93%;
     z-index: 100;
 }
 
-.serverMenuOpen {
+/* .serverMenuOpen {
     transform: scale(1.0);
     visibility: visible;
-}
+} */
 
 .settingLink a, .disableOption, .stdServerLink {
     align-items: center;
