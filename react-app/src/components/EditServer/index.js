@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as serverActions from '../../store/servers';
 import '../CreateChannel/CreateChannel.css';
 
-const EditServer = ({setEditServerModalActive}) => {
+const EditServer = ({setEditServerModalActive, setServerSettingsModal}) => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
     const server = useSelector((state) => state.servers?.[serverId]);
@@ -13,6 +13,8 @@ const EditServer = ({setEditServerModalActive}) => {
     const [serverName, setServerName] = useState(`${server.name}`);
     const [imageUrl, setImageUrl] = useState('');
     const [oldImageUrl, setOldImageUrl] = useState('');
+
+    console.log('IMAGE URL...', imageUrl);
 
     const handleSubmit = async (e) => {
         console.log('image url', imageUrl)
@@ -27,6 +29,7 @@ const EditServer = ({setEditServerModalActive}) => {
         await dispatch(serverActions.getChannelsThunk(id))
 
         {setEditServerModalActive(false)}
+        {setServerSettingsModal(false)}
     }
 
     const setImage = (e) => {
@@ -66,7 +69,6 @@ const EditServer = ({setEditServerModalActive}) => {
                         <label htmlFor='edit-server-image'>Edit Image</label>
                         <div className='image-uploader-wrapper'>
                             <div>
-                                <div className='edit-server-image-placeholder' style={{backgroundImage:'url(' + imageUrl + ')'}}></div>
                                 <input type='file' accept='.jpg, .jpeg, .png, .gif' name='edit-server-image' onChange={setImage}/>
                             </div>
                         </div>

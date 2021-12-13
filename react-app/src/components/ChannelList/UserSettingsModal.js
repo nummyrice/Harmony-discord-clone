@@ -48,17 +48,23 @@ const UserSettingsModal = () => {
         >
           <h2>My Account</h2>
           <div>
-            <div className={style.userContent}>
-              <div
-                div
-                id="settingsAvatar"
-                className={style.userProfileImage}
-                style={{
-                  backgroundImage: "url(" + sessionUser?.image_url + ")",
-                }}
-              ></div>
-              <LogoutButton />
-              <div className={style.deleteUserBtn}>Delete Account</div>
+            <div className={style.decoHeader}>
+            </div>
+            <div className={style.userHeading}>
+              <div className={style.userContent}>
+                <div className={style.userLabels}>
+                  <div id="settingsAvatar" className={style.settingsAvatar} style={{
+                      backgroundImage: "url(" + sessionUser?.image_url + ")",
+                    }}
+                  ></div>
+                  <div className={style.userTitle}>
+                    <h2>{sessionUser?.username}</h2>
+                    <h2>#{sessionUser?.id}</h2>
+                  </div>
+                </div>
+                <LogoutButton />
+              </div>
+              <div className={style.futureEdit}></div>
             </div>
           </div>
         </div>
