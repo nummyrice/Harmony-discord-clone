@@ -70,7 +70,6 @@ def new_server():
 @server_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_server(id):
-    print('we made it here!!---')
     form = EditServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     server = Server.query.get(int(id))
@@ -86,6 +85,7 @@ def edit_server(id):
     image.filename = get_unique_filename(image.filename)
 
     upload = upload_file_to_s3(image)
+    print('we made it here!!---')
 
     if "url" not in upload:
         return upload, 400

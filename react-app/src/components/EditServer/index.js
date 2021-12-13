@@ -7,34 +7,40 @@ import '../CreateChannel/CreateChannel.css';
 const EditServer = ({setEditServerModalActive}) => {
     const { serverId, channelId } = useParams();
     const server_id = serverId;
-    // const id = channelId;
-    // const channel = useSelector((state) => state.servers?.[serverId]?.channels[id]);
-    // let channelName = channel?.name;
-
     const server = useSelector((state) => state.servers?.[serverId]);
-    // console.log('SERVER NAME: ', server.id, server.image_url);
     const id = server.id;
-    // const image_url = server.image_url;
     const dispatch = useDispatch();
     const [serverName, setServerName] = useState(`${server.name}`);
     const [imageUrl, setImageUrl] = useState('');
+    const [oldImageUrl, setOldImageUrl] = useState('');
 
-    const handleSubmit = (e) => {
-        console.log('NAME', serverName)
+    const handleSubmit = async (e) => {
         console.log('image url', imageUrl)
         e.preventDefault();
         const formData = new FormData();
-        console.log('FORM DATA----', formData)
         formData.append('name', serverName);
-        console.log('FORM DATA APPEND----', formData)
         formData.append('image_url', imageUrl);
         formData.append('id', id);
+        console.log('xxxxxxxxxxxx', formData.get('name'));
 
-
-        dispatch(serverActions.editServerThunk(formData))
+        await dispatch(serverActions.editServerThunk(formData))
+        await dispatch(serverActions.getChannelsThunk(id))
 
         {setEditServerModalActive(false)}
     }
+
+    const setImage = (e) => {
+        let file = e.target.files[0];
+
+        setImageUrl(e.target.files[0]);
+
+        if (file) {
+            setOldImageUrl(file)
+            file = URL.createObjectURL(file);
+        } else {
+            setImageUrl(oldImageUrl)
+        }
+    };
 
     const serverIcon = (
         <svg width="14" height="10.5" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,20 +61,13 @@ const EditServer = ({setEditServerModalActive}) => {
                                     {serverIcon}
                             </div>
                         </div>
-                        {/* <div className='image-uploader-wrapper'>
-                            <label htmlFor='name'>Edit Image</label>
-                            <div className='field-wrapper'>
-                                <div className='edit-server-image-placeholder' style={{backgroundImage:'url(' + server.image_url + ')'}}></div>
-                                <input type='file'/>
-                            </div>
-                        </div> */}
                     </div>
                     <div>
                         <label htmlFor='edit-server-image'>Edit Image</label>
                         <div className='image-uploader-wrapper'>
                             <div>
                                 <div className='edit-server-image-placeholder' style={{backgroundImage:'url(' + imageUrl + ')'}}></div>
-                                <input type='file' accept='.jpg, .jpeg, .png, .gif' name='edit-server-image' value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+                                <input type='file' accept='.jpg, .jpeg, .png, .gif' name='edit-server-image' onChange={setImage}/>
                             </div>
                         </div>
                     </div>
