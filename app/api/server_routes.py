@@ -74,9 +74,27 @@ def edit_server(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     server = Server.query.get(int(id))
 
+    if "image_url" not in form.data:
+        return {"errors": "image required"}, 400
+
+    image = form.data["image_url"]
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+    print('we made it here!!---')
+
+    if "url" not in upload:
+        return upload, 400
+
+    url = upload["url"]
+
     if form.validate_on_submit() and server.owner_id == current_user.id:
         server.name = form.data['name']
-        server.image_url = form.data['image_url']
+        server.image_url = url
         db.session.commit()
         handle_edit_server(server.to_dict())
         return server.to_dict()

@@ -28,7 +28,6 @@ export default function Servers() {
   const [serverActive, setServerActive] = useState(false);
   const [createNewServer, setCreateNewServer] = useState(false);
   const [joinServer, setJoinServer] = useState(false);
-  // const [channelModalActive, setChannelModalActive] = useState(false)
 
   useEffect(() => {
     socket = io();
@@ -170,6 +169,8 @@ export default function Servers() {
       </>
     );
   }
+
+  if (!session.user) return <Redirect to = '/' />;
 
   return (
     <main className={style.main}>

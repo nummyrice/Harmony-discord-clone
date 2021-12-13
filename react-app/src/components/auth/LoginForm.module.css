@@ -110,3 +110,15 @@
     text-decoration: none;
     color: rgb(24,134,183);
 }
+
+.loginFormAuth {
+    display: flex;
+    justify-content: space-between;
+}
+
+.loginFormDemoUser {
+    font-size: 14px;
+    color: rgb(24,134,183);
+    border: none;
+    background-color: transparent;
+}

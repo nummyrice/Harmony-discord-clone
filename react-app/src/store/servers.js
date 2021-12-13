@@ -110,16 +110,12 @@ export const postServerThunk = (server) => async (dispatch) => {
 };
 
 export const editServerThunk = (server) => async (dispatch) => {
-  const { name, image_url, id } = server;
+  // const { name, image_url, id } = server;
+  const id = server.get('id');
+  console.log('inside thunk', id)
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      image_url,
-    }),
+    body: server
   });
   const data = await response.json();
   dispatch(editServer(data));

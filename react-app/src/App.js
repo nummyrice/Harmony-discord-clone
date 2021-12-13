@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -18,6 +18,9 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+  const session = useSelector((state) => state.session);
+
+
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
@@ -29,9 +32,11 @@ function App() {
     return null;
   }
 
+
   return (
     <BrowserRouter>
       <Route exact path="/">
+        {session.user && <Redirect to='/servers/@me'/>}
         <NavBar />
       </Route>
       <Switch>
